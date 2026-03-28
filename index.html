@@ -45,9 +45,26 @@
         /* ORTAK BAŞLIK VE KARTLAR */
         .section-title { border-left: 5px solid #e63946; padding-left: 15px; margin: 40px 5% 20px 5%; font-size: 24px; font-weight: 800; color: #1d3557; text-transform: uppercase; }
         
-        .match-card { background: white; margin: 0 5% 20px 5%; padding: 25px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; gap: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
-        .team h3 { font-size: 22px; color: #1d3557; }
-        .vs-circle { background: #e63946; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
+        /* SIRADAKİ MAÇ - YENİ GRID SİSTEMİ (VS SABİTLEME) */
+        .match-card { 
+            background: white; 
+            margin: 0 5% 20px 5%; 
+            padding: 25px; 
+            border-radius: 12px; 
+            display: grid; 
+            grid-template-columns: 1fr 60px 1fr; /* Üç eşit parçaya böl ve ortayı sabitle */
+            align-items: center; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); 
+        }
+        .team h3 { font-size: 18px; color: #1d3557; }
+        #ev-sahibi { text-align: right; } /* Bizim takım sağa dayalı */
+        #rakip-takim { text-align: left; } /* Rakip takım sola dayalı */
+
+        .vs-circle { 
+            background: #e63946; color: white; width: 45px; height: 45px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; font-weight: 900; 
+            margin: 0 auto; /* Grid hücresinin içinde tam ortala */
+        }
 
         /* KADRO */
         .players-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin: 0 5%; }
@@ -59,17 +76,17 @@
         .gallery-item { border-radius: 10px; overflow: hidden; height: 150px; background: #ddd; }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* FOOTER (GÜNCELLENDİ) */
+        /* FOOTER */
         footer { 
             background: #000; color: #777; text-align: center; padding: 40px 20px; 
             margin-top: auto; border-top: 2px solid #e63946; 
         }
-        footer b { color: #e63946; }
 
-        @media (min-width: 768px) {
-            .hero { height: 500px; } .hero h1 { font-size: 70px; }
-            .match-card { flex-direction: row; justify-content: space-around; }
-            .logo-area h2 { font-size: 24px; } nav a { font-size: 14px; margin-left: 25px; }
+        @media (max-width: 768px) {
+            .hero { height: 400px; } .hero h1 { font-size: 40px; }
+            .match-card { grid-template-columns: 1fr 50px 1fr; padding: 15px 10px; }
+            .team h3 { font-size: 14px; }
+            .logo-area h2 { font-size: 18px; } nav a { font-size: 10px; margin-left: 10px; }
         }
     </style>
 </head>
@@ -100,9 +117,11 @@
     <div id="maclar" class="section-title">SIRADAKİ MAÇ</div>
     <div class="match-card">
         <div class="team"><h3 id="ev-sahibi">...</h3></div>
-        <div class="vs-circle">VS</div>
+        <div class="vs-box-area"> <div class="vs-circle">VS</div>
+        </div>
         <div class="team"><h3 id="rakip-takim">...</h3></div>
     </div>
+    
     <div class="match-details" style="text-align: center; color: #666; margin-top: -10px; margin-bottom: 30px;">
         <p><i class="fa-regular fa-calendar-days"></i> <span id="mac-tarih">---</span></p>
         <p><i class="fa-solid fa-location-dot"></i> <span id="mac-yer">---</span></p>
