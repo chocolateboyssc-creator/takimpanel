@@ -5,12 +5,10 @@ backend:
   base_url: https://oauthproxy.chocolateboys-sc.workers.dev
   auth_endpoint: auth
 
-# Resimlerin yükleneceği yer
 media_folder: "images"
 public_folder: "/images"
 
 collections:
-  # 1. BÖLÜM: ANA SAYFA YAZILARI & WHATSAPP AYARLARI
   - name: "ayarlar"
     label: "Site Genel Ayarları"
     delete: false
@@ -24,10 +22,9 @@ collections:
           - {label: "Ana Slogan", name: "slogan", widget: "string"}
           - {label: "Alt Slogan", name: "alt_slogan", widget: "string"}
           - {label: "WhatsApp Buton Yazısı", name: "btn_text", widget: "string", default: "BİZE HALISAHA TEKLİF ET"}
-          - {label: "WhatsApp Numarası (Örn: 905301112233)", name: "whatsapp_no", widget: "string"}
+          - {label: "WhatsApp Numarası", name: "whatsapp_no", widget: "string"}
           - {label: "Alt Bilgi (Footer Yazısı)", name: "footer_text", widget: "string"}
 
-  # 2. BÖLÜM: SIRADAKİ MAÇ
   - name: "maclar"
     label: "Maç Merkezi"
     delete: false
@@ -41,7 +38,6 @@ collections:
           - {label: "Maç Tarihi ve Saati", name: "mac_tarih", widget: "string"}
           - {label: "Stadyum/Saha", name: "yer", widget: "string"}
 
-  # 3. BÖLÜM: GALERİ (SAHADAN KARELER)
   - name: "galeri"
     label: "Sahadan Kareler"
     folder: "content/galeri"
@@ -50,7 +46,6 @@ collections:
       - {label: "Fotoğraf Başlığı", name: "title", widget: "string"}
       - {label: "Fotoğraf Seç", name: "image", widget: "image"}
 
-  # 4. BÖLÜM: HABERLER (TRANSFER VB.)
   - name: "haberler"
     label: "Haberler"
     folder: "content/haberler"
