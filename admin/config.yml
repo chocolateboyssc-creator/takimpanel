@@ -24,23 +24,35 @@ collections:
           - {label: "Alt Slogan", name: "alt_slogan", widget: "string"}
           - {label: "WhatsApp Buton Yazısı", name: "btn_text", widget: "string", default: "BİZE HALISAHA TEKLİF ET"}
           - {label: "WhatsApp Numarası", name: "whatsapp_no", widget: "string"}
-          - {label: "Alt Bilgi (Footer Yazısı)", name: "footer_text", widget: "string"}
 
-  # 2. BÖLÜM: SIRADAKİ MAÇ
-  - name: "maclar"
-    label: "Maç Merkezi"
+  # 2. BÖLÜM: SIRADAKİ MAÇ (Tek Panel)
+  - name: "siradaki_mac"
+    label: "Sıradaki Maç Paneli"
     delete: false
     files:
-      - label: "Sıradaki Maç Bilgileri"
+      - label: "Maç Bilgilerini Güncelle"
         name: "mac_bilgi"
         file: "content/mac.json"
         fields:
-          - {label: "Bizim Takım", name: "ev_sahibi", widget: "string"}
+          - {label: "Bizim Takım", name: "ev_sahibi", widget: "string", default: "CHOCOLATE BOYS"}
           - {label: "Rakip Takım Adı", name: "rakip", widget: "string"}
-          - {label: "Maç Tarihi ve Saati", name: "mac_tarih", widget: "string"}
+          - {label: "Maç Tarihi", name: "mac_tarih", widget: "string", hint: "Örn: 20 Mayıs Pazartesi"}
+          - {label: "Maç Saati", name: "saat", widget: "string", hint: "Örn: 22:00"}
           - {label: "Stadyum/Saha", name: "yer", widget: "string"}
 
-  # 3. BÖLÜM: GALERİ (Otomatik JSON oluşturur)
+  # 3. BÖLÜM: GEÇMİŞ MAÇ SKORLARI (Yeni Maç Ekleme)
+  - name: "skorlar"
+    label: "Geçmiş Maç Skorları"
+    folder: "content/skorlar"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{rakip}}"
+    fields:
+      - {label: "Rakip Takım", name: "rakip", widget: "string"}
+      - {label: "Maç Skoru", name: "skor", widget: "string", hint: "Örn: 5 - 2"}
+      - {label: "Sonuç", name: "sonuc", widget: "select", options: [{label: "Galibiyet", value: "win"}, {label: "Mağlubiyet", value: "loss"}, {label: "Beraberlik", value: "draw"}]}
+      - {label: "Maç Tarihi", name: "date", widget: "datetime"}
+
+  # 4. BÖLÜM: GALERİ
   - name: "galeri"
     label: "Galeri Sayfası"
     folder: "content/galeri"
@@ -50,7 +62,7 @@ collections:
       - {label: "Fotoğraf Başlığı", name: "title", widget: "string"}
       - {label: "Fotoğraf Seç", name: "image", widget: "image"}
 
-  # 4. BÖLÜM: HABERLER
+  # 5. BÖLÜM: HABERLER
   - name: "haberler"
     label: "Haberler"
     folder: "content/haberler"
