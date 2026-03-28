@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri | Chocolate Boys FC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #121212; color: white; line-height: 1.6; }
+        
+        /* HEADER */
+        header { 
+            background: #e63946; color: white; padding: 12px 5%; 
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; color: white; }
+        .logo-area img { height: 40px; }
+        nav a { color: white; text-decoration: none; margin-left: 15px; font-weight: bold; font-size: 11px; text-transform: uppercase; }
+
+        .container { padding: 40px 5%; text-align: center; }
+        .page-title { font-size: 32px; color: #e63946; text-transform: uppercase; font-weight: 900; margin-bottom: 30px; }
+
+        /* GALERİ IZGARASI */
+        .gallery-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 20px; 
+        }
+        .gallery-item { 
+            position: relative; overflow: hidden; border-radius: 15px; 
+            height: 250px; background: #222; border: 2px solid #333; transition: 0.3s;
+        }
+        .gallery-item:hover { border-color: #e63946; transform: translateY(-5px); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+        .img-caption {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            background: rgba(230, 57, 70, 0.9); color: white;
+            padding: 8px; font-size: 14px; font-weight: bold;
+        }
+
+        /* WHATSAPP BUTONU */
+        .wa-float { 
+            position: fixed; bottom: 20px; right: 20px; background: #25d366; 
+            color: white; padding: 15px 25px; border-radius: 50px; 
+            text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 1000;
+        }
+        footer { background: #000; padding: 30px; text-align: center; margin-top: 50px; color: #555; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo-area">
+            <img src="images/logo.png" alt="CB">
+            <h2>CHOCOLATE BOYS</h2>
+        </a>
+        <nav>
+            <a href="index.html">ANA SAYFA</a>
+            <a href="maclar.html">MAÇLAR</a>
+            <a href="oyuncular.html">OYUNCULAR</a>
+            <a href="galeri.html" style="border-bottom: 2px solid white;">GALERİ</a>
+            <a href="store.html">STORE</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title">SAHADAN KARELER</h1>
+        <div class="gallery-grid" id="gallery-container">
+            <p id="status-text">Fotoğraflar sahadan getiriliyor...</p>
+        </div>
+    </div>
+
+    <a href="#" id="wa-link" class="wa-float">
+        <i class="fa-brands fa-whatsapp"></i> <span id="wa-text">BİZE YAZIN</span>
+    </a>
+
+    <footer><p id="footer-text">© 2026 Chocolate Boys Football Club</p></footer>
+
+    <script>
+        // 1. AYARLARI ÇEK (WhatsApp, Footer vb.)
+        fetch('/content/ayarlar.json?t=' + Date.now())
+            .then(res => res.json())
+            .then(data => {
+                if(data.whatsapp_no) document.getElementById('wa-link').href = "https://wa.me/" + data.whatsapp_no.replace(/\D/g,'');
+                if(data.btn_text) document.getElementById('wa-text').innerText = data.btn_text;
+                if(data.footer_text) document.getElementById('footer-text').innerText = data.footer_text;
+            });
+
+        // 2. GITHUB'DAN RESİMLERİ OTOMATİK ÇEK
+        const repo = "chocolateboyssc-creator/takimpanel"; 
+        const folder = "content/galeri";
+
+        async function initGallery() {
+            try {
+                const res = await fetch(`https://api.github.com/repos/${repo}/contents/${folder}`);
+                const files = await res.json();
+                const container = document.getElementById('gallery-container');
+                container.innerHTML = ""; 
+
+                for (const file of files) {
+                    if (file.name.endsWith('.json')) {
+                        const fileDataRes = await fetch(file.download_url);
+                        const photo = await fileDataRes.json();
+                        
+                        const item = document.createElement('div');
+                        item.className = 'gallery-item';
+                        item.innerHTML = `
+                            <img src="${photo.image}" alt="${photo.title}">
+                            <div class="img-caption">${photo.title}</div>
+                        `;
+                        container.appendChild(item);
+                    }
+                }
+            } catch (err) {
+                document.getElementById('status-text').innerText = "Henüz fotoğraf eklenmemiş.";
+            }
+        }
+        initGallery();
+    </script>
+</body>
+</html>
