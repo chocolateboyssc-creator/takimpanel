@@ -8,7 +8,7 @@
     <style>
         /* SIFIRLAMA VE AKICI KAYDIRMA */
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f8f9fa; color: #333; line-height: 1.6; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f8f9fa; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
         
         /* HEADER / NAV */
         header { 
@@ -49,19 +49,22 @@
         .team h3 { font-size: 22px; color: #1d3557; }
         .vs-circle { background: #e63946; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
 
-        /* OYUNCU KARTLARI (KADRO) */
+        /* KADRO */
         .players-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin: 0 5%; }
         .player-card { background: white; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-bottom: 3px solid #e63946; }
         .player-card i { font-size: 40px; color: #ccc; margin-bottom: 10px; }
-        .player-card h4 { font-size: 16px; color: #1d3557; }
-        .player-card span { font-size: 12px; color: #e63946; font-weight: bold; }
 
-        /* GALERİ */
+        /* GALERİ ÖNİZLEME */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 0 5%; }
         .gallery-item { border-radius: 10px; overflow: hidden; height: 150px; background: #ddd; }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        footer { background: #1d3557; color: white; text-align: center; padding: 30px 20px; margin-top: 40px; }
+        /* FOOTER (GÜNCELLENDİ) */
+        footer { 
+            background: #000; color: #777; text-align: center; padding: 40px 20px; 
+            margin-top: auto; border-top: 2px solid #e63946; 
+        }
+        footer b { color: #e63946; }
 
         @media (min-width: 768px) {
             .hero { height: 500px; } .hero h1 { font-size: 70px; }
@@ -81,7 +84,8 @@
             <a href="index.html">ANA SAYFA</a>
             <a href="maclar.html">MAÇLAR</a>
             <a href="oyuncular.html">OYUNCULAR</a>
-            <a href="galeri.html">GALERİ</a> <a href="store.html">STORE</a>
+            <a href="galeri.html">GALERİ</a> 
+            <a href="store.html">STORE</a>
         </nav>
     </header>
 
@@ -123,19 +127,20 @@
         </div>
     </div>
 
-    <div id="galeri" class="section-title">SAHADAN KARELER</div>
+    <div id="galeri" class="section-title">GALERİ</div>
     <div class="gallery-grid" id="galeri-container">
-        <p style="padding: 20px; color: #999;">Henüz fotoğraf eklenmedi.</p>
+        <p style="padding: 20px; color: #999;">Görselleri görmek için <a href="galeri.html" style="color: #e63946; font-weight: bold;">tıklayın.</a></p>
     </div>
 
-    <footer><p id="footer-text">© 2026 Chocolate Boys FC</p></footer>
+    <footer>
+        © 2026 Tüm Hakları Saklıdır.
+    </footer>
 
     <script>
-        // PANEL VERİLERİ (Slogan, WhatsApp)
+        // PANEL VERİLERİ
         fetch('/content/ayarlar.json?t=' + Date.now()).then(res => res.json()).then(data => {
             document.getElementById('ana-slogan').innerText = data.slogan || "KIRMIZI BEYAZ AŞK!";
             document.getElementById('alt-slogan').innerText = data.alt_slogan || "BİR TAKIMDAN DAHA FAZLASI";
-            document.getElementById('footer-text').innerText = data.footer_text || "© 2026 Tüm Hakları Saklıdır.";
             if(data.btn_text) document.getElementById('btn-text-el').innerText = data.btn_text;
             if(data.whatsapp_no) document.getElementById('challenge-link').href = "https://wa.me/" + data.whatsapp_no.replace(/\D/g,'');
         });
