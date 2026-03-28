@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chocolate Boys FC | Resmi Web Sitesi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <style>
+        :root { --red: #e63946; --white: #ffffff; --light-gray: #f1faee; --dark: #1d3557; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Roboto', sans-serif; background-color: var(--light-gray); color: var(--dark); line-height: 1.6; }
+        h1, h2, h3, .logo { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 10px 8%; background: var(--red); position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .logo-wrapper { display: flex; align-items: center; gap: 12px; }
+        .logo-img { height: 55px; width: 55px; border-radius: 50%; border: 2px solid var(--white); object-fit: cover; background: white; }
+        .logo { font-size: 1.6rem; font-weight: 700; color: var(--white); letter-spacing: 1px; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 20px; }
+        nav ul li a { color: var(--white); text-decoration: none; font-weight: bold; font-size: 0.9rem; transition: 0.3s; }
+        .hero { height: 65vh; background: linear-gradient(rgba(230, 57, 70, 0.3), rgba(29, 53, 87, 0.8)), url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=2000'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--white); margin-top: 75px; }
+        .hero h1 { font-size: 4rem; letter-spacing: 3px; }
+        .hero p { font-size: 1.3rem; background: var(--red); padding: 5px 25px; margin-top: 10px; font-weight: 700; }
+        section { padding: 70px 10%; }
+        .section-title { font-size: 2.2rem; color: var(--red); margin-bottom: 35px; border-left: 8px solid var(--red); padding-left: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .card { background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s; }
+        .card img { width: 100%; height: 240px; object-fit: cover; }
+        .card-content { padding: 20px; }
+        .btn { display: inline-block; padding: 12px 28px; background: var(--red); color: white; text-decoration: none; font-weight: bold; border-radius: 4px; transition: 0.3s; margin-top: 15px; }
+        footer { background: var(--dark); color: white; padding: 50px 10%; text-align: center; }
+        .footer-logo { height: 70px; margin-bottom: 20px; border-radius: 50%; border: 2px solid var(--red); }
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo-wrapper">
+            <img src="https://media.discordapp.net/attachments/961711269109432420/1487219927889874974/ad402325-5e98-4f94-9aa6-493a6c607909.png?ex=69c858fe&is=69c7077e&hm=d1b21e5347960f9f0e47ffd60961e6b486c89509b8e13c61fdfe4a76a712763e&=&format=webp&quality=lossless" alt="CBFC Logo" class="logo-img">
+            <div class="logo">Chocolate Boys FC</div>
+        </div>
+        <ul>
+            <li><a href="#home">BAŞLANGIÇ</a></li>
+            <li><a href="#fixtures">MAÇLAR</a></li>
+            <li><a href="#gallery">GALERİ</a></li>
+            <li><a href="#shop">STORE</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero" id="home">
+        <h1>KIRMIZI BEYAZ AŞK!</h1>
+        <p>BİR TAKIMDAN DAHA FAZLASI</p>
+    </div>
+
+    <section id="fixtures">
+        <h2 class="section-title">SIRADAKİ MAÇ</h2>
+        <div style="display: flex; justify-content: center; align-items: center; gap: 40px; text-align: center;">
+            <div style="background: #f8f9fa; padding: 20px; flex: 1; border-radius: 10px;"><h3>CHOCOLATE BOYS</h3></div>
+            <div style="background: var(--red); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">VS</div>
+            <div style="background: #f8f9fa; padding: 20px; flex: 1; border-radius: 10px;"><h3>RAKİP TAKIM</h3></div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2 class="section-title">SAHADAN KARELER</h2>
+        <div class="grid">
+            <div class="card"><img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=600" alt="Maç"></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1510567198184-c7484603f618?q=80&w=600" alt="Antrenman"></div>
+        </div>
+    </section>
+
+    <footer>
+        <img src="https://media.discordapp.net/attachments/961711269109432420/1487219927889874974/ad402325-5e98-4f94-9aa6-493a6c607909.png?ex=69c858fe&is=69c7077e&hm=d1b21e5347960f9f0e47ffd60961e6b486c89509b8e13c61fdfe4a76a712763e&=&format=webp&quality=lossless" alt="Logo" class="footer-logo">
+        <p><strong>CHOCOLATE BOYS FOOTBALL CLUB</strong></p>
+        <p>&copy; 2026 Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => { document.location.href = "/admin/"; });
+          }
+        });
+      }
+    </script>
+</body>
+</html>
