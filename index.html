@@ -18,8 +18,11 @@
         }
         .logo-area { display: flex; align-items: center; gap: 10px; }
         .logo-area img { height: 45px; border-radius: 0; background: transparent; padding: 0; }
-        .logo-area h2 { font-size: 18px; letter-spacing: 1px; }
-        nav a { color: white; text-decoration: none; margin-left: 15px; font-weight: bold; font-size: 12px; }
+        .logo-area h2 { font-size: 16px; letter-spacing: 1px; }
+        
+        /* Menü Ayarları - Mobilde sığması için optimize edildi */
+        nav { display: flex; align-items: center; }
+        nav a { color: white; text-decoration: none; margin-left: 12px; font-weight: bold; font-size: 11px; text-transform: uppercase; }
 
         /* HERO SECTION (ANA BAŞLIK) */
         .hero { 
@@ -44,6 +47,7 @@
             font-size: 16px;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 2px solid white;
         }
         .challenge-btn:hover { transform: scale(1.1); background-color: #128c7e; }
         .challenge-btn i { margin-right: 8px; }
@@ -79,12 +83,12 @@
 
     <header>
         <div class="logo-area">
-            <img src="images/logo.png?v=2" alt="CB">
+            <img src="images/logo.png?v=3" alt="CB">
             <h2>CHOCOLATE BOYS</h2>
         </div>
         <nav>
             <a href="#">MAÇLAR</a>
-            <a href="#">GALERİ</a>
+            <a href="#">OYUNCULAR</a> <a href="#">GALERİ</a>
             <a href="#">STORE</a>
         </nav>
     </header>
@@ -115,7 +119,7 @@
     </footer>
 
     <script>
-        // PANEL VERİLERİNİ ÇEKME (Cache engellemek için zaman damgası ekledik)
+        // PANEL VERİLERİNİ ÇEKME
         fetch('/content/ayarlar.json?t=' + Date.now())
             .then(res => res.json())
             .then(data => {
@@ -123,7 +127,6 @@
                 document.getElementById('alt-slogan').innerText = data.alt_slogan || "BİR TAKIMDAN DAHA FAZLASI";
                 document.getElementById('footer-text').innerText = data.footer_text || "© 2026 Tüm Hakları Saklıdır.";
                 
-                // Buton Yazısı ve WhatsApp Numarası
                 if(data.btn_text) document.getElementById('btn-text-el').innerText = data.btn_text;
                 if(data.whatsapp_no) document.getElementById('challenge-link').href = "https://wa.me/" + data.whatsapp_no.replace(/\D/g,'');
             })
