@@ -5,12 +5,12 @@ backend:
   base_url: https://oauthproxy.chocolateboys-sc.workers.dev
   auth_endpoint: auth
 
-# Resimlerin yükleneceği yer (Ana dizindeki images klasörü)
+# Resimlerin yükleneceği yer
 media_folder: "images"
 public_folder: "/images"
 
 collections:
-  # 1. BÖLÜM: ANA SAYFA YAZILARI (KIRMIZI BEYAZ AŞK VB.)
+  # 1. BÖLÜM: ANA SAYFA YAZILARI & WHATSAPP AYARLARI
   - name: "ayarlar"
     label: "Site Genel Ayarları"
     delete: false
@@ -21,8 +21,10 @@ collections:
         name: "site_text"
         file: "content/ayarlar.json"
         fields:
-          - {label: "Ana Slogan (Kırmızı Beyaz Aşk)", name: "slogan", widget: "string"}
-          - {label: "Alt Slogan (Bir Takımdan Daha Fazlası)", name: "alt_slogan", widget: "string"}
+          - {label: "Ana Slogan", name: "slogan", widget: "string"}
+          - {label: "Alt Slogan", name: "alt_slogan", widget: "string"}
+          - {label: "WhatsApp Buton Yazısı", name: "btn_text", widget: "string", default: "BİZE HALISAHA TEKLİF ET"}
+          - {label: "WhatsApp Numarası (Örn: 905301112233)", name: "whatsapp_no", widget: "string"}
           - {label: "Alt Bilgi (Footer Yazısı)", name: "footer_text", widget: "string"}
 
   # 2. BÖLÜM: SIRADAKİ MAÇ
