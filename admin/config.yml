@@ -9,14 +9,14 @@ media_folder: "images"
 public_folder: "/images"
 
 collections:
-  # 1. BÖLÜM: SİTE GENEL AYARLARI
+  # 1. BÖLÜM: SİTE GENEL AYARLARI (Görsel ve Yazı)
   - name: "ayarlar"
     label: "Site Genel Ayarları"
     delete: false
     editor:
       preview: false
     files:
-      - label: "Ana Sayfa Yazıları"
+      - label: "Ana Sayfa Yazıları ve Görünüm"
         name: "site_text"
         file: "content/ayarlar.json"
         fields:
@@ -24,8 +24,9 @@ collections:
           - {label: "Alt Slogan", name: "alt_slogan", widget: "string"}
           - {label: "WhatsApp Buton Yazısı", name: "btn_text", widget: "string", default: "BİZE HALISAHA TEKLİF ET"}
           - {label: "WhatsApp Numarası", name: "whatsapp_no", widget: "string"}
+          - {label: "Arka Plan Resmi", name: "bg_image", widget: "image", hint: "Ana sayfadaki o çimenli/futbolcu resmini buradan değiştirebilirsin."}
 
-  # 2. BÖLÜM: SIRADAKİ MAÇ (Tek Panel)
+  # 2. BÖLÜM: SIRADAKİ MAÇ (Ana Sayfa ve Maçlar Sayfası için)
   - name: "siradaki_mac"
     label: "Sıradaki Maç Paneli"
     delete: false
@@ -40,19 +41,20 @@ collections:
           - {label: "Maç Saati", name: "saat", widget: "string", hint: "Örn: 22:00"}
           - {label: "Stadyum/Saha", name: "yer", widget: "string"}
 
-  # 3. BÖLÜM: GEÇMİŞ MAÇ SKORLARI (Yeni Maç Ekleme)
+  # 3. BÖLÜM: GEÇMİŞ MAÇ SKORLARI (Maçlar Sayfası Alt Liste İçin)
   - name: "skorlar"
     label: "Geçmiş Maç Skorları"
     folder: "content/skorlar"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{rakip}}"
     fields:
+      - {label: "Ev Sahibi", name: "ev_sahibi", widget: "string", default: "CHOCOLATE BOYS"}
       - {label: "Rakip Takım", name: "rakip", widget: "string"}
       - {label: "Maç Skoru", name: "skor", widget: "string", hint: "Örn: 5 - 2"}
       - {label: "Sonuç", name: "sonuc", widget: "select", options: [{label: "Galibiyet", value: "win"}, {label: "Mağlubiyet", value: "loss"}, {label: "Beraberlik", value: "draw"}]}
       - {label: "Maç Tarihi", name: "date", widget: "datetime"}
 
-  # 4. BÖLÜM: GALERİ
+  # 4. BÖLÜM: GALERİ (Hala Galeri sayfan olduğu için bunu tuttum)
   - name: "galeri"
     label: "Galeri Sayfası"
     folder: "content/galeri"
@@ -61,15 +63,3 @@ collections:
     fields:
       - {label: "Fotoğraf Başlığı", name: "title", widget: "string"}
       - {label: "Fotoğraf Seç", name: "image", widget: "image"}
-
-  # 5. BÖLÜM: HABERLER
-  - name: "haberler"
-    label: "Haberler"
-    folder: "content/haberler"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - {label: "Haber Başlığı", name: "title", widget: "string"}
-      - {label: "Yayın Tarihi", name: "date", widget: "datetime"}
-      - {label: "Haber Görseli", name: "image", widget: "image"}
-      - {label: "Haber Detayı", name: "body", widget: "markdown"}
