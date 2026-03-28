@@ -89,3 +89,20 @@
                     
                     // Kartı oluştur
                     const item = document.createElement('div');
+                    item.className = 'gallery-item';
+                    item.innerHTML = `
+                        <img src="${photo.image}" alt="${photo.title}" onerror="this.src='https://placehold.co/600x400?text=Resim+Yuklenemedi'">
+                        <div class="img-caption">${photo.title || 'Chocolate Boys'}</div>
+                    `;
+                    container.appendChild(item);
+                }
+            } catch (err) {
+                status.innerText = "Hata: " + err.message;
+                status.style.color = "red";
+            }
+        }
+
+        loadGallery();
+    </script>
+</body>
+</html>
