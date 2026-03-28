@@ -9,6 +9,7 @@ media_folder: "images"
 public_folder: "/images"
 
 collections:
+  # 1. BÖLÜM: SİTE GENEL AYARLARI
   - name: "ayarlar"
     label: "Site Genel Ayarları"
     delete: false
@@ -25,6 +26,7 @@ collections:
           - {label: "WhatsApp Numarası", name: "whatsapp_no", widget: "string"}
           - {label: "Alt Bilgi (Footer Yazısı)", name: "footer_text", widget: "string"}
 
+  # 2. BÖLÜM: SIRADAKİ MAÇ
   - name: "maclar"
     label: "Maç Merkezi"
     delete: false
@@ -38,18 +40,22 @@ collections:
           - {label: "Maç Tarihi ve Saati", name: "mac_tarih", widget: "string"}
           - {label: "Stadyum/Saha", name: "yer", widget: "string"}
 
+  # 3. BÖLÜM: GALERİ (Otomatik JSON oluşturur)
   - name: "galeri"
     label: "Sahadan Kareler"
     folder: "content/galeri"
     create: true
+    slug: "{{title}}"
     fields:
       - {label: "Fotoğraf Başlığı", name: "title", widget: "string"}
       - {label: "Fotoğraf Seç", name: "image", widget: "image"}
 
+  # 4. BÖLÜM: HABERLER
   - name: "haberler"
     label: "Haberler"
     folder: "content/haberler"
     create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - {label: "Haber Başlığı", name: "title", widget: "string"}
       - {label: "Yayın Tarihi", name: "date", widget: "datetime"}
