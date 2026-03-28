@@ -1,0 +1,18 @@
+backend:
+  name: github
+  repo: chocolateboyssc-creator/takimpanel
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "haberler"
+    label: "Haberler"
+    folder: "content/haberler"
+    create: true
+    fields:
+      - {label: "Başlık", name: "title", widget: "string"}
+      - {label: "Tarih", name: "date", widget: "datetime"}
+      - {label: "Haber Görseli", name: "image", widget: "image"}
+      - {label: "Metin", name: "body", widget: "markdown"}
