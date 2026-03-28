@@ -5,49 +5,56 @@ backend:
   base_url: https://oauthproxy.chocolateboys-sc.workers.dev
   auth_endpoint: auth
 
+# Resimlerin yükleneceği yer (Ana dizindeki images klasörü)
 media_folder: "images"
 public_folder: "/images"
 
 collections:
-  # 1. BÖLÜM: HABERLER
-  - name: "haberler"
-    label: "Haberler"
-    folder: "content/haberler"
-    create: true
-    fields:
-      - {label: "Başlık", name: "title", widget: "string"}
-      - {label: "Tarih", name: "date", widget: "datetime"}
-      - {label: "Haber Görseli", name: "image", widget: "image"}
-      - {label: "Haber İçeriği", name: "body", widget: "markdown"}
-
-  # 2. BÖLÜM: SIRADAKİ MAÇ (Ayarlar)
-  - name: "maclar"
-    label: "Sıradaki Maç"
-    files:
-      - label: "Maç Bilgileri"
-        name: "mac_bilgi"
-        file: "content/mac.json"
-        fields:
-          - {label: "Rakip Takım Adı", name: "rakip", widget: "string"}
-          - {label: "Maç Tarihi ve Saati", name: "mac_tarih", widget: "string"}
-          - {label: "Yer", name: "yer", widget: "string"}
-
-  # 3. BÖLÜM: GALERİ (Sahadan Kareler)
-  - name: "galeri"
-    label: "Sahadan Kareler"
-    folder: "content/galeri"
-    create: true
-    fields:
-      - {label: "Fotoğraf Başlığı", name: "title", widget: "string"}
-      - {label: "Fotoğraf", name: "image", widget: "image"}
-
-  # 4. BÖLÜM: ANA SAYFA YAZILARI (Kırmızı Beyaz Aşk vb.)
+  # 1. BÖLÜM: ANA SAYFA YAZILARI (KIRMIZI BEYAZ AŞK VB.)
   - name: "ayarlar"
     label: "Site Genel Ayarları"
+    delete: false
+    editor:
+      preview: false
     files:
       - label: "Ana Sayfa Yazıları"
         name: "site_text"
         file: "content/ayarlar.json"
         fields:
           - {label: "Ana Slogan (Kırmızı Beyaz Aşk)", name: "slogan", widget: "string"}
-          - {label: "Alt Slogan", name: "alt_slogan", widget: "string"}
+          - {label: "Alt Slogan (Bir Takımdan Daha Fazlası)", name: "alt_slogan", widget: "string"}
+          - {label: "Alt Bilgi (Footer Yazısı)", name: "footer_text", widget: "string"}
+
+  # 2. BÖLÜM: SIRADAKİ MAÇ
+  - name: "maclar"
+    label: "Maç Merkezi"
+    delete: false
+    files:
+      - label: "Sıradaki Maç Bilgileri"
+        name: "mac_bilgi"
+        file: "content/mac.json"
+        fields:
+          - {label: "Bizim Takım", name: "ev_sahibi", widget: "string"}
+          - {label: "Rakip Takım Adı", name: "rakip", widget: "string"}
+          - {label: "Maç Tarihi ve Saati", name: "mac_tarih", widget: "string"}
+          - {label: "Stadyum/Saha", name: "yer", widget: "string"}
+
+  # 3. BÖLÜM: GALERİ (SAHADAN KARELER)
+  - name: "galeri"
+    label: "Sahadan Kareler"
+    folder: "content/galeri"
+    create: true
+    fields:
+      - {label: "Fotoğraf Başlığı", name: "title", widget: "string"}
+      - {label: "Fotoğraf Seç", name: "image", widget: "image"}
+
+  # 4. BÖLÜM: HABERLER (TRANSFER VB.)
+  - name: "haberler"
+    label: "Haberler"
+    folder: "content/haberler"
+    create: true
+    fields:
+      - {label: "Haber Başlığı", name: "title", widget: "string"}
+      - {label: "Yayın Tarihi", name: "date", widget: "datetime"}
+      - {label: "Haber Görseli", name: "image", widget: "image"}
+      - {label: "Haber Detayı", name: "body", widget: "markdown"}
