@@ -17,7 +17,7 @@
             position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-area img { height: 45px; border-radius: 0; background: transparent;  padding: 0; }
+        .logo-area img { height: 45px; border-radius: 0; background: transparent; padding: 0; }
         .logo-area h2 { font-size: 18px; letter-spacing: 1px; }
         nav a { color: white; text-decoration: none; margin-left: 15px; font-weight: bold; font-size: 12px; }
 
@@ -30,7 +30,23 @@
             padding: 20px;
         }
         .hero h1 { font-size: 40px; text-transform: uppercase; margin-bottom: 10px; text-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
-        .hero p { font-size: 18px; background: #e63946; padding: 8px 20px; border-radius: 5px; box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3); }
+        .hero p { font-size: 18px; background: #e63946; padding: 8px 20px; border-radius: 5px; box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3); margin-bottom: 20px; }
+
+        /* WHATSAPP BUTONU TASARIMI */
+        .challenge-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #25d366;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .challenge-btn:hover { transform: scale(1.1); background-color: #128c7e; }
+        .challenge-btn i { margin-right: 8px; }
 
         /* MAÇ MERKEZİ */
         .section-title { border-left: 5px solid #e63946; padding-left: 15px; margin: 30px 5% 20px 5%; font-size: 24px; font-weight: 800; color: #1d3557; }
@@ -40,8 +56,6 @@
             display: flex; flex-direction: column; align-items: center; gap: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.05);
         }
-
-        .team { text-align: center; flex: 1; }
         .team h3 { font-size: 22px; color: #1d3557; }
         .vs-circle { background: #e63946; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 14px; }
         
@@ -51,7 +65,7 @@
         /* FOOTER */
         footer { background: #1d3557; color: white; text-align: center; padding: 30px 20px; margin-top: 40px; }
 
-        /* MASAÜSTÜ İÇİN DÜZELTME (RESPONSIVE) */
+        /* MASAÜSTÜ (PC) */
         @media (min-width: 768px) {
             .hero { height: 500px; }
             .hero h1 { font-size: 70px; }
@@ -65,7 +79,7 @@
 
     <header>
         <div class="logo-area">
-            <img src="images/logo.png" alt="CB">
+            <img src="images/logo.png?v=2" alt="CB">
             <h2>CHOCOLATE BOYS</h2>
         </div>
         <nav>
@@ -78,17 +92,17 @@
     <section class="hero">
         <h1 id="ana-slogan">YÜKLENİYOR...</h1>
         <p id="alt-slogan"></p>
+        
+        <a href="#" id="challenge-link" class="challenge-btn">
+            <i class="fa-brands fa-whatsapp"></i> <span id="btn-text-el">TEKLİF ET</span>
+        </a>
     </section>
 
     <div class="section-title">SIRADAKİ MAÇ</div>
     <div class="match-card">
-        <div class="team">
-            <h3 id="ev-sahibi">YÜKLENİYOR...</h3>
-        </div>
+        <div class="team"><h3 id="ev-sahibi">YÜKLENİYOR...</h3></div>
         <div class="vs-circle">VS</div>
-        <div class="team">
-            <h3 id="rakip-takim">YÜKLENİYOR...</h3>
-        </div>
+        <div class="team"><h3 id="rakip-takim">YÜKLENİYOR...</h3></div>
     </div>
     
     <div class="match-details">
@@ -101,21 +115,21 @@
     </footer>
 
     <script>
-        // 1. Ayarları Çek (Sloganlar)
-        fetch('/content/ayarlar.json')
+        // PANEL VERİLERİNİ ÇEKME (Cache engellemek için zaman damgası ekledik)
+        fetch('/content/ayarlar.json?t=' + Date.now())
             .then(res => res.json())
             .then(data => {
                 document.getElementById('ana-slogan').innerText = data.slogan || "KIRMIZI BEYAZ AŞK!";
                 document.getElementById('alt-slogan').innerText = data.alt_slogan || "BİR TAKIMDAN DAHA FAZLASI";
                 document.getElementById('footer-text').innerText = data.footer_text || "© 2026 Tüm Hakları Saklıdır.";
+                
+                // Buton Yazısı ve WhatsApp Numarası
+                if(data.btn_text) document.getElementById('btn-text-el').innerText = data.btn_text;
+                if(data.whatsapp_no) document.getElementById('challenge-link').href = "https://wa.me/" + data.whatsapp_no.replace(/\D/g,'');
             })
-            .catch(err => {
-                document.getElementById('ana-slogan').innerText = "KIRMIZI BEYAZ AŞK!";
-                console.error("Ayar hatası:", err);
-            });
+            .catch(err => console.error("Ayar hatası:", err));
 
-        // 2. Maç Bilgilerini Çek
-        fetch('/content/mac.json')
+        fetch('/content/mac.json?t=' + Date.now())
             .then(res => res.json())
             .then(data => {
                 document.getElementById('ev-sahibi').innerText = data.ev_sahibi || "CHOCOLATE BOYS";
@@ -123,11 +137,7 @@
                 document.getElementById('mac-tarih').innerText = data.mac_tarih || "Tarih Belirlenmedi";
                 document.getElementById('mac-yer').innerText = data.yer || "Saha Belirlenmedi";
             })
-            .catch(err => {
-                document.getElementById('ev-sahibi').innerText = "CHOCOLATE BOYS";
-                document.getElementById('rakip-takim').innerText = "RAKİP TAKIM";
-                console.error("Maç hatası:", err);
-            });
+            .catch(err => console.error("Maç hatası:", err));
     </script>
 </body>
 </html>
