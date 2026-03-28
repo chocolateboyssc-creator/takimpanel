@@ -2,9 +2,9 @@ backend:
   name: github
   repo: chocolateboyssc-creator/takimpanel
   branch: main
-  base_url: https://api.netlify.com
-  auth_endpoint: auth
-  site_domain: chocolateboys.org
+
+# Giriş ayarları (Proxy kullanmadan)
+local_backend: true 
 
 media_folder: "images"
 public_folder: "/images"
