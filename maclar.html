@@ -17,49 +17,71 @@
         .container { padding: 40px 5%; flex: 1; }
         .section-title { font-size: 28px; color: #e63946; text-transform: uppercase; font-weight: 900; margin-bottom: 20px; border-left: 5px solid #e63946; padding-left: 15px; }
 
-        /* SIRADAKİ MAÇ KARTI - SABİT VS DÜZENİ */
+        /* SIRADAKİ MAÇ KARTI - FERAH GRID DÜZENİ */
         .next-match { 
             background: linear-gradient(135deg, #1d3557 0%, #457b9d 100%);
-            padding: 30px; border-radius: 20px; text-align: center; margin-bottom: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid #e63946;
+            padding: 40px 20px; 
+            border-radius: 20px; 
+            text-align: center; 
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            border: 2px solid #e63946;
         }
         
         .match-grid { 
             display: grid; 
-            grid-template-columns: 1fr 80px 1fr; /* Sol, VS Alanı, Sağ */
+            grid-template-columns: 1fr 100px 1fr; /* VS alanı genişletildi */
             align-items: center; 
-            gap: 10px; 
+            gap: 40px; /* Yazılar arasına büyük boşluk */
         }
 
-        .team-info h3 { font-size: 24px; text-transform: uppercase; }
-        .team-left { text-align: right; } /* Bizim takım sağa yaslı */
-        .team-right { text-align: left; } /* Rakip takım sola yaslı */
+        .team-info h3 { font-size: 24px; text-transform: uppercase; letter-spacing: 1px; }
+        .team-left { text-align: right; } 
+        .team-right { text-align: left; }
 
         .vs-box { 
             background: #e63946; 
-            width: 60px; 
-            height: 60px; 
+            width: 65px; 
+            height: 65px; 
             border-radius: 50%; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             font-weight: 900; 
-            font-size: 20px; 
-            margin: 0 auto; /* Ortaya sabitle */
-            box-shadow: 0 0 15px rgba(230, 57, 70, 0.5);
+            font-size: 22px; 
+            margin: 0 auto; 
+            box-shadow: 0 0 20px rgba(230, 57, 70, 0.4);
         }
 
         .match-meta { margin-top: 25px; color: #f1faee; font-size: 14px; display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; }
 
-        /* GEÇMİŞ MAÇLAR LİSTESİ */
+        /* GEÇMİŞ MAÇLAR LİSTESİ - FERAH GRID DÜZENİ */
         .history-list { display: flex; flex-direction: column; gap: 15px; }
         .history-item { 
-            background: #1a1a1a; padding: 15px 25px; border-radius: 12px;
-            display: grid; grid-template-columns: 1fr 100px 1fr; align-items: center;
-            border-left: 4px solid #333; transition: 0.3s;
+            background: #1a1a1a; 
+            padding: 20px 30px; 
+            border-radius: 12px;
+            display: grid; 
+            grid-template-columns: 1fr 120px 1fr; /* Skor alanı ferahlatıldı */
+            align-items: center;
+            gap: 30px; /* Yapışmayı engelleyen ana boşluk */
+            border-left: 4px solid #333; 
+            transition: 0.3s;
         }
+        
         .history-item:hover { transform: translateX(10px); border-left-color: #e63946; background: #222; }
-        .score { font-family: 'Courier New', Courier, monospace; font-size: 22px; font-weight: bold; background: #333; padding: 5px 15px; border-radius: 5px; text-align: center; margin: 0 auto; width: fit-content; }
+        
+        .score { 
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 22px; 
+            font-weight: bold; 
+            background: #333; 
+            padding: 8px 15px; 
+            border-radius: 8px; 
+            text-align: center; 
+            margin: 0 auto; 
+            min-width: 90px;
+        }
         
         /* Sonuç Renkleri */
         .win { border-left-color: #25d366 !important; }
@@ -68,11 +90,11 @@
         footer { background: #000; color: #777; text-align: center; padding: 30px 20px; border-top: 1px solid #222; margin-top: 50px; font-weight: bold; font-size: 13px; }
 
         @media (max-width: 768px) {
-            .match-grid { grid-template-columns: 1fr 60px 1fr; }
+            .match-grid { grid-template-columns: 1fr 60px 1fr; gap: 15px; }
             .team-info h3 { font-size: 16px; }
             .vs-box { width: 45px; height: 45px; font-size: 16px; }
-            .history-item { grid-template-columns: 1fr 80px 1fr; padding: 10px; font-size: 14px; }
-            .score { font-size: 18px; padding: 3px 10px; }
+            .history-item { grid-template-columns: 1fr 80px 1fr; padding: 15px 10px; gap: 10px; }
+            .score { font-size: 18px; padding: 5px 10px; min-width: 70px; }
         }
     </style>
 </head>
