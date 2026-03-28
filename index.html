@@ -6,42 +6,69 @@
     <title>Chocolate Boys FC | Resmi Web Sitesi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* CSS TASARIMIN (Ekran görüntülerindeki renkleri baz aldım) */
-        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f9fff9; color: #333; }
-        header { background-color: #e63946; color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .logo-area { display: flex; align-items: center; gap: 15px; }
-        .logo-area img { height: 50px; border-radius: 50%; background: white; padding: 2px; }
-        nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: 600; text-transform: uppercase; font-size: 14px; }
+        /* GENEL TASARIM */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f8f9fa; color: #333; line-height: 1.6; }
         
-        /* HERO SECTION */
-        .hero { 
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80&w=2000');
-            background-size: cover; background-position: center; height: 500px;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center;
+        /* HEADER / NAV */
+        header { 
+            background: #e63946; color: white; padding: 12px 5%; 
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .hero h1 { font-size: 64px; margin: 0; text-transform: uppercase; letter-spacing: 2px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
-        .hero p { font-size: 24px; background: #e63946; padding: 10px 25px; margin-top: 20px; border-radius: 5px; }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-area img { height: 40px; border-radius: 50%; background: white; padding: 2px; }
+        .logo-area h2 { font-size: 18px; letter-spacing: 1px; }
+        nav a { color: white; text-decoration: none; margin-left: 15px; font-weight: bold; font-size: 12px; }
+
+        /* HERO SECTION (ANA BAŞLIK) */
+        .hero { 
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200');
+            background-size: cover; background-position: center;
+            height: 400px; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; color: white; text-align: center;
+            padding: 20px;
+        }
+        .hero h1 { font-size: 40px; text-transform: uppercase; margin-bottom: 10px; text-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
+        .hero p { font-size: 18px; background: #e63946; padding: 8px 20px; border-radius: 5px; box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3); }
 
         /* MAÇ MERKEZİ */
-        .section-title { border-left: 5px solid #e63946; padding-left: 15px; margin: 40px 5%; font-size: 28px; color: #e63946; text-transform: uppercase; }
-        .match-card { background: white; margin: 0 5% 40px 5%; padding: 30px; border-radius: 10px; display: flex; justify-content: space-around; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .team { text-align: center; flex: 1; }
-        .team h3 { font-size: 24px; margin: 10px 0; }
-        .vs-circle { background: #e63946; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-        .match-info { text-align: center; color: #666; font-weight: 600; }
+        .section-title { border-left: 5px solid #e63946; padding-left: 15px; margin: 30px 5% 20px 5%; font-size: 24px; font-weight: 800; color: #1d3557; }
+        
+        .match-card { 
+            background: white; margin: 0 5% 20px 5%; padding: 25px; border-radius: 12px; 
+            display: flex; flex-direction: column; align-items: center; gap: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
 
-        footer { background: #1d3557; color: white; text-align: center; padding: 40px 0; margin-top: 50px; }
+        .team { text-align: center; flex: 1; }
+        .team h3 { font-size: 22px; color: #1d3557; }
+        .vs-circle { background: #e63946; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 14px; }
+        
+        .match-details { text-align: center; color: #666; font-size: 14px; margin-bottom: 40px; }
+        .match-details i { color: #e63946; margin-right: 5px; }
+
+        /* FOOTER */
+        footer { background: #1d3557; color: white; text-align: center; padding: 30px 20px; margin-top: 40px; }
+
+        /* MASAÜSTÜ İÇİN DÜZELTME (RESPONSIVE) */
+        @media (min-width: 768px) {
+            .hero { height: 500px; }
+            .hero h1 { font-size: 70px; }
+            .match-card { flex-direction: row; justify-content: space-around; padding: 40px; }
+            .logo-area h2 { font-size: 24px; }
+            nav a { font-size: 14px; margin-left: 25px; }
+        }
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo-area">
-            <img src="images/logo.png" alt="Logo">
-            <h2 style="margin:0">CHOCOLATE BOYS FC</h2>
+            <img src="images/logo.png" alt="CB">
+            <h2>CHOCOLATE BOYS</h2>
         </div>
         <nav>
-            <a href="#">BAŞLANGIÇ</a>
             <a href="#">MAÇLAR</a>
             <a href="#">GALERİ</a>
             <a href="#">STORE</a>
@@ -56,16 +83,17 @@
     <div class="section-title">SIRADAKİ MAÇ</div>
     <div class="match-card">
         <div class="team">
-            <h3 id="ev-sahibi">CHOCOLATE BOYS</h3>
+            <h3 id="ev-sahibi">YÜKLENİYOR...</h3>
         </div>
         <div class="vs-circle">VS</div>
         <div class="team">
-            <h3 id="rakip-takim">RAKİP TAKIM</h3>
+            <h3 id="rakip-takim">YÜKLENİYOR...</h3>
         </div>
     </div>
-    <div class="match-info">
-        <p id="mac-tarih"></p>
-        <p id="mac-yer"></p>
+    
+    <div class="match-details">
+        <p><i class="fa-regular fa-calendar-days"></i> <span id="mac-tarih">---</span></p>
+        <p><i class="fa-solid fa-location-dot"></i> <span id="mac-yer">---</span></p>
     </div>
 
     <footer>
@@ -81,7 +109,10 @@
                 document.getElementById('alt-slogan').innerText = data.alt_slogan || "BİR TAKIMDAN DAHA FAZLASI";
                 document.getElementById('footer-text').innerText = data.footer_text || "© 2026 Tüm Hakları Saklıdır.";
             })
-            .catch(err => console.error("Ayarlar yüklenemedi:", err));
+            .catch(err => {
+                document.getElementById('ana-slogan').innerText = "KIRMIZI BEYAZ AŞK!";
+                console.error("Ayar hatası:", err);
+            });
 
         // 2. Maç Bilgilerini Çek
         fetch('/content/mac.json')
@@ -92,7 +123,11 @@
                 document.getElementById('mac-tarih').innerText = data.mac_tarih || "Tarih Belirlenmedi";
                 document.getElementById('mac-yer').innerText = data.yer || "Saha Belirlenmedi";
             })
-            .catch(err => console.error("Maç bilgisi yüklenemedi:", err));
+            .catch(err => {
+                document.getElementById('ev-sahibi').innerText = "CHOCOLATE BOYS";
+                document.getElementById('rakip-takim').innerText = "RAKİP TAKIM";
+                console.error("Maç hatası:", err);
+            });
     </script>
 </body>
 </html>
