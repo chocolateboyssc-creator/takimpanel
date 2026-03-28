@@ -17,8 +17,7 @@
         .gallery-item { position: relative; overflow: hidden; border-radius: 15px; height: 250px; background: #222; border: 2px solid #333; transition: 0.3s; }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
         .img-caption { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(230, 57, 70, 0.9); color: white; padding: 8px; font-size: 14px; font-weight: bold; }
-        .wa-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 15px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        #status-text { padding: 20px; color: #888; font-style: italic; }
+        .wa-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 15px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -39,70 +38,71 @@
 
     <div class="container">
         <h1 style="color: #e63946; text-transform: uppercase; font-weight: 900;">SAHADAN KARELER</h1>
-        <div id="status-text">Fotoğraflar yükleniyor...</div>
+        <div id="status-text" style="margin: 20px; color: #888;">Fotoğraflar yükleniyor...</div>
         <div class="gallery-grid" id="gallery-container"></div>
     </div>
 
-    <a href="#" id="wa-link" class="wa-float">
-        <i class="fa-brands fa-whatsapp"></i> <span id="wa-text">TEKLİF ET</span>
-    </a>
+    <a href="#" id="wa-link" class="wa-float"><i class="fa-brands fa-whatsapp"></i> <span id="wa-text">TEKLİF ET</span></a>
 
     <script>
-        // 1. WHATSAPP AYARLARI (Panelden çekme)
+        // 1. AYARLARI ÇEK
         fetch('/content/ayarlar.json?t=' + Date.now())
             .then(res => res.json())
             .then(data => {
                 if(data.whatsapp_no) document.getElementById('wa-link').href = "https://wa.me/" + data.whatsapp_no.replace(/\D/g,'');
                 if(data.btn_text) document.getElementById('wa-text').innerText = data.btn_text;
-            }).catch(e => console.log("Ayarlar yüklenemedi."));
+            });
 
-        // 2. GALERİ OTOMATİK YÜKLEME
-        // DİKKAT: Buradaki repo isminin tam doğru olduğundan emin ol!
-        const REPO_OWNER = "chocolateboyssc-creator"; 
-        const REPO_NAME = "takimpanel"; 
-        const FOLDER_PATH = "content/galeri";
+        // 2. .MD DOSYALARINI OKU VE ANALİZ ET
+        const user = "chocolateboyssc-creator"; 
+        const repo = "takimpanel"; 
+        const path = "content/galeri";
 
-        async function loadGallery() {
+        async function fetchGallery() {
             const container = document.getElementById('gallery-container');
             const status = document.getElementById('status-text');
 
             try {
-                const response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FOLDER_PATH}`);
-                
-                if (!response.ok) throw new Error("GitHub klasörü bulamadı. Repo ismini kontrol et!");
-
+                const response = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${path}`);
                 const files = await response.json();
                 
-                // Sadece JSON dosyalarını filtrele
-                const jsonFiles = files.filter(file => file.name.endsWith('.json'));
+                container.innerHTML = ""; 
 
-                if (jsonFiles.length === 0) {
-                    status.innerText = "Henüz fotoğraf eklenmemiş";
-                    return;
+                for (const file of files) {
+                    if (file.name.endsWith('.md')) {
+                        const contentRes = await fetch(file.download_url);
+                        const text = await contentRes.text();
+                        
+                        // Markdown içindeki title ve image bilgisini ayıkla (Regex ile)
+                        const titleMatch = text.match(/title:\s*["']?(.*?)["']?\s*\n/);
+                        const imageMatch = text.match(/image:\s*["']?(.*?)["']?\s*\n/);
+                        
+                        const title = titleMatch ? titleMatch[1] : "Chocolate Boys";
+                        let image = imageMatch ? imageMatch[1] : "";
+
+                        // Resim yolunu düzelt (Başına / ekle)
+                        if(image && !image.startsWith('/') && !image.startsWith('http')) {
+                            image = "/" + image;
+                        }
+
+                        if (image) {
+                            const card = `
+                                <div class="gallery-item">
+                                    <img src="${image}" alt="${title}" onerror="this.src='https://placehold.co/600x400?text=Hata'">
+                                    <div class="img-caption">${title}</div>
+                                </div>
+                            `;
+                            container.innerHTML += card;
+                        }
+                    }
                 }
-
-                status.style.display = "none"; // Yükleniyor yazısını gizle
-
-                for (const file of jsonFiles) {
-                    const res = await fetch(file.download_url);
-                    const photo = await res.json();
-                    
-                    // Kartı oluştur
-                    const item = document.createElement('div');
-                    item.className = 'gallery-item';
-                    item.innerHTML = `
-                        <img src="${photo.image}" alt="${photo.title}" onerror="this.src='https://placehold.co/600x400?text=Resim+Yuklenemedi'">
-                        <div class="img-caption">${photo.title || 'Chocolate Boys'}</div>
-                    `;
-                    container.appendChild(item);
-                }
+                status.style.display = "none";
             } catch (err) {
-                status.innerText = "Hata: " + err.message;
-                status.style.color = "red";
+                status.innerText = "Hata: Dosyalar okunamadı.";
             }
         }
 
-        loadGallery();
+        fetchGallery();
     </script>
 </body>
 </html>
