@@ -42,7 +42,7 @@ collections:
 
   # 3. BÖLÜM: GALERİ (Otomatik JSON oluşturur)
   - name: "galeri"
-    label: "Sahadan Kareler"
+    label: "Galeri Sayfası"
     folder: "content/galeri"
     create: true
     slug: "{{title}}"
