@@ -215,7 +215,8 @@
                         const res = await fetch(file.download_url);
                         const text = await res.text();
                         
-                        const ev = text.match(/ev_sahibi:\s*(.*)/)?.[1] || "CHOCOLATE BOYS";
+                        const evMatch = text.match(/ev_sahibi:\s*(.*)/);
+                        const ev = (evMatch && evMatch[1].trim() !== "") ? evMatch[1].trim() : "CHOCOLATE BOYS";
                         const rakip = text.match(/rakip:\s*(.*)/)?.[1] || "Rakip";
                         const skor = text.match(/skor:\s*(.*)/)?.[1] || "0-0";
                         const sonuc = text.match(/sonuc:\s*(.*)/)?.[1]?.trim() || "draw";
