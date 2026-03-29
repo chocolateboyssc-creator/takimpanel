@@ -27,6 +27,7 @@
             display: flex; justify-content: space-between; align-items: center; 
             position: sticky; top: 0; z-index: 1000; 
             backdrop-filter: blur(15px);
+            border-bottom: 2px solid rgba(255,255,255,0.1);
         }
         .logo-area { display: flex; align-items: center; gap: 8px; text-decoration: none; color: white; flex-shrink: 0; }
         .logo-area img { height: 35px; }
@@ -40,14 +41,17 @@
             margin-left: 15px;
             -webkit-overflow-scrolling: touch;
         }
-        nav::-webkit-scrollbar { display: none; } /* Kaydırma çubuğunu gizle */
+        nav::-webkit-scrollbar { display: none; }
 
         nav a { 
             color: white; text-decoration: none; 
             margin-left: 12px; font-weight: bold; font-size: 10px; 
             text-transform: uppercase; flex-shrink: 0;
+            transition: 0.3s;
+            opacity: 0.9;
         }
-        nav a.active { border-bottom: 2px solid white; padding-bottom: 2px; }
+        nav a:hover { opacity: 1; color: #1d3557; }
+        nav a.active { border-bottom: 2px solid white; padding-bottom: 2px; opacity: 1; }
 
         /* İÇERİK */
         .container { padding: 40px 5%; text-align: center; flex: 1; }
@@ -69,7 +73,7 @@
             transition: 0.3s ease; 
         }
         .gallery-item:hover { 
-            transform: scale(0.96); /* İçeri basılma efekti */
+            transform: scale(0.96); 
             border-color: #e63946; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
         }
@@ -88,17 +92,33 @@
         .lightbox img { max-width: 90%; max-height: 80%; border-radius: 10px; border: 2px solid rgba(255,255,255,0.2); }
         .close-btn { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; }
 
-        /* MOBİL ÖZEL */
+        /* FOOTER & INSTAGRAM */
+        footer { 
+            background: rgba(0,0,0,0.85); 
+            color: #ccc; text-align: center; padding: 40px 20px; 
+            font-size: 14px; border-top: 2px solid #e63946; margin-top: auto; 
+        }
+        
+        .footer-social { margin-top: 15px; display: flex; justify-content: center; gap: 20px; }
+        .insta-btn {
+            color: #fff; font-size: 28px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0.8; text-decoration: none; display: inline-block;
+        }
+        .insta-btn:hover {
+            opacity: 1; transform: scale(1.2) rotate(5deg);
+            color: #E1306C; filter: drop-shadow(0 0 8px rgba(225, 48, 108, 0.6));
+        }
+
+        /* WHATSAPP FLOAT */
+        .wa-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.3); font-size: 14px; border: 1px solid white; transition: 0.3s; }
+        .wa-float:hover { transform: translateY(-5px); background: #128c7e; }
+
         @media (max-width: 600px) {
             header { flex-direction: column; padding: 12px; }
             .logo-area { margin-bottom: 8px; }
             nav { width: 100%; justify-content: center; margin-left: 0; }
             .page-title { font-size: 24px; }
         }
-
-        footer { background: rgba(0,0,0,0.8); color: #777; text-align: center; padding: 30px 20px; font-size: 12px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: auto; }
-        
-        .wa-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.3); font-size: 14px; }
     </style>
 </head>
 <body>
@@ -133,18 +153,28 @@
         <i class="fa-brands fa-whatsapp"></i> <span id="wa-text">TEKLİF ET</span>
     </a>
 
-    <footer>© 2026 Chocolate Boys FC. Tüm Hakları Saklıdır.</footer>
+    <footer>
+        <p>© 2026 Chocolate Boys FC. Tüm Hakları Saklıdır.</p>
+        <div class="footer-social">
+            <a href="#" id="insta-link" class="insta-btn" target="_blank" title="Instagram'da Takip Et">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+        </div>
+    </footer>
 
     <script>
-        // Ayarlar & Arka Plan & WhatsApp
+        // Ayarlar & Arka Plan & WhatsApp & Instagram
         fetch('/content/ayarlar.json?t=' + Date.now()).then(res => res.json()).then(data => {
-            // Arka planı güncelle
             if(data.bg_image) {
                 document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${data.bg_image}')`;
             }
-            // WhatsApp bilgilerini güncelle
             if(data.whatsapp_no) document.getElementById('wa-link').href = "https://wa.me/" + data.whatsapp_no.replace(/\D/g,'');
             if(data.btn_text) document.getElementById('wa-text').innerText = data.btn_text;
+            
+            // Instagram linkini ayarla
+            if(data.instagram_username) {
+                document.getElementById('insta-link').href = "https://www.instagram.com/" + data.instagram_username.replace('@', '');
+            }
         });
 
         const user = "chocolateboyssc-creator", repo = "takimpanel", path = "content/galeri";
