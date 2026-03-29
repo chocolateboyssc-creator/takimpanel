@@ -21,58 +21,74 @@
             transition: background 0.5s ease-in-out;
         }
 
-        /* HEADER */
+        /* HEADER - DİĞER SAYFALARLA UYUMLU VE MOBİL DOSTU */
         header { 
-            background: rgba(230, 57, 70, 0.9); 
-            color: white; padding: 12px 5%; 
+            background: rgba(230, 57, 70, 0.95); 
+            color: white; padding: 10px 5%; 
             display: flex; justify-content: space-between; align-items: center;
             position: sticky; top: 0; z-index: 1000;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
         }
-        .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-area img { height: 40px; }
-        .logo-area h2 { font-size: 16px; letter-spacing: 1px; }
-        nav { display: flex; align-items: center; }
-        nav a { color: white; text-decoration: none; margin-left: 15px; font-weight: bold; font-size: 11px; text-transform: uppercase; transition: 0.3s; }
+        .logo-area { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .logo-area img { height: 35px; }
+        .logo-area h2 { font-size: 14px; letter-spacing: 0.5px; }
+
+        nav { 
+            display: flex; 
+            overflow-x: auto; 
+            white-space: nowrap; 
+            padding: 5px 0;
+            margin-left: 15px;
+            -webkit-overflow-scrolling: touch;
+        }
+        nav::-webkit-scrollbar { display: none; }
+
+        nav a { 
+            color: white; text-decoration: none; 
+            margin-left: 12px; font-weight: bold; font-size: 10px; 
+            text-transform: uppercase; flex-shrink: 0;
+            transition: 0.3s;
+        }
         nav a:hover { color: #1d3557; }
+        nav a.active { border-bottom: 2px solid white; padding-bottom: 2px; }
 
         /* SAYFA BAŞLIĞI */
         .page-header {
             text-align: center;
-            padding: 60px 20px 40px;
+            padding: 40px 20px 20px;
         }
-        .page-header h1 { font-size: 36px; text-transform: uppercase; text-shadow: 2px 4px 10px rgba(0,0,0,0.5); }
-        .page-header .underline { width: 60px; height: 4px; background: #e63946; margin: 10px auto; border-radius: 2px; }
+        .page-header h1 { font-size: 32px; text-transform: uppercase; text-shadow: 2px 4px 10px rgba(0,0,0,0.5); font-weight: 900; }
+        .page-header .underline { width: 50px; height: 4px; background: #e63946; margin: 10px auto; border-radius: 2px; }
 
         /* OYUNCU GRID YAPISI */
         .players-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            padding: 0 5% 60px 5%;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px 5% 60px 5%;
         }
 
-        /* OYUNCU KARTI - BUZLU CAM EFEKTİ */
+        /* OYUNCU KARTI - PREMIUM CAM EFEKTİ */
         .player-card {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 20px;
             overflow: hidden;
-            transition: 0.4s;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: center;
-            padding-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         .player-card:hover {
             transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
             border-color: #e63946;
         }
 
         .player-img-box {
             width: 100%;
-            height: 320px;
-            background: rgba(0,0,0,0.2);
+            height: 300px;
+            background: rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -83,41 +99,47 @@
             height: 100%;
             object-fit: cover;
         }
-        .player-img-box i { font-size: 100px; color: rgba(255,255,255,0.3); }
+        .player-img-box i { font-size: 80px; color: rgba(255,255,255,0.2); }
 
-        .player-info { padding: 20px 15px; }
-        .player-info h2 { font-size: 22px; margin-bottom: 8px; color: #fff; text-transform: uppercase; }
+        .player-info { padding: 15px; }
+        .player-info h2 { font-size: 20px; margin-bottom: 8px; color: #fff; text-transform: uppercase; font-weight: 800; }
         .player-info .position { 
             display: inline-block;
             background: #e63946;
-            padding: 4px 15px;
+            padding: 4px 12px;
             border-radius: 50px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-bottom: 15px;
         }
         
         .player-stats {
             display: flex;
             justify-content: space-around;
-            margin-top: 15px;
             border-top: 1px solid rgba(255,255,255,0.1);
             padding-top: 15px;
         }
-        .stat-item span { display: block; font-size: 10px; color: #aaa; text-transform: uppercase; margin-bottom: 3px; }
-        .stat-item strong { font-size: 18px; color: #fff; }
+        .stat-item span { display: block; font-size: 9px; color: #ccc; text-transform: uppercase; margin-bottom: 3px; }
+        .stat-item strong { font-size: 16px; color: #fff; }
 
         /* FOOTER */
         footer { 
-            background: rgba(0, 0, 0, 0.8); 
-            color: #aaa; text-align: center; padding: 30px; 
-            margin-top: auto; border-top: 2px solid #e63946; 
+            background: rgba(0, 0, 0, 0.85); 
+            color: #777; text-align: center; padding: 30px; 
+            margin-top: auto; border-top: 1px solid rgba(255,255,255,0.1); 
+            font-size: 12px;
         }
 
+        /* MOBİL DÜZENLEME */
         @media (max-width: 600px) {
-            .players-container { grid-template-columns: 1fr; }
-            .page-header h1 { font-size: 28px; }
+            header { flex-direction: column; padding: 12px; }
+            .logo-area { margin-bottom: 8px; }
+            nav { width: 100%; justify-content: center; margin-left: 0; }
+            
+            .players-container { grid-template-columns: 1fr; padding: 10px 8% 50px; }
+            .page-header h1 { font-size: 26px; }
         }
     </style>
 </head>
@@ -131,7 +153,7 @@
         <nav>
             <a href="index.html">ANA SAYFA</a>
             <a href="maclar.html">MAÇLAR</a>
-            <a href="oyuncular.html">OYUNCULAR</a>
+            <a href="oyuncular.html" class="active">OYUNCULAR</a>
             <a href="galeri.html">GALERİ</a> 
             <a href="store.html">STORE</a>
         </nav>
@@ -158,32 +180,29 @@
         fetch('/content/ayarlar.json?t=' + Date.now()).then(res => res.json()).then(data => {
             const bgUrl = data.bg_image || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600';
             document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${bgUrl}')`;
-        }).catch(err => {
-            document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600')`;
         });
 
         // 2. OYUNCULARI PANEL VERİSİNDEN ÇEK
         async function oyuncuGetir() {
             const container = document.getElementById('oyuncu-listesi');
             try {
-                // JSON dosyasını çekiyoruz
                 const response = await fetch('/content/oyuncular.json?t=' + Date.now()); 
-                if (!response.ok) throw new Error("Dosya bulunamadı");
+                if (!response.ok) throw new Error("Veri çekilemedi");
                 
                 const data = await response.json();
                 const players = data.players || []; 
         
                 if(players.length === 0) {
-                    container.innerHTML = "<p style='text-align:center; width:100%;'>Henüz oyuncu eklenmemiş.</p>";
+                    container.innerHTML = "<p style='text-align:center; width:100%; color:#aaa;'>Henüz oyuncu eklenmemiş.</p>";
                     return;
                 }
 
-                container.innerHTML = ""; // Yükleniyor kartını sil
+                container.innerHTML = ""; 
                 players.forEach(p => {
                     container.innerHTML += `
                         <div class="player-card">
                             <div class="player-img-box">
-                                ${p.image ? `<img src="${p.image}" alt="${p.name}">` : `<i class="fa-solid fa-user"></i>`}
+                                ${p.image ? `<img src="${p.image}" alt="${p.name}">` : `<i class="fa-solid fa-user-tie"></i>`}
                             </div>
                             <div class="player-info">
                                 <h2>${p.name}</h2>
@@ -198,12 +217,10 @@
                     `;
                 });
             } catch (e) {
-                console.error("Hata:", e);
-                container.innerHTML = "<p style='text-align:center; width:100%;'>Oyuncu listesi şu an yüklenemedi. Lütfen panelden oyuncu eklediğinizden emin olun.</p>";
+                container.innerHTML = "<p style='text-align:center; width:100%; color:#e63946;'>Veriler yüklenirken bir hata oluştu.</p>";
             }
         }
 
-        // Sayfa yüklendiğinde fonksiyonu çalıştır
         window.onload = oyuncuGetir;
     </script>
 </body>
