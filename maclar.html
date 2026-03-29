@@ -7,94 +7,135 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: #121212; color: white; display: flex; flex-direction: column; min-height: 100vh; }
         
-        header { background: #e63946; color: white; padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; color: white; }
-        .logo-area img { height: 40px; }
-        nav a { color: white; text-decoration: none; margin-left: 15px; font-weight: bold; font-size: 11px; text-transform: uppercase; }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background-color: #121212; 
+            color: white; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        /* HEADER - MOBİL UYUMLU */
+        header { 
+            background: rgba(230, 57, 70, 0.95); 
+            color: white; padding: 10px 5%; 
+            display: flex; justify-content: space-between; align-items: center; 
+            position: sticky; top: 0; z-index: 1000; 
+            backdrop-filter: blur(15px);
+        }
+        .logo-area { display: flex; align-items: center; gap: 8px; text-decoration: none; color: white; flex-shrink: 0; }
+        .logo-area img { height: 35px; }
+        .logo-area h2 { font-size: 14px; letter-spacing: 0.5px; }
+
+        nav { 
+            display: flex; 
+            overflow-x: auto; 
+            white-space: nowrap; 
+            padding: 5px 0;
+            margin-left: 15px;
+            -webkit-overflow-scrolling: touch;
+        }
+        nav::-webkit-scrollbar { display: none; }
+
+        nav a { 
+            color: white; text-decoration: none; 
+            margin-left: 12px; font-weight: bold; font-size: 10px; 
+            text-transform: uppercase; flex-shrink: 0;
+        }
+        nav a.active { border-bottom: 2px solid white; padding-bottom: 2px; }
 
         .container { padding: 40px 5%; flex: 1; }
-        .section-title { font-size: 28px; color: #e63946; text-transform: uppercase; font-weight: 900; margin-bottom: 20px; border-left: 5px solid #e63946; padding-left: 15px; }
+        .section-title { font-size: 26px; color: #fff; text-transform: uppercase; font-weight: 900; margin-bottom: 20px; border-left: 5px solid #e63946; padding-left: 15px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
 
-        /* SIRADAKİ MAÇ KARTI - FERAH GRID DÜZENİ */
+        /* SIRADAKİ MAÇ KARTI - BUZLU CAM */
         .next-match { 
-            background: linear-gradient(135deg, #1d3557 0%, #457b9d 100%);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
             padding: 40px 20px; 
             border-radius: 20px; 
             text-align: center; 
             margin-bottom: 50px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
-            border: 2px solid #e63946;
+            border: 1px solid rgba(255,255,255,0.2);
         }
         
         .match-grid { 
             display: grid; 
-            grid-template-columns: 1fr 100px 1fr; /* VS alanı genişletildi */
+            grid-template-columns: 1fr 100px 1fr; 
             align-items: center; 
-            gap: 40px; /* Yazılar arasına büyük boşluk */
+            gap: 20px; 
         }
 
-        .team-info h3 { font-size: 24px; text-transform: uppercase; letter-spacing: 1px; }
+        .team-info h3 { font-size: 22px; text-transform: uppercase; font-weight: 900; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
         .team-left { text-align: right; } 
         .team-right { text-align: left; }
 
         .vs-box { 
             background: #e63946; 
-            width: 65px; 
-            height: 65px; 
+            width: 55px; height: 55px; 
             border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-weight: 900; 
-            font-size: 22px; 
+            display: flex; align-items: center; justify-content: center; 
+            font-weight: 900; font-size: 18px; 
             margin: 0 auto; 
-            box-shadow: 0 0 20px rgba(230, 57, 70, 0.4);
+            box-shadow: 0 0 20px rgba(230, 57, 70, 0.5);
+            border: 2px solid rgba(255,255,255,0.3);
         }
 
-        .match-meta { margin-top: 25px; color: #f1faee; font-size: 14px; display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; }
+        .match-meta { margin-top: 25px; color: #ccc; font-size: 14px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; font-weight: bold; }
+        .match-meta i { color: #e63946; }
 
-        /* GEÇMİŞ MAÇLAR LİSTESİ - FERAH GRID DÜZENİ */
-        .history-list { display: flex; flex-direction: column; gap: 15px; }
+        /* GEÇMİŞ MAÇLAR - BUZLU CAM LİSTE */
+        .history-list { display: flex; flex-direction: column; gap: 12px; }
         .history-item { 
-            background: #1a1a1a; 
-            padding: 20px 30px; 
-            border-radius: 12px;
+            background: rgba(0,0,0,0.4); 
+            backdrop-filter: blur(10px);
+            padding: 15px 25px; 
+            border-radius: 15px;
             display: grid; 
-            grid-template-columns: 1fr 120px 1fr; /* Skor alanı ferahlatıldı */
+            grid-template-columns: 1fr 100px 1fr; 
             align-items: center;
-            gap: 30px; /* Yapışmayı engelleyen ana boşluk */
-            border-left: 4px solid #333; 
+            gap: 15px; 
+            border: 1px solid rgba(255,255,255,0.1);
             transition: 0.3s;
         }
         
-        .history-item:hover { transform: translateX(10px); border-left-color: #e63946; background: #222; }
+        .history-item:hover { transform: scale(1.02); border-color: #e63946; background: rgba(0,0,0,0.6); }
         
         .score { 
-            font-family: 'Courier New', Courier, monospace; 
-            font-size: 22px; 
-            font-weight: bold; 
-            background: #333; 
-            padding: 8px 15px; 
+            font-family: 'Segoe UI', sans-serif; 
+            font-size: 18px; 
+            font-weight: 900; 
+            background: #e63946; 
+            padding: 5px 12px; 
             border-radius: 8px; 
             text-align: center; 
             margin: 0 auto; 
-            min-width: 90px;
+            min-width: 70px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
         
-        /* Sonuç Renkleri */
-        .win { border-left-color: #25d366 !important; }
-        .loss { border-left-color: #e63946 !important; }
+        /* Sonuç Çizgileri */
+        .win { border-left: 6px solid #25d366 !important; }
+        .loss { border-left: 6px solid #e63946 !important; }
+        .draw { border-left: 6px solid #f1faee !important; }
 
-        footer { background: #000; color: #777; text-align: center; padding: 30px 20px; border-top: 1px solid #222; margin-top: 50px; font-weight: bold; font-size: 13px; }
+        footer { background: rgba(0,0,0,0.8); color: #777; text-align: center; padding: 30px 20px; font-size: 12px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: auto; }
 
-        @media (max-width: 768px) {
-            .match-grid { grid-template-columns: 1fr 60px 1fr; gap: 15px; }
-            .team-info h3 { font-size: 16px; }
-            .vs-box { width: 45px; height: 45px; font-size: 16px; }
-            .history-item { grid-template-columns: 1fr 80px 1fr; padding: 15px 10px; gap: 10px; }
-            .score { font-size: 18px; padding: 5px 10px; min-width: 70px; }
+        @media (max-width: 600px) {
+            header { flex-direction: column; padding: 12px; }
+            .logo-area { margin-bottom: 8px; }
+            nav { width: 100%; justify-content: center; margin-left: 0; }
+            
+            .match-grid { grid-template-columns: 1fr 60px 1fr; gap: 10px; }
+            .team-info h3 { font-size: 14px; }
+            .vs-box { width: 40px; height: 40px; font-size: 14px; }
+            .history-item { grid-template-columns: 1fr 80px 1fr; padding: 12px 10px; font-size: 12px; }
+            .score { font-size: 16px; min-width: 60px; }
         }
     </style>
 </head>
@@ -107,7 +148,7 @@
         </a>
         <nav>
             <a href="index.html">ANA SAYFA</a>
-            <a href="maclar.html" style="border-bottom: 2px solid white;">MAÇLAR</a>
+            <a href="maclar.html" class="active">MAÇLAR</a>
             <a href="oyuncular.html">OYUNCULAR</a>
             <a href="galeri.html">GALERİ</a>
             <a href="store.html">STORE</a>
@@ -131,15 +172,19 @@
 
         <h2 class="section-title">SON SONUÇLAR</h2>
         <div class="history-list" id="history-container">
-            <p style="color:#666">Yükleniyor...</p>
+            <p style="color:#aaa">Skorlar yükleniyor...</p>
         </div>
     </div>
 
-    <footer>
-        © 2026 Tüm Hakları Saklıdır.
-    </footer>
+    <footer>© 2026 Chocolate Boys FC. Tüm Hakları Saklıdır.</footer>
 
     <script>
+        // Arka Planı Ayarlar'dan Çek
+        fetch('/content/ayarlar.json?t=' + Date.now()).then(res => res.json()).then(data => {
+            const bgUrl = data.bg_image || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600';
+            document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${bgUrl}')`;
+        });
+
         // SIRADAKİ MAÇ VERİSİ
         fetch('/content/mac.json?t=' + Date.now()).then(res => res.json()).then(data => {
             document.getElementById('rakip-ad').innerText = data.rakip || "Rakip Bekleniyor";
@@ -148,7 +193,7 @@
             document.getElementById('mac-saha').innerText = data.yer || "Saha Belirlenmedi";
         });
 
-        // GEÇMİŞ MAÇLAR (GITHUB API)
+        // GEÇMİŞ MAÇLAR
         async function loadScores() {
             const container = document.getElementById('history-container');
             try {
@@ -162,27 +207,30 @@
                     return;
                 }
 
+                // Dosyaları ters sıralayalım (Son maç en üstte)
+                files.reverse();
+
                 for (const file of files) {
                     if (file.name.endsWith('.md')) {
                         const res = await fetch(file.download_url);
                         const text = await res.text();
                         
-                        const evMatch = text.match(/ev_sahibi:\s*(.*)/);
-                        const rakipMatch = text.match(/rakip:\s*(.*)/);
-                        const skorMatch = text.match(/skor:\s*(.*)/);
-                        const sonucMatch = text.match(/sonuc:\s*(.*)/);
+                        const ev = text.match(/ev_sahibi:\s*(.*)/)?.[1] || "CHOCOLATE BOYS";
+                        const rakip = text.match(/rakip:\s*(.*)/)?.[1] || "Rakip";
+                        const skor = text.match(/skor:\s*(.*)/)?.[1] || "0-0";
+                        const sonuc = text.match(/sonuc:\s*(.*)/)?.[1]?.trim() || "draw";
 
                         const item = document.createElement('div');
-                        item.className = `history-item ${sonucMatch ? sonucMatch[1].trim() : ''}`;
+                        item.className = `history-item ${sonuc}`;
                         item.innerHTML = `
-                            <div style="text-align:right; font-weight:bold;">${evMatch ? evMatch[1] : 'CHOCOLATE BOYS'}</div>
-                            <div class="score">${skorMatch ? skorMatch[1] : '0-0'}</div>
-                            <div style="text-align:left; font-weight:bold;">${rakipMatch ? rakipMatch[1] : 'Rakip'}</div>
+                            <div style="text-align:right; font-weight:900; text-transform:uppercase;">${ev}</div>
+                            <div class="score">${skor}</div>
+                            <div style="text-align:left; font-weight:900; text-transform:uppercase;">${rakip}</div>
                         `;
                         container.appendChild(item);
                     }
                 }
-            } catch(e) { container.innerHTML = "Geçmiş maçlar yüklenirken bir sorun oluştu."; }
+            } catch(e) { container.innerHTML = "Skorlar yüklenirken bir sorun oluştu."; }
         }
         loadScores();
     </script>
