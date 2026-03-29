@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oyuncular | Chocolate Boys FC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+        
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            color: #fff; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #121212;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* HEADER */
+        header { 
+            background: rgba(230, 57, 70, 0.9); 
+            color: white; padding: 12px 5%; 
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-area img { height: 40px; }
+        nav a { color: white; text-decoration: none; margin-left: 15px; font-weight: bold; font-size: 11px; text-transform: uppercase; }
+
+        /* SAYFA BAŞLIĞI */
+        .page-header {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+        .page-header h1 { font-size: 36px; text-transform: uppercase; text-shadow: 2px 4px 10px rgba(0,0,0,0.5); }
+        .page-header .underline { width: 60px; height: 4px; background: #e63946; margin: 10px auto; border-radius: 2px; }
+
+        /* OYUNCU GRID YAPISI */
+        .players-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 0 5% 60px 5%;
+        }
+
+        /* OYUNCU KARTI - BUZLU CAM EFEKTİ */
+        .player-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: 0.4s;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .player-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #e63946;
+        }
+
+        .player-img-box {
+            width: 100%;
+            height: 300px;
+            background: rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .player-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .player-img-box i { font-size: 100px; color: rgba(255,255,255,0.3); }
+
+        .player-info { padding: 20px 15px; }
+        .player-info h2 { font-size: 22px; margin-bottom: 5px; color: #fff; }
+        .player-info .position { 
+            display: inline-block;
+            background: #e63946;
+            padding: 4px 15px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .player-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+        }
+        .stat-item span { display: block; font-size: 10px; color: #aaa; text-transform: uppercase; }
+        .stat-item strong { font-size: 18px; color: #fff; }
+
+        /* FOOTER */
+        footer { 
+            background: rgba(0, 0, 0, 0.8); 
+            color: #aaa; text-align: center; padding: 30px; 
+            margin-top: auto; border-top: 2px solid #e63946; 
+        }
+
+        @media (max-width: 600px) {
+            .players-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <img src="images/logo.png?v=3" alt="CB">
+            <h2>CHOCOLATE BOYS</h2>
+        </div>
+        <nav>
+            <a href="index.html">ANA SAYFA</a>
+            <a href="maclar.html">MAÇLAR</a>
+            <a href="oyuncular.html">OYUNCULAR</a>
+            <a href="galeri.html">GALERİ</a> 
+            <a href="store.html">STORE</a>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <h1>TAKIM KADROSU</h1>
+        <div class="underline"></div>
+    </div>
+
+    <div class="players-container" id="oyuncu-listesi">
+        <div class="player-card">
+            <div class="player-img-box"><i class="fa-solid fa-user-ninja"></i></div>
+            <div class="player-info">
+                <h2>Yükleniyor...</h2>
+                <span class="position">Mevki</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>© 2026 Chocolate Boys FC. Tüm Hakları Saklıdır.</footer>
+
+    <script>
+        // ANA SAYFAYLA AYNI ARKA PLANI ÇEK
+        fetch('/content/ayarlar.json').then(res => res.json()).then(data => {
+            const bgUrl = data.bg_image || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600';
+            document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${bgUrl}')`;
+        });
+
+        // OYUNCULARI PANEL VERİSİNDEN ÇEK (Burayı panel koleksiyonuna göre bağlayacağız)
+        // Şimdilik mantığı kuruyorum, birazdan config.yml'e ekleyeceğiz.
+        async function oyuncuGetir() {
+            const container = document.getElementById('oyuncu-listesi');
+            try {
+                // Not: Henüz oyuncular klasörün yoksa burası hata verebilir, manuel liste de yapabiliriz.
+                const response = await fetch('/content/oyuncular.json'); 
+                const players = await response.json();
+                
+                container.innerHTML = "";
+                players.forEach(p => {
+                    container.innerHTML += `
+                        <div class="player-card">
+                            <div class="player-img-box">
+                                ${p.image ? `<img src="${p.image}" alt="${p.name}">` : `<i class="fa-solid fa-user"></i>`}
+                            </div>
+                            <div class="player-info">
+                                <h2>${p.name}</h2>
+                                <span class="position">${p.position}</span>
+                                <div class="player-stats">
+                                    <div class="stat-item"><span>Maç</span><strong>${p.mac || 0}</strong></div>
+                                    <div class="stat-item"><span>Gol</span><strong>${p.gol || 0}</strong></div>
+                                    <div class="stat-item"><span>Asist</span><strong>${p.asist || 0}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (e) {
+                container.innerHTML = "<p>Oyuncu verileri henüz eklenmemiş.</p>";
+            }
+        }
+        oyuncuGetir();
+    </script>
+</body>
+</html>
