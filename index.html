@@ -9,55 +9,70 @@
         /* SIFIRLAMA VE AKICI KAYDIRMA */
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
         
-        /* ARKA PLAN AYARI - JS GELENE KADAR SİYAH KALIR */
         body { 
             font-family: 'Segoe UI', sans-serif; 
-            color: #333; 
+            color: #fff; 
             line-height: 1.6; 
             display: flex; 
             flex-direction: column; 
             min-height: 100vh;
-            background-color: #121212; /* Yüklenirken siyah zemin */
+            background-color: #121212;
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            transition: background 0.5s ease-in-out; /* Resim gelince yumuşak geçiş yapar */
+            transition: background 0.5s ease-in-out;
         }
         
-        /* HEADER / NAV (Şeffaf buzlu cam) */
+        /* HEADER / NAV - MOBİL UYUMLU */
         header { 
-            background: rgba(230, 57, 70, 0.85); 
-            color: white; padding: 12px 5%; 
+            background: rgba(230, 57, 70, 0.95); 
+            color: white; padding: 10px 5%; 
             display: flex; justify-content: space-between; align-items: center;
-            position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            backdrop-filter: blur(5px);
+            position: sticky; top: 0; z-index: 1000;
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid rgba(255,255,255,0.1);
         }
-        .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-area img { height: 45px; }
-        .logo-area h2 { font-size: 16px; letter-spacing: 1px; }
-        nav { display: flex; align-items: center; }
-        nav a { color: white; text-decoration: none; margin-left: 12px; font-weight: bold; font-size: 11px; text-transform: uppercase; transition: 0.3s; }
-        nav a:hover { color: #1d3557; }
+        .logo-area { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .logo-area img { height: 35px; }
+        .logo-area h2 { font-size: 14px; letter-spacing: 0.5px; }
+
+        nav { 
+            display: flex; 
+            overflow-x: auto; 
+            white-space: nowrap; 
+            padding: 5px 0;
+            margin-left: 15px;
+            -webkit-overflow-scrolling: touch;
+        }
+        nav::-webkit-scrollbar { display: none; } /* Mobilde çirkin duran scroll barı gizle */
+
+        nav a { 
+            color: white; text-decoration: none; 
+            margin-left: 12px; font-weight: bold; font-size: 10px; 
+            text-transform: uppercase; flex-shrink: 0;
+            opacity: 0.9;
+            transition: 0.3s;
+        }
+        nav a:hover { opacity: 1; color: #1d3557; }
 
         /* HERO SECTION */
         .hero { 
-            background: transparent; 
             height: 400px; 
             display: flex; flex-direction: column; 
             justify-content: center; align-items: center; color: white; text-align: center;
             padding: 20px;
         }
-        .hero h1 { font-size: 40px; text-transform: uppercase; margin-bottom: 10px; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
-        .hero p { font-size: 18px; background: rgba(230, 57, 70, 0.9); padding: 8px 20px; border-radius: 5px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .hero h1 { font-size: 42px; text-transform: uppercase; margin-bottom: 10px; text-shadow: 2px 4px 15px rgba(0,0,0,0.8); font-weight: 900; }
+        .hero p { font-size: 16px; background: rgba(230, 57, 70, 0.9); padding: 6px 15px; border-radius: 5px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); text-transform: uppercase; font-weight: bold; }
 
         /* WHATSAPP BUTONU */
         .challenge-btn {
-            display: inline-block; padding: 12px 25px; background-color: #25d366; 
+            display: inline-block; padding: 12px 30px; background-color: #25d366; 
             color: white; text-decoration: none; font-weight: bold; border-radius: 50px; 
             font-size: 16px; transition: 0.3s; border: 2px solid white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
-        .challenge-btn:hover { transform: scale(1.1); background-color: #128c7e; }
+        .challenge-btn:hover { transform: translateY(-5px) scale(1.05); background-color: #128c7e; }
 
         /* BAŞLIKLAR */
         .section-title { 
@@ -68,47 +83,54 @@
             text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
         }
         
-        /* MAÇ KARTI - BUZLU CAM */
+        /* MAÇ KARTI - MODERN BUZLU CAM */
         .match-card { 
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(10px);
-            margin: 0 5% 20px 5%; 
-            padding: 25px; 
-            border-radius: 12px; 
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            margin: 0 5% 15px 5%; 
+            padding: 30px 20px; 
+            border-radius: 20px; 
             display: grid; 
             grid-template-columns: 1fr 80px 1fr; 
             align-items: center; 
-            gap: 20px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
-            border: 1px solid rgba(255,255,255,0.3);
+            gap: 15px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3); 
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
-        #ev-sahibi { text-align: right; padding-right: 10px; font-size: 20px; color: #1d3557; font-weight: bold; } 
-        #rakip-takim { text-align: left; padding-left: 10px; font-size: 20px; color: #1d3557; font-weight: bold; } 
+        .team h3 { font-size: 20px; color: #fff; font-weight: 900; text-transform: uppercase; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
+        #ev-sahibi { text-align: right; } 
+        #rakip-takim { text-align: left; } 
 
         .vs-circle { 
-            background: #e63946; color: white; width: 45px; height: 45px; border-radius: 50%; 
+            background: #e63946; color: white; width: 50px; height: 50px; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; font-weight: 900; 
-            margin: 0 auto; 
-            box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3);
+            margin: 0 auto; border: 3px solid rgba(255,255,255,0.3);
+            box-shadow: 0 0 15px rgba(230, 57, 70, 0.5);
         }
 
-        .match-details { text-align: center; color: white; margin-top: -10px; margin-bottom: 50px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+        .match-details { text-align: center; color: rgba(255,255,255,0.9); margin-bottom: 50px; font-weight: bold; }
+        .match-details p { margin: 5px 0; font-size: 14px; }
+        .match-details i { color: #e63946; margin-right: 5px; }
 
         /* FOOTER */
         footer { 
-            background: rgba(0, 0, 0, 0.8); 
-            color: #aaa; text-align: center; padding: 40px 20px; 
+            background: rgba(0, 0, 0, 0.85); 
+            color: #777; text-align: center; padding: 40px 20px; 
             margin-top: auto; border-top: 2px solid #e63946; 
-            backdrop-filter: blur(5px);
+            font-size: 12px;
         }
 
-        @media (max-width: 768px) {
-            .hero { height: 350px; } .hero h1 { font-size: 32px; }
-            .match-card { grid-template-columns: 1fr 60px 1fr; padding: 15px 10px; gap: 10px; }
-            #ev-sahibi, #rakip-takim { font-size: 14px; }
-            .logo-area h2 { font-size: 18px; } nav a { font-size: 10px; margin-left: 10px; }
-            .section-title { font-size: 20px; }
+        /* MOBİL DÜZENLEME */
+        @media (max-width: 600px) {
+            header { flex-direction: column; padding: 12px; }
+            .logo-area { margin-bottom: 8px; }
+            nav { width: 100%; justify-content: center; margin-left: 0; }
+            
+            .hero h1 { font-size: 28px; }
+            .match-card { grid-template-columns: 1fr 50px 1fr; padding: 20px 10px; }
+            .team h3 { font-size: 14px; }
+            .vs-circle { width: 40px; height: 40px; font-size: 12px; }
         }
     </style>
 </head>
@@ -120,7 +142,7 @@
             <h2>CHOCOLATE BOYS</h2>
         </div>
         <nav>
-            <a href="index.html">ANA SAYFA</a>
+            <a href="index.html" style="border-bottom: 2px solid white; padding-bottom: 2px;">ANA SAYFA</a>
             <a href="maclar.html">MAÇLAR</a>
             <a href="oyuncular.html">OYUNCULAR</a>
             <a href="galeri.html">GALERİ</a> 
@@ -152,22 +174,19 @@
     </div>
 
     <footer>
-        © 2026 Tüm Hakları Saklıdır.
+        © 2026 Chocolate Boys FC. Tüm Hakları Saklıdır.
     </footer>
 
     <script>
         // PANEL VERİLERİ VE ARKA PLAN YÖNETİMİ
         fetch('/content/ayarlar.json?t=' + Date.now()).then(res => res.json()).then(data => {
-            // Yazıları Güncelle
             document.getElementById('ana-slogan').innerText = data.slogan || "KIRMIZI BEYAZ AŞK!";
             document.getElementById('alt-slogan').innerText = data.alt_slogan || "BİR TAKIMDAN DAHA FAZLASI";
             if(data.btn_text) document.getElementById('btn-text-el').innerText = data.btn_text;
             if(data.whatsapp_no) document.getElementById('challenge-link').href = "https://wa.me/" + data.whatsapp_no.replace(/\D/g,'');
 
-            // --- ARKA PLAN RESMİNİ PANELDEKİNE GÖRE AYARLA ---
-            // Eğer panelden resim seçilmemişse senin o meşhur Unsplash linkini (çimen-top) kullanır.
             const bgUrl = data.bg_image || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600';
-            document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${bgUrl}')`;
+            document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${bgUrl}')`;
         });
 
         // MAÇ VERİLERİ
