@@ -9,7 +9,7 @@
         /* SIFIRLAMA VE AKICI KAYDIRMA */
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
         
-        /* --- YENİ ARKA PLAN AYARI (TÜM SAYFA) --- */
+        /* ARKA PLAN AYARI - JS GELENE KADAR SİYAH KALIR */
         body { 
             font-family: 'Segoe UI', sans-serif; 
             color: #333; 
@@ -17,20 +17,20 @@
             display: flex; 
             flex-direction: column; 
             min-height: 100vh;
-            /* Fotoğrafı tüm body'ye giydiriyoruz */
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600');
+            background-color: #121212; /* Yüklenirken siyah zemin */
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Sayfa kaysa da fotoğraf sabit kalır, şık durur */
+            background-attachment: fixed;
+            transition: background 0.5s ease-in-out; /* Resim gelince yumuşak geçiş yapar */
         }
         
-        /* HEADER / NAV (Şeffaf yaptık ki arkası görünsün) */
+        /* HEADER / NAV (Şeffaf buzlu cam) */
         header { 
-            background: rgba(230, 57, 70, 0.85); /* Hafif şeffaf kırmızı */
+            background: rgba(230, 57, 70, 0.85); 
             color: white; padding: 12px 5%; 
             display: flex; justify-content: space-between; align-items: center;
             position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            backdrop-filter: blur(5px); /* Arkadaki çimi hafif bulandırır */
+            backdrop-filter: blur(5px);
         }
         .logo-area { display: flex; align-items: center; gap: 10px; }
         .logo-area img { height: 45px; }
@@ -39,9 +39,9 @@
         nav a { color: white; text-decoration: none; margin-left: 12px; font-weight: bold; font-size: 11px; text-transform: uppercase; transition: 0.3s; }
         nav a:hover { color: #1d3557; }
 
-        /* HERO SECTION (Artık kendi arka planı yok, body'ninkini kullanıyor) */
+        /* HERO SECTION */
         .hero { 
-            background: transparent; /* Şeffaf */
+            background: transparent; 
             height: 400px; 
             display: flex; flex-direction: column; 
             justify-content: center; align-items: center; color: white; text-align: center;
@@ -59,20 +59,19 @@
         }
         .challenge-btn:hover { transform: scale(1.1); background-color: #128c7e; }
 
-        /* BAŞLIK (Karanlık çimde okunması için beyaz yaptık) */
+        /* BAŞLIKLAR */
         .section-title { 
             border-left: 5px solid #e63946; padding-left: 15px; 
             margin: 40px 5% 20px 5%; font-size: 24px; font-weight: 800; 
-            color: white; /* Beyaz başlık */
+            color: white;
             text-transform: uppercase; 
             text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
         }
         
-        /* MAÇ KARTI - BUZLU CAM EFEKTİ (Yazılar okunabilsin diye) */
+        /* MAÇ KARTI - BUZLU CAM */
         .match-card { 
-            /* background: white;  <-- Eskisi buydu */
-            background: rgba(255, 255, 255, 0.75); /* Yarı şeffaf beyaz */
-            backdrop-filter: blur(10px); /* Arkadaki çimi bulandırır (Buzlu cam efekti) */
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
             margin: 0 5% 20px 5%; 
             padding: 25px; 
             border-radius: 12px; 
@@ -81,7 +80,7 @@
             align-items: center; 
             gap: 20px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
-            border: 1px solid rgba(255,255,255,0.3); /* İnce beyaz sınır */
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
         #ev-sahibi { text-align: right; padding-right: 10px; font-size: 20px; color: #1d3557; font-weight: bold; } 
@@ -94,12 +93,11 @@
             box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3);
         }
 
-        /* Detaylar da beyaz olsun */
         .match-details { text-align: center; color: white; margin-top: -10px; margin-bottom: 50px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
 
-        /* FOOTER (Zaten siyahtı, uyumlu) */
+        /* FOOTER */
         footer { 
-            background: rgba(0, 0, 0, 0.8); /* Hafif şeffaf siyah */
+            background: rgba(0, 0, 0, 0.8); 
             color: #aaa; text-align: center; padding: 40px 20px; 
             margin-top: auto; border-top: 2px solid #e63946; 
             backdrop-filter: blur(5px);
@@ -107,7 +105,7 @@
 
         @media (max-width: 768px) {
             .hero { height: 350px; } .hero h1 { font-size: 32px; }
-            .match-card { grid-template-columns: 1fr 60px 1fr; padding: 15px 10px; gap: 10px; backdrop-filter: blur(5px); }
+            .match-card { grid-template-columns: 1fr 60px 1fr; padding: 15px 10px; gap: 10px; }
             #ev-sahibi, #rakip-takim { font-size: 14px; }
             .logo-area h2 { font-size: 18px; } nav a { font-size: 10px; margin-left: 10px; }
             .section-title { font-size: 20px; }
@@ -158,12 +156,18 @@
     </footer>
 
     <script>
-        // PANEL VERİLERİ
+        // PANEL VERİLERİ VE ARKA PLAN YÖNETİMİ
         fetch('/content/ayarlar.json?t=' + Date.now()).then(res => res.json()).then(data => {
+            // Yazıları Güncelle
             document.getElementById('ana-slogan').innerText = data.slogan || "KIRMIZI BEYAZ AŞK!";
             document.getElementById('alt-slogan').innerText = data.alt_slogan || "BİR TAKIMDAN DAHA FAZLASI";
             if(data.btn_text) document.getElementById('btn-text-el').innerText = data.btn_text;
             if(data.whatsapp_no) document.getElementById('challenge-link').href = "https://wa.me/" + data.whatsapp_no.replace(/\D/g,'');
+
+            // --- ARKA PLAN RESMİNİ PANELDEKİNE GÖRE AYARLA ---
+            // Eğer panelden resim seçilmemişse senin o meşhur Unsplash linkini (çimen-top) kullanır.
+            const bgUrl = data.bg_image || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600';
+            document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${bgUrl}')`;
         });
 
         // MAÇ VERİLERİ
