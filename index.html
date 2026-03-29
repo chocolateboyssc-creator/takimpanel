@@ -44,7 +44,7 @@
             margin-left: 15px;
             -webkit-overflow-scrolling: touch;
         }
-        nav::-webkit-scrollbar { display: none; } /* Mobilde çirkin duran scroll barı gizle */
+        nav::-webkit-scrollbar { display: none; }
 
         nav a { 
             color: white; text-decoration: none; 
@@ -83,7 +83,7 @@
             text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
         }
         
-        /* MAÇ KARTI - MODERN BUZLU CAM */
+        /* MAÇ KARTI */
         .match-card { 
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(15px);
@@ -113,12 +113,35 @@
         .match-details p { margin: 5px 0; font-size: 14px; }
         .match-details i { color: #e63946; margin-right: 5px; }
 
-        /* FOOTER */
+        /* FOOTER & INSTAGRAM LOGO */
         footer { 
             background: rgba(0, 0, 0, 0.85); 
-            color: #777; text-align: center; padding: 40px 20px; 
+            color: #ccc; text-align: center; padding: 40px 20px; 
             margin-top: auto; border-top: 2px solid #e63946; 
-            font-size: 12px;
+            font-size: 14px;
+        }
+
+        .footer-social {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .insta-btn {
+            color: #fff;
+            font-size: 28px;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0.8;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .insta-btn:hover {
+            opacity: 1;
+            transform: scale(1.2) rotate(5deg);
+            color: #E1306C;
+            filter: drop-shadow(0 0 8px rgba(225, 48, 108, 0.6));
         }
 
         /* MOBİL DÜZENLEME */
@@ -126,7 +149,6 @@
             header { flex-direction: column; padding: 12px; }
             .logo-area { margin-bottom: 8px; }
             nav { width: 100%; justify-content: center; margin-left: 0; }
-            
             .hero h1 { font-size: 28px; }
             .match-card { grid-template-columns: 1fr 50px 1fr; padding: 20px 10px; }
             .team h3 { font-size: 14px; }
@@ -174,7 +196,12 @@
     </div>
 
     <footer>
-        © 2026 Chocolate Boys FC. Tüm Hakları Saklıdır.
+        <p>© 2026 Chocolate Boys FC. Tüm Hakları Saklıdır.</p>
+        <div class="footer-social">
+            <a href="#" id="insta-link" class="insta-btn" target="_blank" title="Instagram'da Takip Et">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+        </div>
     </footer>
 
     <script>
@@ -184,6 +211,11 @@
             document.getElementById('alt-slogan').innerText = data.alt_slogan || "BİR TAKIMDAN DAHA FAZLASI";
             if(data.btn_text) document.getElementById('btn-text-el').innerText = data.btn_text;
             if(data.whatsapp_no) document.getElementById('challenge-link').href = "https://wa.me/" + data.whatsapp_no.replace(/\D/g,'');
+
+            // Instagram Linki
+            if(data.instagram_username) {
+                document.getElementById('insta-link').href = "https://www.instagram.com/" + data.instagram_username.replace('@', '');
+            }
 
             const bgUrl = data.bg_image || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600';
             document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${bgUrl}')`;
