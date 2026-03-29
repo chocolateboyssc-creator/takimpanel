@@ -14,7 +14,119 @@
       "asist": 0,
       "name": "4 | Egehan Ata Yücel",
       "image": "/images/egehan-ata-yücel.webp",
-      "position": "DEFANS"
+      "position": "ORTA SAHA"
+    },
+    {
+      "mac": 0,
+      "gol": 0,
+      "asist": 0,
+      "name": "7 | Arif Berk Kalay",
+      "position": "FORVET",
+      "image": "/images/soruisareti1.png"
+    },
+    {
+      "mac": 0,
+      "gol": 0,
+      "asist": 0,
+      "name": "8 | Doruk Efe Güner",
+      "position": "ORTA SAHA",
+      "image": "/images/soruisareti1.png"
+    },
+    {
+      "mac": 0,
+      "gol": 0,
+      "asist": 0,
+      "name": "9 | Egemen Akyol",
+      "position": "FORVET",
+      "image": "/images/soruisareti1.png"
+    },
+    {
+      "mac": 0,
+      "gol": 0,
+      "asist": 0,
+      "name": "10 | Miraç Enhar Yavuz",
+      "position": "ORTA SAHA",
+      "image": "/images/soruisareti1.png"
+    },
+    {
+      "mac": 0,
+      "gol": 0,
+      "asist": 0,
+      "name": "13 | Rüzgar Karadeniz",
+      "position": "DEFANS",
+      "image": "/images/Rüzgar Karadeniz 13.jpg"
+    },
+    {
+      "mac": 0,
+      "gol": 0,
+      "asist": 0,
+      "name": "17 | Ali Berkay Bacak",
+      "position": "FORVET",
+      "image": "/images/ali-berkay-bacak.webp"
+    },
+    {
+      "mac": 0,
+      "gol": 0,
+      "asist": 0,
+      "name": "23 | Ahmet Said Köktürk",
+      "position": "DEFANS",
+      "image": "/images/ahmed-said-köktürk.webp"
+    },
+    {
+      "mac": 0,
+      "gol": 0,
+      "asist": 0,
+      "name": "26 | İnanç Şentürk",
+      "position": "FORVET",
+      "image": "/images/i̇nanç-şentürk.webp"
+    },
+    {
+      "mac": 0,
+      "gol": 0,
+      "asist": 0,
+      "name": "37 | Emirhan Cilbirci",
+      "position": "ORTA SAHA",
+      "image": "/images/soruisareti1.png"
+    },
+    {
+      "mac": 0,
+      "gol": 0,
+      "asist": 0,
+      "name": "42 | Ahmet Kasım Tekfidan",
+      "image": "/images/ahmet-kasım-tekfidan.webp",
+      "position": "FORVET"
+    },
+    {
+      "mac": 0,
+      "gol": 0,
+      "asist": 0,
+      "name": "48 | Tuna Karaköse",
+      "position": "KALECİ",
+      "image": "/images/tuna-karaköse.webp"
+    },
+    {
+      "mac": 0,
+      "gol": 0,
+      "asist": 0,
+      "name": "55 | Yavuz Selim Korkmaz",
+      "position": "KALECİ",
+      "image": "/images/yavuz-selim-korkmaz.webp"
+    },
+    {
+      "mac": 0,
+      "gol": 0,
+      "asist": 0,
+      "name": "61 | Muhammed Ali Koç",
+      "position": "FORVET",
+      "image": "/images/soruisareti1.png"
+    },
+    {
+      "mac": 0,
+      "gol": 0,
+      "asist": 0,
+      "name": "74 | Samed Can Gürses",
+      "position": "DEFANS",
+      "image": "/images/samed-can-gürses.webp"
     }
   ]
 }
