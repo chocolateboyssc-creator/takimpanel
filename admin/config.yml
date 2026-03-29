@@ -9,7 +9,6 @@ media_folder: "images"
 public_folder: "/images"
 
 collections:
-  # 1. BÖLÜM: SİTE GENEL AYARLARI (Görsel ve Yazı)
   - name: "ayarlar"
     label: "Site Genel Ayarları"
     delete: false
@@ -24,9 +23,8 @@ collections:
           - {label: "Alt Slogan", name: "alt_slogan", widget: "string"}
           - {label: "WhatsApp Buton Yazısı", name: "btn_text", widget: "string", default: "BİZE HALISAHA TEKLİF ET"}
           - {label: "WhatsApp Numarası", name: "whatsapp_no", widget: "string"}
-          - {label: "Arka Plan Resmi", name: "bg_image", widget: "image", hint: "Ana sayfadaki o çimenli/futbolcu resmini buradan değiştirebilirsin."}
+          - {label: "Arka Plan Resmi", name: "bg_image", widget: "image", hint: "Ana sayfadaki arka plan resmini buradan değiştirebilirsin."}
 
-  # 2. BÖLÜM: SIRADAKİ MAÇ (Ana Sayfa ve Maçlar Sayfası için)
   - name: "siradaki_mac"
     label: "Sıradaki Maç Paneli"
     delete: false
@@ -37,11 +35,10 @@ collections:
         fields:
           - {label: "Bizim Takım", name: "ev_sahibi", widget: "string", default: "CHOCOLATE BOYS"}
           - {label: "Rakip Takım Adı", name: "rakip", widget: "string"}
-          - {label: "Maç Tarihi", name: "mac_tarih", widget: "string", hint: "Örn: 20 Mayıs Pazartesi"}
-          - {label: "Maç Saati", name: "saat", widget: "string", hint: "Örn: 22:00"}
+          - {label: "Maç Tarihi", name: "mac_tarih", widget: "string"}
+          - {label: "Maç Saati", name: "saat", widget: "string"}
           - {label: "Stadyum/Saha", name: "yer", widget: "string"}
 
-  # 3. BÖLÜM: GEÇMİŞ MAÇ SKORLARI (Maçlar Sayfası Alt Liste İçin)
   - name: "skorlar"
     label: "Geçmiş Maç Skorları"
     folder: "content/skorlar"
@@ -50,11 +47,10 @@ collections:
     fields:
       - {label: "Ev Sahibi", name: "ev_sahibi", widget: "string", default: "CHOCOLATE BOYS"}
       - {label: "Rakip Takım", name: "rakip", widget: "string"}
-      - {label: "Maç Skoru", name: "skor", widget: "string", hint: "Örn: 5 - 2"}
+      - {label: "Maç Skoru", name: "skor", widget: "string"}
       - {label: "Sonuç", name: "sonuc", widget: "select", options: [{label: "Galibiyet", value: "win"}, {label: "Mağlubiyet", value: "loss"}, {label: "Beraberlik", value: "draw"}]}
       - {label: "Maç Tarihi", name: "date", widget: "datetime"}
 
-  # 4. BÖLÜM: GALERİ (Hala Galeri sayfan olduğu için bunu tuttum)
   - name: "galeri"
     label: "Galeri Sayfası"
     folder: "content/galeri"
