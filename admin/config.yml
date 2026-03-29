@@ -66,15 +66,16 @@ collections:
     files:
       - label: "Tüm Oyuncuları Yönet"
         name: "liste"
-        file: "content/oyuncular.json" # ARTIK TÜM OYUNCULAR BURAYA KAYDOLACAK
+        file: "content/oyuncular.json" # Veri buraya tek parça gidecek
+        format: "json" # Formatın JSON olduğundan emin oluyoruz
         fields:
           - label: "Oyuncu Listesi"
             name: "players"
-            widget: "list" # Liste şeklinde ekleme yapmanı sağlar
+            widget: "list"
             fields:
               - {label: "Oyuncu Adı", name: "name", widget: "string"}
               - {label: "Mevki", name: "position", widget: "select", options: ["KALECİ", "DEFANS", "ORTA SAHA", "FORVET"]}
               - {label: "Oyuncu Fotoğrafı", name: "image", widget: "image", required: false}
-              - {label: "Oynadığı Maç", name: "mac", widget: "number", default: 0}
-              - {label: "Attığı Gol", name: "gol", widget: "number", default: 0}
-              - {label: "Yaptığı Asist", name: "asist", widget: "number", default: 0}
+              - {label: "Maç", name: "mac", widget: "number", default: 0}
+              - {label: "Gol", name: "gol", widget: "number", default: 0}
+              - {label: "Asist", name: "asist", widget: "number", default: 0}
