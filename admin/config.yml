@@ -59,3 +59,16 @@ collections:
     fields:
       - {label: "Fotoğraf Başlığı", name: "title", widget: "string"}
       - {label: "Fotoğraf Seç", name: "image", widget: "image"}
+
+  - name: "oyuncular"
+    label: "Takım Kadrosu"
+    folder: "content/oyuncular" # Her oyuncu için ayrı dosya oluşur
+    create: true
+    slug: "{{name}}"
+    fields:
+      - {label: "Oyuncu Adı", name: "name", widget: "string"}
+      - {label: "Mevki", name: "position", widget: "select", options: ["KALECİ", "DEFANS", "ORTA SAHA", "FORVET"]}
+      - {label: "Oyuncu Fotoğrafı", name: "image", widget: "image", required: false}
+      - {label: "Oynadığı Maç", name: "mac", widget: "number", default: 0}
+      - {label: "Attığı Gol", name: "gol", widget: "number", default: 0}
+      - {label: "Yaptığı Asist", name: "asist", widget: "number", default: 0}
