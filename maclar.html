@@ -27,6 +27,7 @@
             display: flex; justify-content: space-between; align-items: center; 
             position: sticky; top: 0; z-index: 1000; 
             backdrop-filter: blur(15px);
+            border-bottom: 2px solid rgba(255,255,255,0.1);
         }
         .logo-area { display: flex; align-items: center; gap: 8px; text-decoration: none; color: white; flex-shrink: 0; }
         .logo-area img { height: 35px; }
@@ -46,13 +47,16 @@
             color: white; text-decoration: none; 
             margin-left: 12px; font-weight: bold; font-size: 10px; 
             text-transform: uppercase; flex-shrink: 0;
+            opacity: 0.9;
+            transition: 0.3s;
         }
-        nav a.active { border-bottom: 2px solid white; padding-bottom: 2px; }
+        nav a:hover { opacity: 1; color: #1d3557; }
+        nav a.active { border-bottom: 2px solid white; padding-bottom: 2px; opacity: 1; }
 
         .container { padding: 40px 5%; flex: 1; }
         .section-title { font-size: 26px; color: #fff; text-transform: uppercase; font-weight: 900; margin-bottom: 20px; border-left: 5px solid #e63946; padding-left: 15px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
 
-        /* SIRADAKİ MAÇ KARTI - BUZLU CAM */
+        /* SIRADAKİ MAÇ KARTI */
         .next-match { 
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
@@ -89,7 +93,7 @@
         .match-meta { margin-top: 25px; color: #ccc; font-size: 14px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; font-weight: bold; }
         .match-meta i { color: #e63946; }
 
-        /* GEÇMİŞ MAÇLAR - BUZLU CAM LİSTE */
+        /* GEÇMİŞ MAÇLAR */
         .history-list { display: flex; flex-direction: column; gap: 12px; }
         .history-item { 
             background: rgba(0,0,0,0.4); 
@@ -107,7 +111,6 @@
         .history-item:hover { transform: scale(1.02); border-color: #e63946; background: rgba(0,0,0,0.6); }
         
         .score { 
-            font-family: 'Segoe UI', sans-serif; 
             font-size: 18px; 
             font-weight: 900; 
             background: #e63946; 
@@ -119,18 +122,32 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
         
-        /* Sonuç Çizgileri */
+        /* Sonuç Renkleri */
         .win { border-left: 6px solid #25d366 !important; }
         .loss { border-left: 6px solid #e63946 !important; }
         .draw { border-left: 6px solid #f1faee !important; }
 
-        footer { background: rgba(0,0,0,0.8); color: #777; text-align: center; padding: 30px 20px; font-size: 12px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: auto; }
+        /* FOOTER & INSTAGRAM */
+        footer { 
+            background: rgba(0, 0, 0, 0.85); 
+            color: #ccc; text-align: center; padding: 40px 20px; 
+            font-size: 14px; border-top: 2px solid #e63946; margin-top: auto; 
+        }
+        
+        .footer-social { margin-top: 15px; display: flex; justify-content: center; gap: 20px; }
+        .insta-btn {
+            color: #fff; font-size: 28px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0.8; text-decoration: none; display: inline-block;
+        }
+        .insta-btn:hover {
+            opacity: 1; transform: scale(1.2) rotate(5deg);
+            color: #E1306C; filter: drop-shadow(0 0 8px rgba(225, 48, 108, 0.6));
+        }
 
         @media (max-width: 600px) {
             header { flex-direction: column; padding: 12px; }
             .logo-area { margin-bottom: 8px; }
             nav { width: 100%; justify-content: center; margin-left: 0; }
-            
             .match-grid { grid-template-columns: 1fr 60px 1fr; gap: 10px; }
             .team-info h3 { font-size: 14px; }
             .vs-box { width: 40px; height: 40px; font-size: 14px; }
@@ -159,7 +176,7 @@
         <h2 class="section-title">SIRADAKİ RANDEVU</h2>
         <div class="next-match">
             <div class="match-grid">
-                <div class="team-info team-left"><h3>CHOCOLATE BOYS</h3></div>
+                <div class="team-info team-left"><h3 id="ev-ad">CHOCOLATE BOYS</h3></div>
                 <div class="vs-box">VS</div>
                 <div class="team-info team-right"><h3 id="rakip-ad">Yükleniyor...</h3></div>
             </div>
@@ -176,24 +193,37 @@
         </div>
     </div>
 
-    <footer>© 2026 Chocolate Boys FC. Tüm Hakları Saklıdır.</footer>
+    <footer>
+        <p>© 2026 Chocolate Boys FC. Tüm Hakları Saklıdır.</p>
+        <div class="footer-social">
+            <a href="#" id="insta-link" class="insta-btn" target="_blank">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+        </div>
+    </footer>
 
     <script>
-        // Arka Planı Ayarlar'dan Çek
+        // Arka Plan ve Sosyal Medya Ayarları
         fetch('/content/ayarlar.json?t=' + Date.now()).then(res => res.json()).then(data => {
             const bgUrl = data.bg_image || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600';
             document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${bgUrl}')`;
+            
+            if(data.instagram_username) {
+                document.getElementById('insta-link').href = "https://www.instagram.com/" + data.instagram_username.replace('@', '');
+            }
         });
 
         // SIRADAKİ MAÇ VERİSİ
         fetch('/content/mac.json?t=' + Date.now()).then(res => res.json()).then(data => {
+            // Ev sahibi kontrolü (boşsa varsayılan isim)
+            document.getElementById('ev-ad').innerText = (data.ev_sahibi && data.ev_sahibi.trim() !== "") ? data.ev_sahibi : "CHOCOLATE BOYS";
             document.getElementById('rakip-ad').innerText = data.rakip || "Rakip Bekleniyor";
             document.getElementById('mac-gun').innerText = data.mac_tarih || "Tarih Belirlenmedi";
             document.getElementById('mac-saat').innerText = data.saat || "--:--";
             document.getElementById('mac-saha').innerText = data.yer || "Saha Belirlenmedi";
         });
 
-        // GEÇMİŞ MAÇLAR
+        // GEÇMİŞ MAÇLAR (GITHUB API)
         async function loadScores() {
             const container = document.getElementById('history-container');
             try {
@@ -207,8 +237,7 @@
                     return;
                 }
 
-                // Dosyaları ters sıralayalım (Son maç en üstte)
-                files.reverse();
+                files.reverse(); // Son maç en üstte
 
                 for (const file of files) {
                     if (file.name.endsWith('.md')) {
