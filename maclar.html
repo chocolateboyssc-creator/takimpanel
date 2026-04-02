@@ -6,6 +6,7 @@
     <title>Maçlar | Chocolate Boys FC</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* TEMEL AYARLAR */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
             font-family: 'Segoe UI', sans-serif; 
@@ -18,6 +19,8 @@
             background-position: center;
             background-attachment: fixed;
         }
+
+        /* HEADER & NAV */
         header { 
             background: rgba(230, 57, 70, 0.95); 
             color: white; padding: 10px 5%; 
@@ -35,17 +38,20 @@
         nav a { color: white; text-decoration: none; margin-left: 12px; font-weight: bold; font-size: 10px; text-transform: uppercase; flex-shrink: 0; opacity: 0.9; }
         nav a.active { border-bottom: 2px solid white; padding-bottom: 2px; opacity: 1; }
 
-        .container { padding: 40px 5%; flex: 1; }
-        .section-title { font-size: 26px; color: #fff; text-transform: uppercase; font-weight: 900; margin-bottom: 20px; border-left: 5px solid #e63946; padding-left: 15px; }
+        /* KONTEYNER */
+        .container { padding: 30px 5%; flex: 1; }
+        .section-title { font-size: 24px; color: #fff; text-transform: uppercase; font-weight: 900; margin-bottom: 20px; border-left: 5px solid #e63946; padding-left: 15px; }
 
+        /* MAÇ KARTI (MOBİL UYUMLU) */
         .next-match { 
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
-            padding: 40px 20px; 
+            padding: 30px 15px; 
             border-radius: 20px; 
             text-align: center; 
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         .live-match { border: 2px solid #e63946; animation: pulse 2s infinite; }
         @keyframes pulse {
@@ -53,44 +59,72 @@
             70% { box-shadow: 0 0 0 15px rgba(230, 57, 70, 0); }
             100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); }
         }
-        .live-dot { color: #ff0000; animation: blink 1s infinite; margin-right: 8px; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
-        .match-grid { display: grid; grid-template-columns: 1fr 100px 1fr; align-items: center; gap: 20px; }
-        .team-info h3 { font-size: 22px; text-transform: uppercase; font-weight: 900; }
+        .match-grid { 
+            display: flex; 
+            justify-content: space-around; 
+            align-items: center; 
+            gap: 10px;
+            flex-wrap: wrap; /* Mobilde sıkışınca alt alta geçer */
+        }
+        .team-info { flex: 1; min-width: 100px; }
+        .team-info h3 { font-size: 18px; text-transform: uppercase; font-weight: 900; }
+
         .vs-box { 
-            background: #e63946; min-width: 60px; height: 60px; border-radius: 30px; 
-            display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; 
-            margin: 0 auto; box-shadow: 0 0 20px rgba(230, 57, 70, 0.5);
+            background: #e63946; 
+            min-width: 70px; 
+            padding: 10px;
+            height: 60px; 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-weight: 900; 
+            font-size: 22px; 
+            box-shadow: 0 0 20px rgba(230, 57, 70, 0.5);
         }
 
-        .match-meta { margin-top: 25px; color: #ccc; font-size: 14px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-        
+        /* METADATA (DAKİKA VE DURUM) */
+        .match-meta { 
+            margin-top: 20px; 
+            color: #ccc; 
+            font-size: 14px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            gap: 10px; 
+            flex-wrap: wrap; 
+        }
+        .live-dot { color: #ff0000; animation: blink 1s infinite; margin-right: 5px; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        /* GEÇMİŞ SONUÇLAR */
         .history-list { display: flex; flex-direction: column; gap: 12px; }
         .history-item { 
-            background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); padding: 15px 25px; border-radius: 15px;
-            display: grid; grid-template-columns: 1fr 100px 1fr; align-items: center; gap: 15px; 
+            background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); padding: 15px; border-radius: 15px;
+            display: flex; justify-content: space-between; align-items: center;
             border: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s;
         }
         .history-item:hover { border-color: #e63946; background: rgba(0,0,0,0.6); }
-        .score-pill { font-size: 18px; font-weight: 900; background: #e63946; padding: 5px 12px; border-radius: 8px; text-align: center; }
+        .score-pill { font-size: 16px; font-weight: 900; background: #e63946; padding: 5px 15px; border-radius: 8px; min-width: 60px; text-align: center; }
 
         /* MODAL */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); }
-        .modal-content { background: #1a1a1a; margin: 5% auto; padding: 30px; border: 1px solid #e63946; width: 90%; max-width: 550px; border-radius: 20px; position: relative; color: white; max-height: 85vh; overflow-y: auto; }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); }
+        .modal-content { background: #1a1a1a; margin: 5% auto; padding: 25px; border: 1px solid #e63946; width: 90%; max-width: 500px; border-radius: 20px; position: relative; color: white; max-height: 85vh; overflow-y: auto; }
         .close-modal { position: absolute; right: 20px; top: 15px; font-size: 30px; cursor: pointer; color: #e63946; }
-        .detail-section { margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
-        .detail-section h4 { color: #e63946; text-transform: uppercase; margin-bottom: 10px; }
-        .detail-list { list-style: none; }
-        .detail-list li { margin-bottom: 5px; font-size: 14px; opacity: 0.9; }
+        .detail-section { margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
+        .detail-section h4 { color: #e63946; text-transform: uppercase; margin-bottom: 10px; font-size: 14px; }
+        .detail-list { list-style: none; padding-left: 5px; }
+        .detail-list li { margin-bottom: 5px; font-size: 13px; opacity: 0.9; }
 
-        footer { background: rgba(0, 0, 0, 0.85); color: #ccc; text-align: center; padding: 40px 20px; font-size: 14px; border-top: 2px solid #e63946; margin-top: auto; }
+        footer { background: rgba(0, 0, 0, 0.9); color: #ccc; text-align: center; padding: 30px 20px; font-size: 12px; border-top: 2px solid #e63946; margin-top: auto; }
 
+        /* MOBİL DOKUNUŞLAR */
         @media (max-width: 600px) {
-            .match-grid { grid-template-columns: 1fr 65px 1fr; }
             .team-info h3 { font-size: 14px; }
-            .vs-box { min-width: 50px; height: 50px; font-size: 14px; }
-            .history-item { grid-template-columns: 1fr 85px 1fr; padding: 12px 10px; }
+            .vs-box { min-width: 60px; height: 50px; font-size: 18px; }
+            .section-title { font-size: 20px; }
+            .history-item { font-size: 13px; }
         }
     </style>
 </head>
@@ -98,7 +132,13 @@
 
     <header>
         <a href="index.html" class="logo-area"><img src="images/logo.png" alt="CB"><h2>CHOCOLATE BOYS</h2></a>
-        <nav><a href="index.html">ANA SAYFA</a><a href="maclar.html" class="active">MAÇLAR</a><a href="oyuncular.html">OYUNCULAR</a><a href="galeri.html">GALERİ</a><a href="store.html">STORE</a></nav>
+        <nav>
+            <a href="index.html">ANA SAYFA</a>
+            <a href="maclar.html" class="active">MAÇLAR</a>
+            <a href="oyuncular.html">OYUNCULAR</a>
+            <a href="galeri.html">GALERİ</a>
+            <a href="store.html">STORE</a>
+        </nav>
     </header>
 
     <div class="container">
@@ -123,7 +163,7 @@
         </div>
     </div>
 
-    <footer><p>© 2026 Chocolate Boys FC.</p></footer>
+    <footer><p>© 2026 Chocolate Boys FC. Tüm Hakları Saklıdır.</p></footer>
 
     <script>
         async function init() {
@@ -136,17 +176,28 @@
                     document.getElementById('next-match-card').classList.add('live-match');
                     document.getElementById('rakip-ad').innerText = ayarlar.rakip || "RAKİP";
                     document.getElementById('vs-box-main').innerText = ayarlar.skor || "0-0";
+                    
+                    // Dakika ve Durum Ayrımı (Hata Giderildi)
+                    const dk = ayarlar.dakika ? ayarlar.dakika + "'" : "BAŞLADI";
+                    const durum = ayarlar.durum ? ayarlar.durum : "MAÇ DEVAM EDİYOR";
+
                     document.getElementById('match-details').innerHTML = `
-                        <div style="font-size:18px; font-weight:bold; color:#e63946;">
-                            <i class="fa-solid fa-clock"></i> DAKİKA: ${ayarlar.dakika || "BAŞLADI"} | ${ayarlar.durum || "DEVAM EDİYOR"}
+                        <div style="font-weight:bold; color:#e63946; display:flex; gap:10px; align-items:center;">
+                            <span><i class="fa-solid fa-stopwatch"></i> ${dk}</span>
+                            <span style="color:#444;">|</span>
+                            <span style="text-transform:uppercase; color:#fff;">${durum}</span>
                         </div>`;
                 } else {
                     const resMac = await fetch('/content/mac.json?t=' + Date.now());
                     const macData = await resMac.json();
                     document.getElementById('rakip-ad').innerText = macData.rakip || "Rakip Bekleniyor";
-                    document.getElementById('match-details').innerHTML = `<span><i class="fa-solid fa-calendar"></i> ${macData.mac_tarih || "-"}</span> | <span><i class="fa-solid fa-location-dot"></i> ${macData.yer || "-"}</span>`;
+                    document.getElementById('vs-box-main').innerText = "VS";
+                    document.getElementById('match-details').innerHTML = `
+                        <span><i class="fa-solid fa-calendar"></i> ${macData.mac_tarih || "-"}</span> 
+                        <span style="color:#444;">|</span>
+                        <span><i class="fa-solid fa-location-dot"></i> ${macData.yer || "-"}</span>`;
                 }
-            } catch (e) { console.error("Hata!"); }
+            } catch (e) { console.error("Ayarlar yüklenemedi!"); }
             loadScores();
         }
 
@@ -161,6 +212,7 @@
                 for (const file of mdFiles) {
                     const res = await fetch(file.download_url);
                     const text = await res.text();
+                    
                     const getVal = (key) => {
                         const regex = new RegExp(`^${key}:\\s*(.*)`, 'im');
                         const match = text.match(regex);
@@ -168,8 +220,10 @@
                     };
 
                     const data = {
-                        ev: getVal('ev_sahibi') || "CB FC", rakip: getVal('rakip') || "Rakip",
-                        skor: getVal('skor') || "0-0", kadro: getVal('kadro'),
+                        ev: getVal('ev_sahibi') || "CB FC", 
+                        rakip: getVal('rakip') || "Rakip",
+                        skor: getVal('skor') || "0-0", 
+                        kadro: getVal('kadro'),
                         detaylar: Array.from(text.matchAll(/^\s*-\s*detay:\s*(.*)/gm)).map(m => m[1]),
                         notlar: text.split('---').pop().trim()
                     };
@@ -179,13 +233,17 @@
                     item.onclick = () => {
                         const modal = document.getElementById('matchModal');
                         document.getElementById('modal-body').innerHTML = `
-                            <h2 style="text-align:center;color:#e63946;margin-bottom:20px;">${data.ev} ${data.skor} ${data.rakip}</h2>
+                            <h2 style="text-align:center;color:#e63946;margin-bottom:20px; font-size:18px;">${data.ev} ${data.skor} ${data.rakip}</h2>
                             <div class="detail-section"><h4>KADRO</h4><ul class="detail-list" style="display:grid;grid-template-columns:1fr 1fr;">${data.kadro ? data.kadro.split(',').map(p=>`<li>• ${p.trim()}</li>`).join('') : 'Girilmedi'}</ul></div>
                             <div class="detail-section"><h4>DETAYLAR</h4><ul class="detail-list">${data.detaylar.length ? data.detaylar.map(d=>`<li>⚽ ${d}</li>`).join('') : 'Veri yok'}</ul></div>
-                            <div class="detail-section" style="border:none;"><h4>NOT</h4><p>${data.notlar || 'Yok'}</p></div>`;
+                            <div class="detail-section" style="border:none;"><h4>NOT</h4><p style="font-size:13px; opacity:0.8;">${data.notlar || 'Yok'}</p></div>`;
                         modal.style.display = "block";
                     };
-                    item.innerHTML = `<div style="text-align:right;">${data.ev}</div><div class="score-pill">${data.skor}</div><div style="text-align:left;">${data.rakip}</div>`;
+                    item.innerHTML = `
+                        <div style="flex:1; text-align:right; font-weight:bold;">${data.ev}</div>
+                        <div class="score-pill" style="margin:0 15px;">${data.skor}</div>
+                        <div style="flex:1; text-align:left; font-weight:bold;">${data.rakip}</div>
+                    `;
                     container.appendChild(item);
                 }
             } catch(e) { container.innerHTML = "<p>Skorlar yüklenemedi.</p>"; }
@@ -193,6 +251,7 @@
 
         document.querySelector('.close-modal').onclick = () => document.getElementById('matchModal').style.display = "none";
         window.onclick = (e) => { if (e.target.id == 'matchModal') document.getElementById('matchModal').style.display = "none"; }
+        
         init();
     </script>
 </body>
