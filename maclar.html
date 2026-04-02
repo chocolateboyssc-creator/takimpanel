@@ -56,7 +56,7 @@
         .container { padding: 40px 5%; flex: 1; }
         .section-title { font-size: 26px; color: #fff; text-transform: uppercase; font-weight: 900; margin-bottom: 20px; border-left: 5px solid #e63946; padding-left: 15px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
 
-        /* SIRADAKİ MAÇ KARTI */
+        /* SIRADAKİ MAÇ / CANLI MAÇ KARTI */
         .next-match { 
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
@@ -66,8 +66,16 @@
             margin-bottom: 50px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
             border: 1px solid rgba(255,255,255,0.2);
+            transition: 0.5s;
         }
         
+        .live-match { border: 2px solid #e63946; animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(230, 57, 70, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); }
+        }
+
         .match-grid { 
             display: grid; 
             grid-template-columns: 1fr 100px 1fr; 
@@ -81,13 +89,14 @@
 
         .vs-box { 
             background: #e63946; 
-            width: 55px; height: 55px; 
-            border-radius: 50%; 
+            min-width: 55px; height: 55px; 
+            border-radius: 27px; 
             display: flex; align-items: center; justify-content: center; 
             font-weight: 900; font-size: 18px; 
             margin: 0 auto; 
             box-shadow: 0 0 20px rgba(230, 57, 70, 0.5);
             border: 2px solid rgba(255,255,255,0.3);
+            padding: 0 10px;
         }
 
         .match-meta { margin-top: 25px; color: #ccc; font-size: 14px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; font-weight: bold; }
@@ -150,7 +159,7 @@
             nav { width: 100%; justify-content: center; margin-left: 0; }
             .match-grid { grid-template-columns: 1fr 60px 1fr; gap: 10px; }
             .team-info h3 { font-size: 14px; }
-            .vs-box { width: 40px; height: 40px; font-size: 14px; }
+            .vs-box { width: auto; min-width: 45px; height: 45px; font-size: 14px; padding: 0 5px; }
             .history-item { grid-template-columns: 1fr 80px 1fr; padding: 12px 10px; font-size: 12px; }
             .score { font-size: 16px; min-width: 60px; }
         }
@@ -173,14 +182,14 @@
     </header>
 
     <div class="container">
-        <h2 class="section-title">SIRADAKİ RANDEVU</h2>
-        <div class="next-match">
+        <h2 id="match-title" class="section-title">SIRADAKİ RANDEVU</h2>
+        <div id="next-match-card" class="next-match">
             <div class="match-grid">
                 <div class="team-info team-left"><h3 id="ev-ad">CHOCOLATE BOYS</h3></div>
-                <div class="vs-box">VS</div>
+                <div id="vs-box-main" class="vs-box">VS</div>
                 <div class="team-info team-right"><h3 id="rakip-ad">Yükleniyor...</h3></div>
             </div>
-            <div class="match-meta">
+            <div id="match-details" class="match-meta">
                 <span><i class="fa-solid fa-calendar"></i> <span id="mac-gun">---</span></span>
                 <span><i class="fa-solid fa-clock"></i> <span id="mac-saat">---</span></span>
                 <span><i class="fa-solid fa-location-dot"></i> <span id="mac-saha">---</span></span>
@@ -203,25 +212,54 @@
     </footer>
 
     <script>
-        // Arka Plan ve Sosyal Medya Ayarları
-        fetch('/content/ayarlar.json?t=' + Date.now()).then(res => res.json()).then(data => {
-            const bgUrl = data.bg_image || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600';
-            document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${bgUrl}')`;
-            
-            if(data.instagram_username) {
-                document.getElementById('insta-link').href = "https://www.instagram.com/" + data.instagram_username.replace('@', '');
-            }
-        });
+        // Sayfa Başlatma
+        async function init() {
+            try {
+                // 1. Ayarları Çek (Canlı Maç Kontrolü İçin)
+                const resAyarlar = await fetch('/content/ayarlar.json?t=' + Date.now());
+                const ayarlar = await resAyarlar.json();
+                
+                // Arka Plan ve Sosyal Medya
+                const bgUrl = ayarlar.bg_image || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600';
+                document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${bgUrl}')`;
+                if(ayarlar.instagram_username) {
+                    document.getElementById('insta-link').href = "https://www.instagram.com/" + ayarlar.instagram_username.replace('@', '');
+                }
 
-        // SIRADAKİ MAÇ VERİSİ
-        fetch('/content/mac.json?t=' + Date.now()).then(res => res.json()).then(data => {
-            // Ev sahibi kontrolü (boşsa varsayılan isim)
-            document.getElementById('ev-ad').innerText = (data.ev_sahibi && data.ev_sahibi.trim() !== "") ? data.ev_sahibi : "CHOCOLATE BOYS";
-            document.getElementById('rakip-ad').innerText = data.rakip || "Rakip Bekleniyor";
-            document.getElementById('mac-gun').innerText = data.mac_tarih || "Tarih Belirlenmedi";
-            document.getElementById('mac-saat').innerText = data.saat || "--:--";
-            document.getElementById('mac-saha').innerText = data.yer || "Saha Belirlenmedi";
-        });
+                // Canlı Maç Mantığı
+                if (ayarlar.canli_mac === true) {
+                    document.getElementById('match-title').innerHTML = '<span style="color:#e63946">●</span> ŞU AN OYNANIYOR';
+                    document.getElementById('next-match-card').classList.add('live-match');
+                    document.getElementById('ev-ad').innerText = "CHOCOLATE BOYS";
+                    document.getElementById('rakip-ad').innerText = ayarlar.rakip || "RAKİP";
+                    document.getElementById('vs-box-main').innerText = ayarlar.skor || "0 - 0";
+                    
+                    // Canlı Dakika Hesaplama
+                    let dak = "Canlı";
+                    if(ayarlar.baslangic_saati) {
+                        const simdi = new Date();
+                        const [saat, dak] = ayarlar.baslangic_saati.split(':');
+                        const baslangic = new Date();
+                        baslangic.setHours(saat, dak, 0);
+                        const fark = Math.floor((simdi - baslangic) / 60000);
+                        dak = fark > 0 ? fark + "'" : "1'";
+                    }
+                    document.getElementById('match-details').innerHTML = `<span><i class="fa-solid fa-stopwatch"></i> MAÇ SÜRÜYOR: ${dak}</span>`;
+                } else {
+                    // Normal Sıradaki Maçı Çek
+                    const resMac = await fetch('/content/mac.json?t=' + Date.now());
+                    const macData = await resMac.json();
+                    document.getElementById('ev-ad').innerText = macData.ev_sahibi || "CHOCOLATE BOYS";
+                    document.getElementById('rakip-ad').innerText = macData.rakip || "Rakip Bekleniyor";
+                    document.getElementById('mac-gun').innerText = macData.mac_tarih || "Tarih Belirlenmedi";
+                    document.getElementById('mac-saat').innerText = macData.saat || "--:--";
+                    document.getElementById('mac-saha').innerText = macData.yer || "Saha Belirlenmedi";
+                }
+            } catch (e) { console.error("Ayarlar yüklenemedi"); }
+
+            // 2. Geçmiş Skorları Yükle
+            loadScores();
+        }
 
         // GEÇMİŞ MAÇLAR (GITHUB API)
         async function loadScores() {
@@ -240,29 +278,39 @@
                 files.reverse(); // Son maç en üstte
 
                 for (const file of files) {
-                    if (file.name.endsWith('.md')) {
-                        const res = await fetch(file.download_url);
-                        const text = await res.text();
-                        
-                        const evMatch = text.match(/ev_sahibi:\s*(.*)/);
-                        const ev = (evMatch && evMatch[1].trim() !== "") ? evMatch[1].trim() : "CHOCOLATE BOYS";
-                        const rakip = text.match(/rakip:\s*(.*)/)?.[1] || "Rakip";
-                        const skor = text.match(/skor:\s*(.*)/)?.[1] || "0-0";
-                        const sonuc = text.match(/sonuc:\s*(.*)/)?.[1]?.trim() || "draw";
+                    const res = await fetch(file.download_url);
+                    const text = await res.text();
+                    
+                    let ev, rakip, skor, sonuc;
 
-                        const item = document.createElement('div');
-                        item.className = `history-item ${sonuc}`;
-                        item.innerHTML = `
-                            <div style="text-align:right; font-weight:900; text-transform:uppercase;">${ev}</div>
-                            <div class="score">${skor}</div>
-                            <div style="text-align:left; font-weight:900; text-transform:uppercase;">${rakip}</div>
-                        `;
-                        container.appendChild(item);
+                    if (file.name.endsWith('.json')) {
+                        const data = JSON.parse(text);
+                        ev = data.ev_sahibi || "CHOCOLATE BOYS";
+                        rakip = data.rakip || "Rakip";
+                        skor = data.skor || "0-0";
+                        sonuc = data.sonuc || "draw";
+                    } else {
+                        // Markdown (.md) içindeki veriyi çekme
+                        const evMatch = text.match(/ev_sahibi:\s*(.*)/);
+                        ev = (evMatch && evMatch[1].trim() !== "") ? evMatch[1].trim().replace(/"/g, '') : "CHOCOLATE BOYS";
+                        rakip = text.match(/rakip:\s*(.*)/)?.[1]?.replace(/"/g, '') || "Rakip";
+                        skor = text.match(/skor:\s*(.*)/)?.[1]?.replace(/"/g, '') || "0-0";
+                        sonuc = text.match(/sonuc:\s*(.*)/)?.[1]?.trim() || "draw";
                     }
+
+                    const item = document.createElement('div');
+                    item.className = `history-item ${sonuc}`;
+                    item.innerHTML = `
+                        <div style="text-align:right; font-weight:900; text-transform:uppercase;">${ev}</div>
+                        <div class="score">${skor}</div>
+                        <div style="text-align:left; font-weight:900; text-transform:uppercase;">${rakip}</div>
+                    `;
+                    container.appendChild(item);
                 }
             } catch(e) { container.innerHTML = "Skorlar yüklenirken bir sorun oluştu."; }
         }
-        loadScores();
+
+        init();
     </script>
 </body>
 </html>
