@@ -19,7 +19,7 @@
     {
       "mac": 0,
       "gol": 0,
-      "asist": 1,
+      "asist": 0,
       "name": "7 | Arif Berk Kalay",
       "position": "FORVET",
       "image": "/images/soruisareti1.png"
@@ -84,7 +84,7 @@
       "mac": 0,
       "gol": 1,
       "asist": 0,
-      "name": "37 | Emirhan Cilbirci",
+      "name": "37 | Emirhan Cilbircioğlu",
       "position": "ORTA SAHA",
       "image": "/images/soruisareti1.png"
     },
@@ -115,7 +115,7 @@
     {
       "mac": 0,
       "gol": 0,
-      "asist": 1,
+      "asist": 0,
       "name": "61 | Muhammed Ali Koç",
       "position": "ORTA SAHA",
       "image": "/images/alikoc.jpeg"
