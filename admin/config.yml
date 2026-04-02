@@ -6,30 +6,32 @@ backend:
   auth_endpoint: auth
 
 media_folder: "images"
-public_folder: "images"
+public_folder: "/images"
 
 collections:
   - name: "ayarlar"
-    label: "Site Genel & Canlı Maç"
+    label: "Site Genel Ayarları"
     delete: false
     editor:
       preview: false
     files:
-      - label: "Ana Sayfa ve Canlı Skor Paneli"
+      - label: "Ana Sayfa Yazıları ve Görünüm"
         name: "site_text"
         file: "content/ayarlar.json"
         fields:
-          - {label: "--- CANLI MAÇ AYARLARI ---", name: "info_live", widget: "hidden", default: "live"}
-          - {label: "Canlı Maç Modu", name: "canli_mac", widget: "boolean", default: false}
-          - {label: "Maç Başlangıç Saati", name: "baslangic_saati", widget: "datetime", format: "HH:mm", date_format: false, time_format: "HH:mm", hint: "Maçın başladığı saati gir, dakika otomatik sayar."}
-          - {label: "Anlık Skor", name: "skor", widget: "string", default: "0 - 0"}
-          - {label: "Canlı Maç Rakibi", name: "rakip", widget: "string", default: "Rakip"}
-          - {label: "--- GENEL AYARLAR ---", name: "info_genel", widget: "hidden", default: "general"}
           - {label: "Ana Slogan", name: "slogan", widget: "string"}
           - {label: "Alt Slogan", name: "alt_slogan", widget: "string"}
           - {label: "WhatsApp Buton Yazısı", name: "btn_text", widget: "string", default: "BİZE HALISAHA TEKLİF ET"}
           - {label: "WhatsApp Numarası", name: "whatsapp_no", widget: "string"}
-          - {label: "Arka Plan Resmi", name: "bg_image", widget: "image"}
+          - {label: "Instagram Kullanıcı Adı", name: "instagram_username", widget: "string", hint: "@ sembolü olmadan yazın"}
+          - {label: "Arka Plan Resmi", name: "bg_image", widget: "image", hint: "Ana sayfadaki arka plan resmini buradan değiştirebilirsin."}
+          
+          # --- CANLI MAÇ MODU EKLEMELERİ ---
+          - {label: "--- CANLI MAÇ MODU ---", name: "divider_live", widget: "hidden", default: ""}
+          - {label: "Canlı Maç Aktif Mi?", name: "canli_mac", widget: "boolean", default: false, hint: "Açarsanız ana sayfada skor tabelası görünür."}
+          - {label: "Canlı Maç Rakibi", name: "rakip", widget: "string", required: false, hint: "Canlı maçtaki rakip takım adı"}
+          - {label: "Canlı Skor", name: "skor", widget: "string", default: "0 - 0", hint: "Örn: 3 - 2"}
+          - {label: "Maç Başlangıç Saati", name: "baslangic_saati", widget: "string", hint: "Dakika sayacı için örn: 21:00"}
 
   - name: "siradaki_mac"
     label: "Sıradaki Maç Paneli"
