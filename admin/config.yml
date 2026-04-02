@@ -13,33 +13,30 @@ collections:
     label: "Site Genel Ayarları"
     delete: false
     files:
-      - label: "Ana Sayfa Yazıları ve Görünüm"
+      - label: "Ana Sayfa ve Canlı Skor"
         name: "site_text"
         file: "content/ayarlar.json"
         fields:
           - {label: "Ana Slogan", name: "slogan", widget: "string"}
           - {label: "Alt Slogan", name: "alt_slogan", widget: "string"}
-          - {label: "WhatsApp Numarası", name: "whatsapp_no", widget: "string"}
+          - {label: "WhatsApp No", name: "whatsapp_no", widget: "string"}
           - {label: "Instagram Kullanıcı Adı", name: "instagram_username", widget: "string"}
           - {label: "Arka Plan Resmi", name: "bg_image", widget: "image"}
-          
-          # --- CANLI MAÇ MODU ---
           - {label: "Canlı Maç Aktif Mi?", name: "canli_mac", widget: "boolean", default: false}
-          - {label: "Canlı Maç Rakibi", name: "rakip", widget: "string", required: false}
+          - {label: "Canlı Rakip", name: "rakip", widget: "string", required: false}
           - {label: "Canlı Skor", name: "skor", widget: "string", default: "0 - 0"}
           - {label: "Dakika", name: "dakika", widget: "string", hint: "Sadece rakam yazın (Örn: 42)"}
-          - {label: "Maç Durumu/Notu", name: "durum", widget: "string", hint: "Örn: Baskı kuruyoruz!, Devre Arası"}
-          
+          - {label: "Maç Durumu", name: "durum", widget: "string", hint: "Örn: Devre Arası"}
+
   - name: "siradaki_mac"
-    label: "Sıradaki Maç Paneli"
+    label: "Sıradaki Maç (Normal Mod)"
     delete: false
     files:
-      - label: "Maç Bilgilerini Güncelle"
+      - label: "Maç Bilgileri"
         name: "mac_bilgi"
         file: "content/mac.json"
         fields:
-          - {label: "Bizim Takım", name: "ev_sahibi", widget: "string", default: "CHOCOLATE BOYS"}
-          - {label: "Rakip Takım Adı", name: "rakip", widget: "string"}
+          - {label: "Rakip Takım", name: "rakip", widget: "string"}
           - {label: "Maç Tarihi", name: "mac_tarih", widget: "string"}
           - {label: "Maç Saati", name: "saat", widget: "string"}
           - {label: "Stadyum/Saha", name: "yer", widget: "string"}
@@ -48,43 +45,24 @@ collections:
     label: "Geçmiş Maç Skorları"
     folder: "content/skorlar"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{rakip}}"
     fields:
-      - {label: "Kadro (Virgülle ayır)", name: "kadro", widget: "text", required: false}
-      - {label: "Goller (Oyuncu - Dakika)", name: "goller", widget: "list", field: {label: "Detay", name: "detay", widget: "string"}, required: false}
-      - {label: "Asistler", name: "asistler", widget: "list", field: {label: "Detay", name: "detay", widget: "string"}, required: false}
-      - {label: "Maç Notu", name: "notlar", widget: "markdown", required: false}
-      - {label: "Ev Sahibi", name: "ev_sahibi", widget: "string", default: "CHOCOLATE BOYS"}
       - {label: "Rakip Takım", name: "rakip", widget: "string"}
       - {label: "Maç Skoru", name: "skor", widget: "string"}
-      - {label: "Sonuç", name: "sonuc", widget: "select", options: [{label: "Galibiyet", value: "win"}, {label: "Mağlubiyet", value: "loss"}, {label: "Beraberlik", value: "draw"}]}
+      - {label: "Sonuç", name: "sonuc", widget: "select", options: ["win", "loss", "draw"]}
       - {label: "Maç Tarihi", name: "date", widget: "datetime"}
-
-  - name: "galeri"
-    label: "Galeri Sayfası"
-    folder: "content/galeri"
-    create: true
-    slug: "{{title}}"
-    fields:
-      - {label: "Fotoğraf Başlığı", name: "title", widget: "string"}
-      - {label: "Fotoğraf Seç", name: "image", widget: "image"}
 
   - name: "kadro"
     label: "Takım Kadrosu"
     delete: false
     files:
-      - label: "Tüm Oyuncuları Yönet"
+      - label: "Oyuncuları Yönet"
         name: "liste"
         file: "content/oyuncular.json"
-        format: "json"
         fields:
           - label: "Oyuncu Listesi"
             name: "players"
             widget: "list"
             fields:
-              - {label: "Oyuncu Adı", name: "name", widget: "string"}
+              - {label: "Adı", name: "name", widget: "string"}
               - {label: "Mevki", name: "position", widget: "select", options: ["KALECİ", "DEFANS", "ORTA SAHA", "FORVET"]}
-              - {label: "Oyuncu Fotoğrafı", name: "image", widget: "image", required: false}
-              - {label: "Maç", name: "mac", widget: "number", default: 0}
               - {label: "Gol", name: "gol", widget: "number", default: 0}
-              - {label: "Asist", name: "asist", widget: "number", default: 0}
