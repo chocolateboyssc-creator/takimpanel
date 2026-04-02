@@ -21,15 +21,16 @@
             transition: background 0.5s ease-in-out;
         }
 
-        /* HEADER - MOBİL UYUMLU */
+        /* HEADER - TAM UYUMLU */
         header { 
             background: rgba(230, 57, 70, 0.95); 
             color: white; padding: 10px 5%; 
             display: flex; justify-content: space-between; align-items: center;
             position: sticky; top: 0; z-index: 1000;
             backdrop-filter: blur(15px);
+            border-bottom: 2px solid rgba(255,255,255,0.1);
         }
-        .logo-area { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .logo-area { display: flex; align-items: center; gap: 8px; text-decoration: none; color: white; flex-shrink: 0; }
         .logo-area img { height: 35px; }
         .logo-area h2 { font-size: 14px; letter-spacing: 0.5px; }
 
@@ -47,10 +48,11 @@
             color: white; text-decoration: none; 
             margin-left: 12px; font-weight: bold; font-size: 10px; 
             text-transform: uppercase; flex-shrink: 0;
+            opacity: 0.9;
             transition: 0.3s;
         }
-        nav a:hover { color: #1d3557; }
-        nav a.active { border-bottom: 2px solid white; padding-bottom: 2px; }
+        nav a:hover { opacity: 1; color: #1d3557; }
+        nav a.active { border-bottom: 2px solid white; padding-bottom: 2px; opacity: 1; }
 
         /* STORE İÇERİK */
         .store-overlay {
@@ -78,7 +80,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .message-card i { font-size: 70px; color: #e63946; margin-bottom: 25px; filter: drop-shadow(0 0 10px rgba(230, 57, 70, 0.5)); }
+        .message-card i.main-icon { font-size: 70px; color: #e63946; margin-bottom: 25px; filter: drop-shadow(0 0 10px rgba(230, 57, 70, 0.5)); }
         .message-card h1 { font-size: 34px; text-transform: uppercase; margin-bottom: 15px; font-weight: 900; letter-spacing: 1px; }
         .message-card p { color: #eee; line-height: 1.8; font-size: 16px; margin-bottom: 30px; }
         
@@ -95,11 +97,21 @@
             letter-spacing: 1.5px;
         }
 
-        /* FOOTER */
+        /* FOOTER & INSTAGRAM */
         footer { 
             background: rgba(0, 0, 0, 0.85); 
-            color: #777; text-align: center; padding: 30px; 
-            font-size: 12px; border-top: 1px solid rgba(255,255,255,0.1); 
+            color: #ccc; text-align: center; padding: 40px 20px; 
+            font-size: 14px; border-top: 2px solid #e63946; margin-top: auto; 
+        }
+        
+        .footer-social { margin-top: 15px; display: flex; justify-content: center; gap: 20px; }
+        .insta-btn {
+            color: #fff; font-size: 28px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0.8; text-decoration: none; display: inline-block;
+        }
+        .insta-btn:hover {
+            opacity: 1; transform: scale(1.2) rotate(5deg);
+            color: #E1306C; filter: drop-shadow(0 0 8px rgba(225, 48, 108, 0.6));
         }
 
         /* MOBİL AYARLAR */
@@ -117,10 +129,10 @@
 <body>
 
     <header>
-        <div class="logo-area">
-            <img src="images/logo.png?v=3" alt="CB">
+        <a href="index.html" class="logo-area">
+            <img src="images/logo.png" alt="CB">
             <h2>CHOCOLATE BOYS</h2>
-        </div>
+        </a>
         <nav>
             <a href="index.html">ANA SAYFA</a>
             <a href="maclar.html">MAÇLAR</a>
@@ -132,7 +144,7 @@
 
     <div class="store-overlay">
         <div class="message-card">
-            <i class="fa-solid fa-shirt"></i>
+            <i class="fa-solid fa-shirt main-icon"></i>
             <h1>STORE ÇOK YAKINDA!</h1>
             <p>Chocolate Boys FC resmi formaları, antrenman ürünleri ve aksesuarlarıyla çok yakında sahada olduğu kadar burada da fırtına estirecek. Takımını desteklemek için beklemede kal!</p>
             <div class="timer-info">
@@ -141,13 +153,24 @@
         </div>
     </div>
 
-    <footer>© 2026 Chocolate Boys FC. Tüm Hakları Saklıdır.</footer>
+    <footer>
+        <p>© 2026 Chocolate Boys FC. Tüm Hakları Saklıdır.</p>
+        <div class="footer-social">
+            <a href="#" id="insta-link" class="insta-btn" target="_blank">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+        </div>
+    </footer>
 
     <script>
-        // Arka plan senkronizasyonu
+        // Arka Plan ve Sosyal Medya Ayarları
         fetch('/content/ayarlar.json?t=' + Date.now()).then(res => res.json()).then(data => {
             const bgUrl = data.bg_image || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600';
             document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('${bgUrl}')`;
+            
+            if(data.instagram_username) {
+                document.getElementById('insta-link').href = "https://www.instagram.com/" + data.instagram_username.replace('@', '');
+            }
         });
     </script>
 </body>
