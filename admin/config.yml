@@ -36,6 +36,7 @@ collections:
         name: "mac_bilgi"
         file: "content/mac.json"
         fields:
+          - {label: "Bizim Takım", name: "ev_sahibi", widget: "string", default: "CHOCOLATE BOYS"}
           - {label: "Rakip Takım", name: "rakip", widget: "string"}
           - {label: "Maç Tarihi", name: "mac_tarih", widget: "string"}
           - {label: "Maç Saati", name: "saat", widget: "string"}
@@ -45,11 +46,18 @@ collections:
     label: "Geçmiş Maç Skorları"
     folder: "content/skorlar"
     create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{rakip}}"
     fields:
+      - {label: "Bizim Takım", name: "ev_sahibi", widget: "string", default: "CHOCOLATE BOYS"}
       - {label: "Rakip Takım", name: "rakip", widget: "string"}
-      - {label: "Maç Skoru", name: "skor", widget: "string"}
-      - {label: "Sonuç", name: "sonuc", widget: "select", options: ["win", "loss", "draw"]}
+      - {label: "Maç Skoru", name: "skor", widget: "string", hint: "Örn: 5 - 2"}
+      - {label: "Sonuç", name: "sonuc", widget: "select", options: [{label: "Galibiyet", value: "win"}, {label: "Mağlubiyet", value: "loss"}, {label: "Beraberlik", value: "draw"}]}
       - {label: "Maç Tarihi", name: "date", widget: "datetime"}
+      # --- Maç Detay Alanları ---
+      - {label: "Maç Kadrosu", name: "kadro", widget: "string", hint: "İsimleri virgülle ayırın: Ali, Veli, Can"}
+      - {label: "Goller", name: "goller", widget: "list", fields: [{label: "Detay", name: "detay", widget: "string", hint: "Örn: Ali 22'"}]}
+      - {label: "Asistler", name: "asistler", widget: "list", fields: [{label: "Detay", name: "detay", widget: "string"}]}
+      - {label: "Maç Notu (Detay İçin)", name: "body", widget: "markdown", required: false}
 
   - name: "kadro"
     label: "Takım Kadrosu"
@@ -66,3 +74,4 @@ collections:
               - {label: "Adı", name: "name", widget: "string"}
               - {label: "Mevki", name: "position", widget: "select", options: ["KALECİ", "DEFANS", "ORTA SAHA", "FORVET"]}
               - {label: "Gol", name: "gol", widget: "number", default: 0}
+              - {label: "Asist", name: "asist", widget: "number", default: 0}
