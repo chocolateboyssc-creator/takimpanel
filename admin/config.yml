@@ -6,7 +6,7 @@ backend:
   auth_endpoint: auth
 
 media_folder: "images"
-public_folder: "images" # Baştaki slaşı kaldırdık, GitHub Pages için daha sağlıklı
+public_folder: "images"
 
 collections:
   - name: "ayarlar"
@@ -15,17 +15,16 @@ collections:
     editor:
       preview: false
     files:
-      - label: "Genel Ayarlar ve Canlı Skor"
+      - label: "Ana Sayfa ve Canlı Skor Paneli"
         name: "site_text"
         file: "content/ayarlar.json"
         fields:
-          - {label: "--- CANLI MAÇ PANELİ ---", name: "info_live", widget: "hidden", default: "Buradan canlı maçı yönetebilirsin"}
-          - {label: "Canlı Maç Var mı?", name: "canli_mac", widget: "boolean", default: false}
-          - {label: "Canlı Maç Skoru", name: "skor", widget: "string", default: "0 - 0", hint: "Maç anında buradan güncelleyebilirsin."}
-          - {label: "Maç Dakikası", name: "dakika", widget: "string", default: "0'", hint: "Örn: 15'"}
-          - {label: "Canlı Maç Rakibi", name: "rakip", widget: "string", default: "Rakip Takım"}
-          - {label: "--- GENEL AYARLAR ---", name: "info_genel", widget: "hidden", default: "Site genel yazıları"}
-          - {label: "Instagram Kullanıcı Adı", name: "instagram_username", widget: "string", default: "@chocolateboysfc"}
+          - {label: "--- CANLI MAÇ AYARLARI ---", name: "info_live", widget: "hidden", default: "live"}
+          - {label: "Canlı Maç Modu", name: "canli_mac", widget: "boolean", default: false}
+          - {label: "Maç Başlangıç Saati", name: "baslangic_saati", widget: "datetime", format: "HH:mm", date_format: false, time_format: "HH:mm", hint: "Maçın başladığı saati gir, dakika otomatik sayar."}
+          - {label: "Anlık Skor", name: "skor", widget: "string", default: "0 - 0"}
+          - {label: "Canlı Maç Rakibi", name: "rakip", widget: "string", default: "Rakip"}
+          - {label: "--- GENEL AYARLAR ---", name: "info_genel", widget: "hidden", default: "general"}
           - {label: "Ana Slogan", name: "slogan", widget: "string"}
           - {label: "Alt Slogan", name: "alt_slogan", widget: "string"}
           - {label: "WhatsApp Buton Yazısı", name: "btn_text", widget: "string", default: "BİZE HALISAHA TEKLİF ET"}
