@@ -83,7 +83,7 @@
             text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
         }
         
-        /* MAÇ KARTI */
+        /* MAÇ KARTI & CANLI SKOR GÖRÜNÜMÜ */
         .match-card { 
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(15px);
@@ -98,6 +98,13 @@
             border: 1px solid rgba(255,255,255,0.2);
         }
 
+        /* CANLI MODU İÇİN ANİMASYONLU KENARLIK */
+        .match-card.live-mode {
+            border: 2px solid #e63946;
+            animation: livePulse 2s infinite;
+        }
+        @keyframes livePulse { 0% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(230, 57, 70, 0); } 100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); } }
+
         .team h3 { font-size: 20px; color: #fff; font-weight: 900; text-transform: uppercase; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
         #ev-sahibi { text-align: right; } 
         #rakip-takim { text-align: left; } 
@@ -109,9 +116,16 @@
             box-shadow: 0 0 15px rgba(230, 57, 70, 0.5);
         }
 
+        /* CANLI SKOR RAKAMI */
+        .live-score-text { font-size: 32px; font-weight: 900; color: #fff; }
+
         .match-details { text-align: center; color: rgba(255,255,255,0.9); margin-bottom: 50px; font-weight: bold; }
         .match-details p { margin: 5px 0; font-size: 14px; }
         .match-details i { color: #e63946; margin-right: 5px; }
+
+        /* CANLI DOT ANİMASYONU */
+        .live-dot { width: 8px; height: 8px; background: #ff0000; border-radius: 50%; display: inline-block; margin-right: 5px; animation: blink 1s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
         /* FOOTER & INSTAGRAM LOGO */
         footer { 
@@ -153,6 +167,7 @@
             .match-card { grid-template-columns: 1fr 50px 1fr; padding: 20px 10px; }
             .team h3 { font-size: 14px; }
             .vs-circle { width: 40px; height: 40px; font-size: 12px; }
+            .live-score-text { font-size: 22px; }
         }
     </style>
 </head>
@@ -180,17 +195,18 @@
         </a>
     </section>
 
-    <div id="maclar" class="section-title">SIRADAKİ MAÇ</div>
+    <div id="match-title" class="section-title">SIRADAKİ MAÇ</div>
     
-    <div class="match-card">
+    <div id="main-match-card" class="match-card">
         <div class="team"><h3 id="ev-sahibi">...</h3></div>
         <div class="vs-box-area">
-            <div class="vs-circle">VS</div>
+            <div id="vs-element" class="vs-circle">VS</div>
         </div>
         <div class="team"><h3 id="rakip-takim">...</h3></div>
     </div>
     
     <div class="match-details">
+        <p id="timer-row" style="display:none; color:#e63946;"><i class="fa-solid fa-stopwatch"></i> <span id="match-min">0'</span></p>
         <p><i class="fa-regular fa-calendar-days"></i> <span id="mac-tarih">---</span></p>
         <p><i class="fa-solid fa-location-dot"></i> <span id="mac-yer">---</span></p>
     </div>
@@ -205,29 +221,68 @@
     </footer>
 
     <script>
-        // PANEL VERİLERİ VE ARKA PLAN YÖNETİMİ
-        fetch('/content/ayarlar.json?t=' + Date.now()).then(res => res.json()).then(data => {
-            document.getElementById('ana-slogan').innerText = data.slogan || "KIRMIZI BEYAZ AŞK!";
-            document.getElementById('alt-slogan').innerText = data.alt_slogan || "BİR TAKIMDAN DAHA FAZLASI";
-            if(data.btn_text) document.getElementById('btn-text-el').innerText = data.btn_text;
-            if(data.whatsapp_no) document.getElementById('challenge-link').href = "https://wa.me/" + data.whatsapp_no.replace(/\D/g,'');
+        function updateMatchUI() {
+            fetch('/content/ayarlar.json?t=' + Date.now()).then(res => res.json()).then(data => {
+                // Genel Ayarlar
+                document.getElementById('ana-slogan').innerText = data.slogan || "KIRMIZI BEYAZ AŞK!";
+                document.getElementById('alt-slogan').innerText = data.alt_slogan || "BİR TAKIMDAN DAHA FAZLASI";
+                if(data.btn_text) document.getElementById('btn-text-el').innerText = data.btn_text;
+                if(data.whatsapp_no) document.getElementById('challenge-link').href = "https://wa.me/" + data.whatsapp_no.replace(/\D/g,'');
+                if(data.instagram_username) document.getElementById('insta-link').href = "https://www.instagram.com/" + data.instagram_username.replace('@', '');
 
-            // Instagram Linki
-            if(data.instagram_username) {
-                document.getElementById('insta-link').href = "https://www.instagram.com/" + data.instagram_username.replace('@', '');
-            }
+                const bgUrl = data.bg_image || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600';
+                document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${bgUrl}')`;
 
-            const bgUrl = data.bg_image || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600';
-            document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${bgUrl}')`;
-        });
+                // CANLI MAÇ KONTROLÜ
+                const matchCard = document.getElementById('main-match-card');
+                const matchTitle = document.getElementById('match-title');
+                const vsElement = document.getElementById('vs-element');
+                const timerRow = document.getElementById('timer-row');
 
-        // MAÇ VERİLERİ
-        fetch('/content/mac.json?t=' + Date.now()).then(res => res.json()).then(data => {
-            document.getElementById('ev-sahibi').innerText = data.ev_sahibi || "CHOCOLATE BOYS";
-            document.getElementById('rakip-takim').innerText = data.rakip || "RAKİP TAKIM";
-            document.getElementById('mac-tarih').innerText = data.mac_tarih || "Tarih Belirlenmedi";
-            document.getElementById('mac-yer').innerText = data.yer || "Saha Belirlenmedi";
-        });
+                if(data.canli_mac === true) {
+                    matchTitle.innerHTML = '<span class="live-dot"></span>CANLI MAÇ';
+                    matchCard.classList.add('live-mode');
+                    vsElement.innerHTML = `<span class="live-score-text">${data.skor || '0-0'}</span>`;
+                    vsElement.style.width = "auto";
+                    vsElement.style.padding = "0 15px";
+                    vsElement.style.borderRadius = "10px";
+                    
+                    // Dakika Sayacı
+                    if(data.baslangic_saati) {
+                        const now = new Date();
+                        const [h, m] = data.baslangic_saati.split(':');
+                        const start = new Date(); start.setHours(h, m, 0);
+                        const diff = Math.floor((now - start) / 60000);
+                        document.getElementById('match-min').innerText = (diff > 0 ? diff : 0) + "'";
+                        timerRow.style.display = "block";
+                    }
+                    
+                    // Canlı maçtaki takımları da ayarlardan çek
+                    document.getElementById('ev-sahibi').innerText = "CHOCOLATE BOYS";
+                    document.getElementById('rakip-takim').innerText = data.rakip || "RAKİP";
+                } else {
+                    // Canlı değilse normal maç verilerini çek
+                    matchTitle.innerText = 'SIRADAKİ MAÇ';
+                    matchCard.classList.remove('live-mode');
+                    vsElement.innerText = 'VS';
+                    vsElement.style.width = "50px";
+                    vsElement.style.padding = "0";
+                    vsElement.style.borderRadius = "50%";
+                    timerRow.style.display = "none";
+                    
+                    fetch('/content/mac.json?t=' + Date.now()).then(res => res.json()).then(macData => {
+                        document.getElementById('ev-sahibi').innerText = macData.ev_sahibi || "CHOCOLATE BOYS";
+                        document.getElementById('rakip-takim').innerText = macData.rakip || "RAKİP TAKIM";
+                        document.getElementById('mac-tarih').innerText = macData.mac_tarih || "Tarih Belirlenmedi";
+                        document.getElementById('mac-yer').innerText = macData.yer || "Saha Belirlenmedi";
+                    });
+                }
+            });
+        }
+
+        // İlk yükleme ve her 30 saniyede bir güncelleme
+        updateMatchUI();
+        setInterval(updateMatchUI, 30000);
     </script>
 </body>
 </html>
