@@ -20,7 +20,6 @@
             background-attachment: fixed;
         }
         
-        /* HEADER - MOBİL UYUMLU */
         header { 
             background: rgba(230, 57, 70, 0.95); 
             color: white; padding: 10px 5%; 
@@ -33,30 +32,14 @@
         .logo-area img { height: 35px; }
         .logo-area h2 { font-size: 14px; letter-spacing: 0.5px; }
 
-        nav { 
-            display: flex; 
-            overflow-x: auto; 
-            white-space: nowrap; 
-            padding: 5px 0;
-            margin-left: 15px;
-            -webkit-overflow-scrolling: touch;
-        }
+        nav { display: flex; overflow-x: auto; white-space: nowrap; padding: 5px 0; margin-left: 15px; -webkit-overflow-scrolling: touch; }
         nav::-webkit-scrollbar { display: none; }
-
-        nav a { 
-            color: white; text-decoration: none; 
-            margin-left: 12px; font-weight: bold; font-size: 10px; 
-            text-transform: uppercase; flex-shrink: 0;
-            opacity: 0.9;
-            transition: 0.3s;
-        }
-        nav a:hover { opacity: 1; color: #1d3557; }
+        nav a { color: white; text-decoration: none; margin-left: 12px; font-weight: bold; font-size: 10px; text-transform: uppercase; flex-shrink: 0; opacity: 0.9; transition: 0.3s; }
         nav a.active { border-bottom: 2px solid white; padding-bottom: 2px; opacity: 1; }
 
         .container { padding: 40px 5%; flex: 1; }
         .section-title { font-size: 26px; color: #fff; text-transform: uppercase; font-weight: 900; margin-bottom: 20px; border-left: 5px solid #e63946; padding-left: 15px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
 
-        /* SIRADAKİ MAÇ / CANLI MAÇ KARTI */
         .next-match { 
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
@@ -76,92 +59,58 @@
             100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); }
         }
 
-        .match-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 100px 1fr; 
-            align-items: center; 
-            gap: 20px; 
-        }
-
+        .match-grid { display: grid; grid-template-columns: 1fr 100px 1fr; align-items: center; gap: 20px; }
         .team-info h3 { font-size: 22px; text-transform: uppercase; font-weight: 900; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
         .team-left { text-align: right; } 
         .team-right { text-align: left; }
 
         .vs-box { 
-            background: #e63946; 
-            min-width: 55px; height: 55px; 
-            border-radius: 27px; 
-            display: flex; align-items: center; justify-content: center; 
-            font-weight: 900; font-size: 18px; 
-            margin: 0 auto; 
-            box-shadow: 0 0 20px rgba(230, 57, 70, 0.5);
-            border: 2px solid rgba(255,255,255,0.3);
-            padding: 0 10px;
+            background: #e63946; min-width: 55px; height: 55px; border-radius: 27px; 
+            display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; 
+            margin: 0 auto; box-shadow: 0 0 20px rgba(230, 57, 70, 0.5); border: 2px solid rgba(255,255,255,0.3); padding: 0 10px;
         }
 
         .match-meta { margin-top: 25px; color: #ccc; font-size: 14px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; font-weight: bold; }
         .match-meta i { color: #e63946; }
 
-        /* GEÇMİŞ MAÇLAR */
         .history-list { display: flex; flex-direction: column; gap: 12px; }
         .history-item { 
-            background: rgba(0,0,0,0.4); 
-            backdrop-filter: blur(10px);
-            padding: 15px 25px; 
-            border-radius: 15px;
-            display: grid; 
-            grid-template-columns: 1fr 100px 1fr; 
-            align-items: center;
-            gap: 15px; 
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: 0.3s;
+            background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); padding: 15px 25px; border-radius: 15px;
+            display: grid; grid-template-columns: 1fr 100px 1fr; align-items: center; gap: 15px; 
+            border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; cursor: pointer;
         }
-        
         .history-item:hover { transform: scale(1.02); border-color: #e63946; background: rgba(0,0,0,0.6); }
         
         .score { 
-            font-size: 18px; 
-            font-weight: 900; 
-            background: #e63946; 
-            padding: 5px 12px; 
-            border-radius: 8px; 
-            text-align: center; 
-            margin: 0 auto; 
-            min-width: 70px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            font-size: 18px; font-weight: 900; background: #e63946; padding: 5px 12px; border-radius: 8px; 
+            text-align: center; margin: 0 auto; min-width: 70px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
         
-        /* Sonuç Renkleri */
         .win { border-left: 6px solid #25d366 !important; }
         .loss { border-left: 6px solid #e63946 !important; }
         .draw { border-left: 6px solid #f1faee !important; }
 
-        /* FOOTER & INSTAGRAM */
-        footer { 
-            background: rgba(0, 0, 0, 0.85); 
-            color: #ccc; text-align: center; padding: 40px 20px; 
-            font-size: 14px; border-top: 2px solid #e63946; margin-top: auto; 
-        }
-        
+        /* MODAL STYLES */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); }
+        .modal-content { background: #1a1a1a; margin: 5% auto; padding: 30px; border: 1px solid #e63946; width: 90%; max-width: 600px; border-radius: 20px; position: relative; color: white; max-height: 85vh; overflow-y: auto; }
+        .close-modal { position: absolute; right: 20px; top: 15px; font-size: 30px; cursor: pointer; color: #e63946; }
+        .detail-section { margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
+        .detail-section h4 { color: #e63946; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .detail-list { list-style: none; padding-left: 0; }
+        .detail-list li { margin-bottom: 5px; font-size: 14px; opacity: 0.9; }
+
+        footer { background: rgba(0, 0, 0, 0.85); color: #ccc; text-align: center; padding: 40px 20px; font-size: 14px; border-top: 2px solid #e63946; margin-top: auto; }
         .footer-social { margin-top: 15px; display: flex; justify-content: center; gap: 20px; }
-        .insta-btn {
-            color: #fff; font-size: 28px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            opacity: 0.8; text-decoration: none; display: inline-block;
-        }
-        .insta-btn:hover {
-            opacity: 1; transform: scale(1.2) rotate(5deg);
-            color: #E1306C; filter: drop-shadow(0 0 8px rgba(225, 48, 108, 0.6));
-        }
+        .insta-btn { color: #fff; font-size: 28px; transition: 0.3s; opacity: 0.8; text-decoration: none; }
+        .insta-btn:hover { opacity: 1; transform: scale(1.2); color: #E1306C; }
 
         @media (max-width: 600px) {
             header { flex-direction: column; padding: 12px; }
-            .logo-area { margin-bottom: 8px; }
             nav { width: 100%; justify-content: center; margin-left: 0; }
             .match-grid { grid-template-columns: 1fr 60px 1fr; gap: 10px; }
             .team-info h3 { font-size: 14px; }
             .vs-box { width: auto; min-width: 45px; height: 45px; font-size: 14px; padding: 0 5px; }
             .history-item { grid-template-columns: 1fr 80px 1fr; padding: 12px 10px; font-size: 12px; }
-            .score { font-size: 16px; min-width: 60px; }
         }
     </style>
 </head>
@@ -202,6 +151,13 @@
         </div>
     </div>
 
+    <div id="matchModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
     <footer>
         <p>© 2026 Chocolate Boys FC. Tüm Hakları Saklıdır.</p>
         <div class="footer-social">
@@ -212,41 +168,25 @@
     </footer>
 
     <script>
-        // Sayfa Başlatma
         async function init() {
             try {
-                // 1. Ayarları Çek (Canlı Maç Kontrolü İçin)
                 const resAyarlar = await fetch('/content/ayarlar.json?t=' + Date.now());
                 const ayarlar = await resAyarlar.json();
                 
-                // Arka Plan ve Sosyal Medya
                 const bgUrl = ayarlar.bg_image || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600';
                 document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${bgUrl}')`;
                 if(ayarlar.instagram_username) {
                     document.getElementById('insta-link').href = "https://www.instagram.com/" + ayarlar.instagram_username.replace('@', '');
                 }
 
-                // Canlı Maç Mantığı
                 if (ayarlar.canli_mac === true) {
                     document.getElementById('match-title').innerHTML = '<span style="color:#e63946">●</span> ŞU AN OYNANIYOR';
                     document.getElementById('next-match-card').classList.add('live-match');
                     document.getElementById('ev-ad').innerText = "CHOCOLATE BOYS";
                     document.getElementById('rakip-ad').innerText = ayarlar.rakip || "RAKİP";
                     document.getElementById('vs-box-main').innerText = ayarlar.skor || "0 - 0";
-                    
-                    // Canlı Dakika Hesaplama
-                    let dak = "Canlı";
-                    if(ayarlar.baslangic_saati) {
-                        const simdi = new Date();
-                        const [saat, dak] = ayarlar.baslangic_saati.split(':');
-                        const baslangic = new Date();
-                        baslangic.setHours(saat, dak, 0);
-                        const fark = Math.floor((simdi - baslangic) / 60000);
-                        dak = fark > 0 ? fark + "'" : "1'";
-                    }
-                    document.getElementById('match-details').innerHTML = `<span><i class="fa-solid fa-stopwatch"></i> MAÇ SÜRÜYOR: ${dak}</span>`;
+                    document.getElementById('match-details').innerHTML = `<span><i class="fa-solid fa-stopwatch"></i> MAÇ SÜRÜYOR</span>`;
                 } else {
-                    // Normal Sıradaki Maçı Çek
                     const resMac = await fetch('/content/mac.json?t=' + Date.now());
                     const macData = await resMac.json();
                     document.getElementById('ev-ad').innerText = macData.ev_sahibi || "CHOCOLATE BOYS";
@@ -256,12 +196,9 @@
                     document.getElementById('mac-saha').innerText = macData.yer || "Saha Belirlenmedi";
                 }
             } catch (e) { console.error("Ayarlar yüklenemedi"); }
-
-            // 2. Geçmiş Skorları Yükle
             loadScores();
         }
 
-        // GEÇMİŞ MAÇLAR (GITHUB API)
         async function loadScores() {
             const container = document.getElementById('history-container');
             try {
@@ -270,44 +207,75 @@
                 const files = await response.json();
                 
                 container.innerHTML = "";
-                if(!files || files.length === 0) {
-                    container.innerHTML = "Henüz maç sonucu girilmedi.";
-                    return;
-                }
-
-                files.reverse(); // Son maç en üstte
+                files.reverse();
 
                 for (const file of files) {
                     const res = await fetch(file.download_url);
                     const text = await res.text();
-                    
-                    let ev, rakip, skor, sonuc;
+                    let matchData = {};
 
                     if (file.name.endsWith('.json')) {
-                        const data = JSON.parse(text);
-                        ev = data.ev_sahibi || "CHOCOLATE BOYS";
-                        rakip = data.rakip || "Rakip";
-                        skor = data.skor || "0-0";
-                        sonuc = data.sonuc || "draw";
+                        matchData = JSON.parse(text);
                     } else {
-                        // Markdown (.md) içindeki veriyi çekme
-                        const evMatch = text.match(/ev_sahibi:\s*(.*)/);
-                        ev = (evMatch && evMatch[1].trim() !== "") ? evMatch[1].trim().replace(/"/g, '') : "CHOCOLATE BOYS";
-                        rakip = text.match(/rakip:\s*(.*)/)?.[1]?.replace(/"/g, '') || "Rakip";
-                        skor = text.match(/skor:\s*(.*)/)?.[1]?.replace(/"/g, '') || "0-0";
-                        sonuc = text.match(/sonuc:\s*(.*)/)?.[1]?.trim() || "draw";
+                        matchData = {
+                            ev: text.match(/ev_sahibi:\s*(.*)/)?.[1]?.replace(/"/g, '') || "CHOCOLATE BOYS",
+                            rakip: text.match(/rakip:\s*(.*)/)?.[1]?.replace(/"/g, '') || "Rakip",
+                            skor: text.match(/skor:\s*(.*)/)?.[1]?.replace(/"/g, '') || "0-0",
+                            sonuc: text.match(/sonuc:\s*(.*)/)?.[1]?.trim() || "draw",
+                            kadro: text.match(/kadro:\s*(.*)/)?.[1]?.replace(/"/g, ''),
+                            goller: text.match(/goller:\s*([\s\S]*?)(?=\n\w+:|$)/)?.[1],
+                            asistler: text.match(/asistler:\s*([\s\S]*?)(?=\n\w+:|$)/)?.[1],
+                            notlar: text.match(/notlar:\s*([\s\S]*?)$/)?.[1]
+                        };
                     }
 
                     const item = document.createElement('div');
-                    item.className = `history-item ${sonuc}`;
+                    item.className = `history-item ${matchData.sonuc}`;
+                    item.onclick = () => openMatchDetails(matchData);
                     item.innerHTML = `
-                        <div style="text-align:right; font-weight:900; text-transform:uppercase;">${ev}</div>
-                        <div class="score">${skor}</div>
-                        <div style="text-align:left; font-weight:900; text-transform:uppercase;">${rakip}</div>
+                        <div style="text-align:right; font-weight:900; text-transform:uppercase;">${matchData.ev || matchData.ev_sahibi}</div>
+                        <div class="score">${matchData.skor}</div>
+                        <div style="text-align:left; font-weight:900; text-transform:uppercase;">${matchData.rakip}</div>
                     `;
                     container.appendChild(item);
                 }
             } catch(e) { container.innerHTML = "Skorlar yüklenirken bir sorun oluştu."; }
+        }
+
+        function openMatchDetails(data) {
+            const modal = document.getElementById('matchModal');
+            const body = document.getElementById('modal-body');
+            
+            const ev = data.ev || data.ev_sahibi || "CHOCOLATE BOYS";
+            const kadroHtml = data.kadro ? data.kadro.split(',').map(p => `<li>• ${p.trim()}</li>`).join('') : "<li>Belirtilmedi</li>";
+            
+            // Golleri ve Asistleri temizleme (Markdown listesi veya JSON listesi gelirse)
+            const formatList = (val) => {
+                if(!val) return "<li>Veri yok</li>";
+                return val.split('\n').filter(l => l.trim() !== "").map(l => `<li>${l.replace(/- /g, '⚽ ')}</li>`).join('');
+            };
+
+            body.innerHTML = `
+                <h2 style="text-align:center; margin-bottom:20px; color:#e63946;">${ev} ${data.skor} ${data.rakip}</h2>
+                <div class="detail-section">
+                    <h4><i class="fa-solid fa-users"></i> KADROMUZ</h4>
+                    <ul class="detail-list" style="display:grid; grid-template-columns: 1fr 1fr;">${kadroHtml}</ul>
+                </div>
+                <div class="detail-section">
+                    <h4><i class="fa-solid fa-futbol"></i> GOLLER & ASİSTLER</h4>
+                    <ul class="detail-list">${formatList(data.goller || data.asistler)}</ul>
+                </div>
+                <div class="detail-section">
+                    <h4><i class="fa-solid fa-comment"></i> MAÇ NOTU</h4>
+                    <p style="font-size:14px; line-height:1.6; opacity:0.8;">${data.notlar || "Not girilmemiş."}</p>
+                </div>
+            `;
+            modal.style.display = "block";
+        }
+
+        document.querySelector('.close-modal').onclick = () => document.getElementById('matchModal').style.display = "none";
+        window.onclick = (event) => {
+            if (event.target == document.getElementById('matchModal')) document.getElementById('matchModal').style.display = "none";
         }
 
         init();
