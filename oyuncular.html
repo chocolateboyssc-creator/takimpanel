@@ -21,7 +21,7 @@
             transition: background 0.5s ease-in-out;
         }
 
-        /* HEADER - TAM UYUMLU */
+        /* HEADER */
         header { 
             background: rgba(230, 57, 70, 0.95); 
             color: white; padding: 10px 5%; 
@@ -128,7 +128,7 @@
         .stat-item span { display: block; font-size: 9px; color: #ccc; text-transform: uppercase; margin-bottom: 3px; }
         .stat-item strong { font-size: 16px; color: #fff; }
 
-        /* FOOTER & INSTAGRAM */
+        /* FOOTER */
         footer { 
             background: rgba(0, 0, 0, 0.85); 
             color: #ccc; text-align: center; padding: 40px 20px; 
@@ -176,13 +176,7 @@
     </div>
 
     <div class="players-container" id="oyuncu-listesi">
-        <div class="player-card" id="loading-card">
-            <div class="player-img-box"><i class="fa-solid fa-circle-notch fa-spin"></i></div>
-            <div class="player-info">
-                <h2>Yükleniyor...</h2>
-            </div>
         </div>
-    </div>
 
     <footer>
         <p>© 2026 Chocolate Boys FC. Tüm Hakları Saklıdır.</p>
@@ -200,7 +194,8 @@
             document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${bgUrl}')`;
             
             if(data.instagram_username) {
-                document.getElementById('insta-link').href = "https://www.instagram.com/chocolate_boysfc/" + data.instagram_username.replace('@', '');
+                let user = data.instagram_username.replace('@', '');
+                document.getElementById('insta-link').href = "https://www.instagram.com/" + user;
             }
         });
 
@@ -221,10 +216,15 @@
 
                 container.innerHTML = ""; 
                 players.forEach(p => {
+                    // Resim varsa göster, yoksa ikon koy
+                    let imageContent = p.image 
+                        ? `<img src="${p.image}" alt="${p.name}">` 
+                        : `<i class="fa-solid fa-user-tie"></i>`;
+
                     container.innerHTML += `
                         <div class="player-card">
                             <div class="player-img-box">
-                                ${p.image ? `<img src="${p.image}" alt="${p.name}">` : `<i class="fa-solid fa-user-tie"></i>`}
+                                ${imageContent}
                             </div>
                             <div class="player-info">
                                 <h2>${p.name}</h2>
