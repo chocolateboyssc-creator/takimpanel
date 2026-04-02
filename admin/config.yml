@@ -53,6 +53,10 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{rakip}}"
     fields:
+      - {label: "Kadro (Virgülle ayır)", name: "kadro", widget: "text", required: false}
+      - {label: "Goller (Oyuncu - Dakika)", name: "goller", widget: "list", field: {label: "Detay", name: "detay", widget: "string"}, required: false}
+      - {label: "Asistler", name: "asistler", widget: "list", field: {label: "Detay", name: "detay", widget: "string"}, required: false}
+      - {label: "Maç Notu", name: "notlar", widget: "markdown", required: false}
       - {label: "Ev Sahibi", name: "ev_sahibi", widget: "string", default: "CHOCOLATE BOYS"}
       - {label: "Rakip Takım", name: "rakip", widget: "string"}
       - {label: "Maç Skoru", name: "skor", widget: "string"}
