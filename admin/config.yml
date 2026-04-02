@@ -73,5 +73,7 @@ collections:
             fields:
               - {label: "Adı", name: "name", widget: "string"}
               - {label: "Mevki", name: "position", widget: "select", options: ["KALECİ", "DEFANS", "ORTA SAHA", "FORVET"]}
+              - {label: "Fotoğraf", name: "image", widget: "image", required: false}
+              - {label: "Maç Sayısı", name: "mac", widget: "number", default: 0}
               - {label: "Gol", name: "gol", widget: "number", default: 0}
               - {label: "Asist", name: "asist", widget: "number", default: 0}
