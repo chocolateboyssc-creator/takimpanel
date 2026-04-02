@@ -19,7 +19,7 @@
     {
       "mac": 0,
       "gol": 0,
-      "asist": 0,
+      "asist": 1,
       "name": "7 | Arif Berk Kalay",
       "position": "FORVET",
       "image": "/images/soruisareti1.png"
@@ -115,7 +115,7 @@
     {
       "mac": 0,
       "gol": 0,
-      "asist": 0,
+      "asist": 1,
       "name": "61 | Muhammed Ali Koç",
       "position": "ORTA SAHA",
       "image": "/images/alikoc.jpeg"
