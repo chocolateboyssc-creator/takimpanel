@@ -12,8 +12,6 @@ collections:
   - name: "ayarlar"
     label: "Site Genel Ayarları"
     delete: false
-    editor:
-      preview: false
     files:
       - label: "Ana Sayfa Yazıları ve Görünüm"
         name: "site_text"
@@ -21,18 +19,17 @@ collections:
         fields:
           - {label: "Ana Slogan", name: "slogan", widget: "string"}
           - {label: "Alt Slogan", name: "alt_slogan", widget: "string"}
-          - {label: "WhatsApp Buton Yazısı", name: "btn_text", widget: "string", default: "BİZE HALISAHA TEKLİF ET"}
           - {label: "WhatsApp Numarası", name: "whatsapp_no", widget: "string"}
-          - {label: "Instagram Kullanıcı Adı", name: "instagram_username", widget: "string", hint: "@ sembolü olmadan yazın"}
-          - {label: "Arka Plan Resmi", name: "bg_image", widget: "image", hint: "Ana sayfadaki arka plan resmini buradan değiştirebilirsin."}
+          - {label: "Instagram Kullanıcı Adı", name: "instagram_username", widget: "string"}
+          - {label: "Arka Plan Resmi", name: "bg_image", widget: "image"}
           
-          # --- CANLI MAÇ MODU EKLEMELERİ ---
-          - {label: "--- CANLI MAÇ MODU ---", name: "divider_live", widget: "hidden", default: ""}
-          - {label: "Canlı Maç Aktif Mi?", name: "canli_mac", widget: "boolean", default: false, hint: "Açarsanız ana sayfada skor tabelası görünür."}
-          - {label: "Canlı Maç Rakibi", name: "rakip", widget: "string", required: false, hint: "Canlı maçtaki rakip takım adı"}
-          - {label: "Canlı Skor", name: "skor", widget: "string", default: "0 - 0", hint: "Örn: 3 - 2"}
-          - {label: "Maç Başlangıç Saati", name: "baslangic_saati", widget: "string", hint: "Dakika sayacı için örn: 21:00"}
-
+          # --- CANLI MAÇ MODU ---
+          - {label: "Canlı Maç Aktif Mi?", name: "canli_mac", widget: "boolean", default: false}
+          - {label: "Canlı Maç Rakibi", name: "rakip", widget: "string", required: false}
+          - {label: "Canlı Skor", name: "skor", widget: "string", default: "0 - 0"}
+          - {label: "Dakika", name: "dakika", widget: "string", hint: "Sadece rakam yazın (Örn: 42)"}
+          - {label: "Maç Durumu/Notu", name: "durum", widget: "string", hint: "Örn: Baskı kuruyoruz!, Devre Arası"}
+          
   - name: "siradaki_mac"
     label: "Sıradaki Maç Paneli"
     delete: false
