@@ -6,24 +6,31 @@ backend:
   auth_endpoint: auth
 
 media_folder: "images"
-public_folder: "/images"
+public_folder: "images" # Baştaki slaşı kaldırdık, GitHub Pages için daha sağlıklı
 
 collections:
   - name: "ayarlar"
-    label: "Site Genel Ayarları"
+    label: "Site Genel & Canlı Maç"
     delete: false
     editor:
       preview: false
     files:
-      - label: "Ana Sayfa Yazıları ve Görünüm"
+      - label: "Genel Ayarlar ve Canlı Skor"
         name: "site_text"
         file: "content/ayarlar.json"
         fields:
+          - {label: "--- CANLI MAÇ PANELİ ---", name: "info_live", widget: "hidden", default: "Buradan canlı maçı yönetebilirsin"}
+          - {label: "Canlı Maç Var mı?", name: "canli_mac", widget: "boolean", default: false}
+          - {label: "Canlı Maç Skoru", name: "skor", widget: "string", default: "0 - 0", hint: "Maç anında buradan güncelleyebilirsin."}
+          - {label: "Maç Dakikası", name: "dakika", widget: "string", default: "0'", hint: "Örn: 15'"}
+          - {label: "Canlı Maç Rakibi", name: "rakip", widget: "string", default: "Rakip Takım"}
+          - {label: "--- GENEL AYARLAR ---", name: "info_genel", widget: "hidden", default: "Site genel yazıları"}
+          - {label: "Instagram Kullanıcı Adı", name: "instagram_username", widget: "string", default: "@chocolateboysfc"}
           - {label: "Ana Slogan", name: "slogan", widget: "string"}
           - {label: "Alt Slogan", name: "alt_slogan", widget: "string"}
           - {label: "WhatsApp Buton Yazısı", name: "btn_text", widget: "string", default: "BİZE HALISAHA TEKLİF ET"}
           - {label: "WhatsApp Numarası", name: "whatsapp_no", widget: "string"}
-          - {label: "Arka Plan Resmi", name: "bg_image", widget: "image", hint: "Ana sayfadaki arka plan resmini buradan değiştirebilirsin."}
+          - {label: "Arka Plan Resmi", name: "bg_image", widget: "image"}
 
   - name: "siradaki_mac"
     label: "Sıradaki Maç Paneli"
@@ -66,8 +73,8 @@ collections:
     files:
       - label: "Tüm Oyuncuları Yönet"
         name: "liste"
-        file: "content/oyuncular.json" # Veri buraya tek parça gidecek
-        format: "json" # Formatın JSON olduğundan emin oluyoruz
+        file: "content/oyuncular.json"
+        format: "json"
         fields:
           - label: "Oyuncu Listesi"
             name: "players"
