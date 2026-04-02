@@ -172,20 +172,16 @@
     <script>
         async function init() {
             try {
-                // Ayarları Çek
                 const resAyarlar = await fetch('/content/ayarlar.json?t=' + Date.now());
                 const ayarlar = await resAyarlar.json();
                 
-                // Arka Planı Ayarla
                 const bgUrl = ayarlar.bg_image || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600';
                 document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('${bgUrl}')`;
                 
-                // Instagram Linki
                 if(ayarlar.instagram_username) {
                     document.getElementById('insta-link').href = "https://www.instagram.com/" + ayarlar.instagram_username.replace('@', '');
                 }
 
-                // Canlı Maç Modu Kontrolü
                 if (ayarlar.canli_mac === true) {
                     document.getElementById('match-title').innerHTML = '<span style="color:#e63946">●</span> CANLI SKOR';
                     document.getElementById('next-match-card').classList.add('live-match');
@@ -194,7 +190,6 @@
                     document.getElementById('vs-box-main').innerText = ayarlar.skor || "0 - 0";
                     document.getElementById('match-details').innerHTML = `<span><i class="fa-solid fa-stopwatch"></i> MAÇ ŞU AN OYNANIYOR</span>`;
                 } else {
-                    // Normal Sıradaki Maç Bilgisi
                     const resMac = await fetch('/content/mac.json?t=' + Date.now());
                     const macData = await resMac.json();
                     document.getElementById('ev-ad').innerText = macData.ev_sahibi || "CHOCOLATE BOYS";
@@ -220,8 +215,9 @@
                     const res = await fetch(file.download_url);
                     const rawText = await res.text();
                     
+                    // Frontmatter verilerini çekmek için geliştirilmiş fonksiyon
                     const getVal = (key) => {
-                        const regex = new RegExp(`${key}:\\s*(.*)`, 'i');
+                        const regex = new RegExp(`^${key}:\\s*(.*)`, 'im');
                         const match = rawText.match(regex);
                         return match ? match[1].replace(/"/g, '').trim() : null;
                     };
@@ -232,6 +228,9 @@
                         skor: getVal('skor') || "0-0",
                         sonuc: getVal('sonuc') || "draw",
                         kadro: getVal('kadro'),
+                        // "detay:" ile başlayan tüm satırları yakala (Admin List widget uyumlu)
+                        detaylar: Array.from(rawText.matchAll(/^\s*-\s*detay:\s*(.*)/gm)).map(m => m[1].replace(/"/g, '').trim()),
+                        // Eğer detaylar boşsa alternatif (eski sistem) kontrolü
                         goller: Array.from(rawText.matchAll(/detay:\s*(.*)/gi)).map(m => m[1].replace(/"/g, '').trim()),
                         notlar: rawText.split('---').pop().trim()
                     };
@@ -246,39 +245,45 @@
                     `;
                     container.appendChild(item);
                 }
-            } catch(e) { container.innerHTML = "<p style='text-align:center'>Henüz kayıtlı maç sonucu bulunmuyor.</p>"; }
+            } catch(e) { container.innerHTML = "<p style='text-align:center'>Skorlar yüklenirken bir hata oluştu.</p>"; }
         }
 
         function openMatchDetails(data) {
             const modal = document.getElementById('matchModal');
             const body = document.getElementById('modal-body');
             
-            const kadroList = data.kadro ? data.kadro.split(',').map(p => `<li>• ${p.trim()}</li>`).join('') : "<li>Belirtilmedi</li>";
-            const gollerList = data.goller.length > 0 ? data.goller.map(g => `<li>⚽ ${g}</li>`).join('') : "<li>Veri yok</li>";
+            // Kadro Virgülle ayrılmışsa listeye çevir
+            const kadroList = data.kadro 
+                ? data.kadro.split(',').map(p => `<li>• ${p.trim()}</li>`).join('') 
+                : "<li>Kadro girilmemiş.</li>";
+            
+            // Gol/Asist detaylarını birleştir
+            const allDetails = data.detaylar.length > 0 ? data.detaylar : data.goller;
+            const detayHtml = allDetails.length > 0 
+                ? allDetails.map(d => `<li>⚽ ${d}</li>`).join('') 
+                : "<li>Maç detayı girilmemiş.</li>";
 
             body.innerHTML = `
-                <h2 style="text-align:center; margin-bottom:20px; color:#e63946;">${data.ev} ${data.skor} ${data.rakip}</h2>
+                <h2 style="text-align:center; margin-bottom:20px; color:#e63946; font-weight:900;">${data.ev} ${data.skor} ${data.rakip}</h2>
                 <div class="detail-section">
                     <h4><i class="fa-solid fa-users"></i> MAÇ KADROSU</h4>
-                    <ul class="detail-list" style="display:grid; grid-template-columns: 1fr 1fr;">${kadroList}</ul>
+                    <ul class="detail-list" style="display:grid; grid-template-columns: 1fr 1fr; gap: 5px;">${kadroList}</ul>
                 </div>
                 <div class="detail-section">
-                    <h4><i class="fa-solid fa-futbol"></i> GOL & ASİST DETAYLARI</h4>
-                    <ul class="detail-list">${gollerList}</ul>
+                    <h4><i class="fa-solid fa-futbol"></i> GOLLER & DETAYLAR</h4>
+                    <ul class="detail-list">${detayHtml}</ul>
                 </div>
                 <div class="detail-section" style="border:none;">
-                    <h4><i class="fa-solid fa-comment"></i> MAÇ NOTLARI</h4>
-                    <p style="font-size:14px; line-height:1.6; opacity:0.8;">${data.notlar && data.notlar.length > 5 ? data.notlar : "Not girilmemiş."}</p>
+                    <h4><i class="fa-solid fa-comment"></i> EDİTÖR NOTU</h4>
+                    <p style="font-size:14px; line-height:1.6; opacity:0.8;">${data.notlar && data.notlar.length > 10 ? data.notlar : "Bu maç için henüz bir not girilmemiş."}</p>
                 </div>
             `;
             modal.style.display = "block";
         }
 
-        // Modal Kapatma Olayları
         document.querySelector('.close-modal').onclick = () => document.getElementById('matchModal').style.display = "none";
         window.onclick = (e) => { if (e.target.id == 'matchModal') document.getElementById('matchModal').style.display = "none"; }
 
-        // Başlat
         init();
     </script>
 </body>
