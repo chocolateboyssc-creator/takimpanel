@@ -7,113 +7,262 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: #121212; color: white; display: flex; flex-direction: column; min-height: 100vh; }
-        header { background: rgba(230, 57, 70, 0.95); color: white; padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); }
-        .logo-area { display: flex; align-items: center; gap: 8px; text-decoration: none; color: white; }
-        .logo-area img { height: 30px; }
-        nav { display: flex; overflow-x: auto; margin-left: 10px; }
-        nav a { color: white; text-decoration: none; margin-left: 10px; font-weight: bold; font-size: 10px; text-transform: uppercase; white-space: nowrap; }
         
-        .container { padding: 30px 5%; flex: 1; }
-        .section-title { font-size: 22px; font-weight: 900; margin-bottom: 20px; border-left: 5px solid #e63946; padding-left: 15px; }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background-color: #121212; 
+            color: white; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        /* HEADER - MOBİL UYUMLU */
+        header { 
+            background: rgba(230, 57, 70, 0.95); 
+            color: white; padding: 10px 5%; 
+            display: flex; justify-content: space-between; align-items: center; 
+            position: sticky; top: 0; z-index: 1000; 
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+        .logo-area { display: flex; align-items: center; gap: 8px; text-decoration: none; color: white; flex-shrink: 0; }
+        .logo-area img { height: 35px; }
+        .logo-area h2 { font-size: 14px; letter-spacing: 0.5px; }
 
-        .next-match { background: rgba(255, 255, 255, 0.1); padding: 30px 15px; border-radius: 20px; text-align: center; margin-bottom: 40px; border: 1px solid rgba(255,255,255,0.1); }
-        .live-match { border: 2px solid #e63946; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(230, 57, 70, 0); } 100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); } }
+        nav { 
+            display: flex; 
+            overflow-x: auto; 
+            white-space: nowrap; 
+            padding: 5px 0;
+            margin-left: 15px;
+            -webkit-overflow-scrolling: touch;
+        }
+        nav::-webkit-scrollbar { display: none; }
 
-        .match-grid { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-        .vs-box { background: #e63946; min-width: 80px; height: 55px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 20px; }
-        .team-h { flex: 1; font-size: 16px; font-weight: 900; text-transform: uppercase; }
-        .match-meta { margin-top: 20px; font-size: 14px; color: #ccc; }
-        .live-dot { color: #e63946; animation: blink 1s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        nav a { 
+            color: white; text-decoration: none; 
+            margin-left: 12px; font-weight: bold; font-size: 10px; 
+            text-transform: uppercase; flex-shrink: 0;
+            opacity: 0.9;
+            transition: 0.3s;
+        }
+        nav a:hover { opacity: 1; color: #1d3557; }
+        nav a.active { border-bottom: 2px solid white; padding-bottom: 2px; opacity: 1; }
 
-        .history-list { display: flex; flex-direction: column; gap: 10px; }
-        .history-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.1); }
-        .score-pill { background: #e63946; padding: 4px 12px; border-radius: 6px; font-weight: 900; font-size: 14px; min-width: 50px; text-align: center; }
-        footer { background: #000; text-align: center; padding: 20px; border-top: 2px solid #e63946; font-size: 11px; margin-top: auto; }
+        .container { padding: 40px 5%; flex: 1; }
+        .section-title { font-size: 26px; color: #fff; text-transform: uppercase; font-weight: 900; margin-bottom: 20px; border-left: 5px solid #e63946; padding-left: 15px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+
+        /* SIRADAKİ MAÇ KARTI */
+        .next-match { 
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 40px 20px; 
+            border-radius: 20px; 
+            text-align: center; 
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .match-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 100px 1fr; 
+            align-items: center; 
+            gap: 20px; 
+        }
+
+        .team-info h3 { font-size: 22px; text-transform: uppercase; font-weight: 900; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
+        .team-left { text-align: right; } 
+        .team-right { text-align: left; }
+
+        .vs-box { 
+            background: #e63946; 
+            width: 55px; height: 55px; 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-weight: 900; font-size: 18px; 
+            margin: 0 auto; 
+            box-shadow: 0 0 20px rgba(230, 57, 70, 0.5);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .match-meta { margin-top: 25px; color: #ccc; font-size: 14px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; font-weight: bold; }
+        .match-meta i { color: #e63946; }
+
+        /* GEÇMİŞ MAÇLAR */
+        .history-list { display: flex; flex-direction: column; gap: 12px; }
+        .history-item { 
+            background: rgba(0,0,0,0.4); 
+            backdrop-filter: blur(10px);
+            padding: 15px 25px; 
+            border-radius: 15px;
+            display: grid; 
+            grid-template-columns: 1fr 100px 1fr; 
+            align-items: center;
+            gap: 15px; 
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+        
+        .history-item:hover { transform: scale(1.02); border-color: #e63946; background: rgba(0,0,0,0.6); }
+        
+        .score { 
+            font-size: 18px; 
+            font-weight: 900; 
+            background: #e63946; 
+            padding: 5px 12px; 
+            border-radius: 8px; 
+            text-align: center; 
+            margin: 0 auto; 
+            min-width: 70px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        
+        /* Sonuç Renkleri */
+        .win { border-left: 6px solid #25d366 !important; }
+        .loss { border-left: 6px solid #e63946 !important; }
+        .draw { border-left: 6px solid #f1faee !important; }
+
+        /* FOOTER & INSTAGRAM */
+        footer { 
+            background: rgba(0, 0, 0, 0.85); 
+            color: #ccc; text-align: center; padding: 40px 20px; 
+            font-size: 14px; border-top: 2px solid #e63946; margin-top: auto; 
+        }
+        
+        .footer-social { margin-top: 15px; display: flex; justify-content: center; gap: 20px; }
+        .insta-btn {
+            color: #fff; font-size: 28px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0.8; text-decoration: none; display: inline-block;
+        }
+        .insta-btn:hover {
+            opacity: 1; transform: scale(1.2) rotate(5deg);
+            color: #E1306C; filter: drop-shadow(0 0 8px rgba(225, 48, 108, 0.6));
+        }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column; padding: 12px; }
+            .logo-area { margin-bottom: 8px; }
+            nav { width: 100%; justify-content: center; margin-left: 0; }
+            .match-grid { grid-template-columns: 1fr 60px 1fr; gap: 10px; }
+            .team-info h3 { font-size: 14px; }
+            .vs-box { width: 40px; height: 40px; font-size: 14px; }
+            .history-item { grid-template-columns: 1fr 80px 1fr; padding: 12px 10px; font-size: 12px; }
+            .score { font-size: 16px; min-width: 60px; }
+        }
     </style>
 </head>
 <body>
+
     <header>
-        <a href="index.html" class="logo-area"><img src="images/logo.png" alt="CB"></a>
-        <nav><a href="index.html">ANA SAYFA</a><a href="maclar.html" style="border-bottom:2px solid white">MAÇLAR</a><a href="oyuncular.html">OYUNCULAR</a><a href="galeri.html">GALERİ</a></nav>
+        <a href="index.html" class="logo-area">
+            <img src="images/logo.png" alt="CB">
+            <h2>CHOCOLATE BOYS</h2>
+        </a>
+        <nav>
+            <a href="index.html">ANA SAYFA</a>
+            <a href="maclar.html" class="active">MAÇLAR</a>
+            <a href="oyuncular.html">OYUNCULAR</a>
+            <a href="galeri.html">GALERİ</a>
+            <a href="store.html">STORE</a>
+        </nav>
     </header>
 
     <div class="container">
-        <h2 id="match-title" class="section-title">SIRADAKİ RANDEVU</h2>
-        <div id="next-match-card" class="next-match">
+        <h2 class="section-title">SIRADAKİ RANDEVU</h2>
+        <div class="next-match">
             <div class="match-grid">
-                <div class="team-h" style="text-align:right;">CHOCOLATE BOYS</div>
-                <div id="vs-box-main" class="vs-box">VS</div>
-                <div class="team-h" style="text-align:left;" id="rakip-ad">...</div>
+                <div class="team-info team-left"><h3 id="ev-ad">CHOCOLATE BOYS</h3></div>
+                <div class="vs-box">VS</div>
+                <div class="team-info team-right"><h3 id="rakip-ad">Yükleniyor...</h3></div>
             </div>
-            <div id="match-details" class="match-meta">Yükleniyor...</div>
+            <div class="match-meta">
+                <span><i class="fa-solid fa-calendar"></i> <span id="mac-gun">---</span></span>
+                <span><i class="fa-solid fa-clock"></i> <span id="mac-saat">---</span></span>
+                <span><i class="fa-solid fa-location-dot"></i> <span id="mac-saha">---</span></span>
+            </div>
         </div>
 
-        <h2 class="section-title">GEÇMİŞ SONUÇLAR</h2>
-        <div id="history-container" class="history-list"></div>
+        <h2 class="section-title">SON SONUÇLAR</h2>
+        <div class="history-list" id="history-container">
+            <p style="color:#aaa">Skorlar yükleniyor...</p>
+        </div>
     </div>
 
-    <footer>© 2026 Chocolate Boys FC</footer>
+    <footer>
+        <p>© 2026 Chocolate Boys FC. Tüm Hakları Saklıdır.</p>
+        <div class="footer-social">
+            <a href="#" id="insta-link" class="insta-btn" target="_blank">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+        </div>
+    </footer>
 
     <script>
-        async function init() {
-            try {
-                const resA = await fetch('/content/ayarlar.json?t=' + Date.now());
-                const ayarlar = await resA.json();
-                const isLive = ayarlar.canli_mac === true;
-                const nextCard = document.getElementById('next-match-card');
+        // Arka Plan ve Sosyal Medya Ayarları
+        fetch('/content/ayarlar.json?t=' + Date.now()).then(res => res.json()).then(data => {
+            const bgUrl = data.bg_image || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600';
+            document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${bgUrl}')`;
+            
+            if(data.instagram_username) {
+                document.getElementById('insta-link').href = "https://www.instagram.com/" + data.instagram_username.replace('@', '');
+            }
+        });
 
-                if (isLive) {
-                    document.getElementById('match-title').innerHTML = '<span class="live-dot">●</span> CANLI MAÇ';
-                    nextCard.classList.add('live-match');
-                    document.getElementById('rakip-ad').innerText = ayarlar.rakip;
-                    document.getElementById('vs-box-main').innerText = ayarlar.skor;
-                    document.getElementById('match-details').innerHTML = `
-                        <span style="color:#e63946; font-weight:bold;"><i class="fa-solid fa-clock"></i> ${ayarlar.dakika || 1}'</span> | 
-                        <span>${ayarlar.durum || 'MAÇ DEVAM EDİYOR'}</span>`;
-                } else {
-                    const resM = await fetch('/content/mac.json?t=' + Date.now());
-                    const m = await resM.json();
-                    nextCard.classList.remove('live-match');
-                    document.getElementById('match-title').innerText = 'SIRADAKİ RANDEVU';
-                    document.getElementById('vs-box-main').innerText = "VS";
-                    document.getElementById('rakip-ad').innerText = m.rakip;
-                    document.getElementById('match-details').innerHTML = `<span><i class="fa-solid fa-calendar"></i> ${m.mac_tarih}</span> | <span><i class="fa-solid fa-location-dot"></i> ${m.yer}</span>`;
-                }
-            } catch (e) { console.error("Hata:", e); }
-            loadScores();
-        }
+        // SIRADAKİ MAÇ VERİSİ
+        fetch('/content/mac.json?t=' + Date.now()).then(res => res.json()).then(data => {
+            // Ev sahibi kontrolü (boşsa varsayılan isim)
+            document.getElementById('ev-ad').innerText = (data.ev_sahibi && data.ev_sahibi.trim() !== "") ? data.ev_sahibi : "CHOCOLATE BOYS";
+            document.getElementById('rakip-ad').innerText = data.rakip || "Rakip Bekleniyor";
+            document.getElementById('mac-gun').innerText = data.mac_tarih || "Tarih Belirlenmedi";
+            document.getElementById('mac-saat').innerText = data.saat || "--:--";
+            document.getElementById('mac-saha').innerText = data.yer || "Saha Belirlenmedi";
+        });
 
+        // GEÇMİŞ MAÇLAR (GITHUB API)
         async function loadScores() {
             const container = document.getElementById('history-container');
             try {
-                const response = await fetch(`https://api.github.com/repos/chocolateboyssc-creator/takimpanel/contents/content/skorlar?t=` + Date.now());
+                const user = "chocolateboyssc-creator", repo = "takimpanel";
+                const response = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/content/skorlar`);
                 const files = await response.json();
+                
                 container.innerHTML = "";
-                const mdFiles = files.filter(f => f.name.endsWith('.md')).reverse();
-
-                for (const file of mdFiles) {
-                    const res = await fetch(file.download_url);
-                    const text = await res.text();
-                    const getVal = (k) => text.match(new RegExp(`^${k}:\\s*(.*)`, 'im'))?.[1]?.replace(/"/g, '').trim();
-
-                    const ev = getVal('ev_sahibi') || "CB FC";
-                    const rakip = getVal('rakip') || "Rakip";
-                    const skor = getVal('skor') || "0-0";
-                    
-                    const item = document.createElement('div');
-                    item.className = 'history-item';
-                    item.innerHTML = `
-                        <span style="flex:1; text-align:right; font-weight:bold; font-size:13px;">${ev}</span>
-                        <span class="score-pill" style="margin:0 15px;">${skor}</span>
-                        <span style="flex:1; text-align:left; font-weight:bold; font-size:13px;">${rakip}</span>`;
-                    container.appendChild(item);
+                if(!files || files.length === 0) {
+                    container.innerHTML = "Henüz maç sonucu girilmedi.";
+                    return;
                 }
-            } catch(e) { container.innerHTML = "Skorlar şu an yüklenemedi."; }
+
+                files.reverse(); // Son maç en üstte
+
+                for (const file of files) {
+                    if (file.name.endsWith('.md')) {
+                        const res = await fetch(file.download_url);
+                        const text = await res.text();
+                        
+                        const evMatch = text.match(/ev_sahibi:\s*(.*)/);
+                        const ev = (evMatch && evMatch[1].trim() !== "") ? evMatch[1].trim() : "CHOCOLATE BOYS";
+                        const rakip = text.match(/rakip:\s*(.*)/)?.[1] || "Rakip";
+                        const skor = text.match(/skor:\s*(.*)/)?.[1] || "0-0";
+                        const sonuc = text.match(/sonuc:\s*(.*)/)?.[1]?.trim() || "draw";
+
+                        const item = document.createElement('div');
+                        item.className = `history-item ${sonuc}`;
+                        item.innerHTML = `
+                            <div style="text-align:right; font-weight:900; text-transform:uppercase;">${ev}</div>
+                            <div class="score">${skor}</div>
+                            <div style="text-align:left; font-weight:900; text-transform:uppercase;">${rakip}</div>
+                        `;
+                        container.appendChild(item);
+                    }
+                }
+            } catch(e) { container.innerHTML = "Skorlar yüklenirken bir sorun oluştu."; }
         }
-        init();
+        loadScores();
     </script>
 </body>
 </html>
