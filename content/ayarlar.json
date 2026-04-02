@@ -1,13 +1,13 @@
 {
-  "slogan": "CHOCOLATE BOYS",
-  "alt_slogan": "BİR TAKIMDAN DAHA FAZLASI",
-  "footer_text": "© 2026 Tüm Hakları Saklıdır.",
-  "btn_text": "HALISAHA TEKLIF ET",
-  "whatsapp_no": "905454433977",
+  "bg_image": "https://st2.depositphotos.com/3725083/5486/i/450/depositphotos_54860225-stock-photo-stadium.jpg",
+  "rakip": "9/B",
   "instagram_username": "chocolateboysfc",
-  "bg_image": "/images/arka-plan.jpg",
-  "canli_mac": false,
-  "rakip": "Rakip Takım Adı",
+  "baslangic_saati": "19:00",
+  "whatsapp_no": "905454433977",
+  "btn_text": "HALISAHA TEKLIF ET",
+  "footer_text": "© 2026 Tüm Hakları Saklıdır.",
+  "alt_slogan": "BİR TAKIMDAN DAHA FAZLASI",
   "skor": "0 - 0",
-  "baslangic_saati": "21:00"
+  "canli_mac": false,
+  "slogan": "CHOCOLATE BOYS"
 }
