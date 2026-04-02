@@ -92,8 +92,22 @@
         }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #aaa; }
         .detail-section { margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px; }
-        .detail-title { color: #e63946; font-weight: 900; font-size: 11px; text-transform: uppercase; margin-bottom: 5px; display: block; }
-        .tag { background: rgba(230, 57, 70, 0.2); color: #ff4d5a; padding: 3px 10px; border-radius: 6px; font-size: 12px; margin: 0 5px 5px 0; display: inline-block; font-weight: bold; }
+        .detail-title { color: #e63946; font-weight: 900; font-size: 11px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+        
+        /* KADRO TAGLERİ DÜZENLEME */
+        #modal-kadro {
+            display: flex;
+            flex-wrap: wrap; /* Taşınca alt satıra geçmesi için */
+            gap: 8px;
+        }
+        .tag { 
+            background: rgba(230, 57, 70, 0.2); 
+            color: #ff4d5a; padding: 4px 12px; 
+            border-radius: 6px; font-size: 12px; 
+            display: inline-block; font-weight: bold; 
+            border: 1px solid rgba(230, 57, 70, 0.3);
+        }
+
         .stats-item { font-size: 14px; margin-bottom: 4px; display: block; border-bottom: 1px dashed rgba(255,255,255,0.05); padding-bottom: 4px; }
 
         footer { background: rgba(0, 0, 0, 0.85); color: #ccc; text-align: center; padding: 40px 20px; font-size: 14px; border-top: 2px solid #e63946; margin-top: auto; }
@@ -196,7 +210,7 @@
             document.getElementById('mac-saha').innerText = data.yer || "-";
         });
 
-        // GEÇMİŞ MAÇLAR VE MODAL MANTIĞI
+        // GEÇMİŞ MAÇLAR
         async function loadScores() {
             const container = document.getElementById('history-container');
             try {
@@ -212,7 +226,7 @@
 
                     const item = document.createElement('div');
                     item.className = `history-item ${get('sonuc')}`;
-                    item.onclick = () => openModal(text); // Tıklama olayı
+                    item.onclick = () => openModal(text);
                     item.innerHTML = `
                         <div style="text-align:right; font-weight:900; text-transform:uppercase;">${get('ev_sahibi') || 'CHOCOLATE BOYS'}</div>
                         <div class="score">${get('skor')}</div>
@@ -224,27 +238,40 @@
         }
 
         function openModal(rawText) {
-            const get = (k) => rawText.match(new RegExp(`^${k}:\\s*(.*)`, 'm'))?.[1]?.trim().replace(/"/g,'') || "";
+            // Tırnak temizleme ve veri çekme fonksiyonu
+            const get = (k) => {
+                let match = rawText.match(new RegExp(`^${k}:\\s*(.*)`, 'm'));
+                if (!match) return "";
+                // Hem baştaki hem sondaki tırnakları ve boşlukları uçuruyoruz
+                return match[1].trim().replace(/^"(.*)"$/, '$1').replace(/'/g, "");
+            };
             
             document.getElementById('modal-score').innerText = get('skor');
             document.getElementById('modal-teams').innerText = `${get('ev_sahibi') || 'CHOCOLATE BOYS'} VS ${get('rakip')}`;
             
-            // Kadro (Virgülle ayrılmış listeyi tag yapma)
-            const kadro = get('kadro');
-            document.getElementById('modal-kadro').innerHTML = kadro ? kadro.split(',').map(n => `<span class="tag">${n.trim()}</span>`).join('') : "Girilmedi";
+            // Kadro TEMİZLİĞİ VE DÜZENİ
+            const kadroRaw = get('kadro');
+            if(kadroRaw) {
+                const isimler = kadroRaw.split(',').map(n => n.trim().replace(/^"(.*)"$/, '$1'));
+                document.getElementById('modal-kadro').innerHTML = isimler.map(n => `<span class="tag">${n}</span>`).join('');
+            } else {
+                document.getElementById('modal-kadro').innerHTML = "Girilmedi";
+            }
 
-            // Goller & Asistler (YAML List formatını basitleştirilmiş okuma)
+            // Goller & Asistler (YAML listesi tırnak temizliği dahil)
             const extractList = (key) => {
                 const regex = new RegExp(`${key}:[\\s\\S]*?asistler:|${key}:[\\s\\S]*?body:|${key}:[\\s\\S]*?---`, 'm');
                 const section = rawText.match(regex)?.[0] || "";
                 const items = section.match(/detay:\s*(.*)/g);
-                return items ? items.map(i => `<span class="stats-item">• ${i.replace('detay:', '').trim()}</span>`).join('') : "Veri yok";
+                return items ? items.map(i => {
+                    let val = i.replace('detay:', '').trim().replace(/^"(.*)"$/, '$1');
+                    return `<span class="stats-item">• ${val}</span>`;
+                }).join('') : "Veri yok";
             };
 
             document.getElementById('modal-goller').innerHTML = extractList('goller');
             document.getElementById('modal-asistler').innerHTML = extractList('asistler');
 
-            // Maç Notu (Dosyanın en altındaki body kısmı)
             const body = rawText.split('---').pop().trim();
             document.getElementById('modal-body').innerText = body || "Not bulunmuyor.";
 
