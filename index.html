@@ -6,115 +6,228 @@
     <title>Chocolate Boys FC | Resmi Web Sitesi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', sans-serif; background: #121212; color: white; min-height: 100vh; display: flex; flex-direction: column; background-size: cover; background-position: center; background-attachment: fixed; transition: 0.5s; }
-        header { background: rgba(230, 57, 70, 0.95); color: white; padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); }
-        .logo-area { display: flex; align-items: center; gap: 8px; text-decoration: none; color: white; }
+        /* SIFIRLAMA VE AKICI KAYDIRMA */
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+        
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            color: #fff; 
+            line-height: 1.6; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh;
+            background-color: #121212;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transition: background 0.5s ease-in-out;
+        }
+        
+        /* HEADER / NAV - MOBİL UYUMLU */
+        header { 
+            background: rgba(230, 57, 70, 0.95); 
+            color: white; padding: 10px 5%; 
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+        .logo-area { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
         .logo-area img { height: 35px; }
-        nav { display: flex; overflow-x: auto; margin-left: 15px; }
-        nav a { color: white; text-decoration: none; margin-left: 12px; font-weight: bold; font-size: 10px; text-transform: uppercase; white-space: nowrap; }
-        
-        .hero { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; }
-        .hero h1 { font-size: 45px; font-weight: 900; letter-spacing: -1px; line-height: 1; margin-bottom: 10px; text-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-        .hero p { font-size: 14px; opacity: 0.8; letter-spacing: 2px; margin-bottom: 30px; }
+        .logo-area h2 { font-size: 14px; letter-spacing: 0.5px; }
 
-        .match-card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); padding: 30px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); width: 100%; max-width: 400px; position: relative; }
-        .live-mode { border: 2px solid #e63946; box-shadow: 0 0 20px rgba(230, 57, 70, 0.4); }
-        .match-title { font-size: 12px; font-weight: 900; color: #e63946; margin-bottom: 20px; letter-spacing: 1px; }
-        .live-dot { height: 8px; width: 8px; background-color: #e63946; border-radius: 50%; display: inline-block; margin-right: 5px; animation: blink 1s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        nav { 
+            display: flex; 
+            overflow-x: auto; 
+            white-space: nowrap; 
+            padding: 5px 0;
+            margin-left: 15px;
+            -webkit-overflow-scrolling: touch;
+        }
+        nav::-webkit-scrollbar { display: none; }
 
-        .teams { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 20px; }
-        .team-name { flex: 1; font-weight: 900; font-size: 16px; text-transform: uppercase; }
-        .vs-circle { background: #e63946; width: 60px; height: 60px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 20px; box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3); }
+        nav a { 
+            color: white; text-decoration: none; 
+            margin-left: 12px; font-weight: bold; font-size: 10px; 
+            text-transform: uppercase; flex-shrink: 0;
+            opacity: 0.9;
+            transition: 0.3s;
+        }
+        nav a:hover { opacity: 1; color: #1d3557; }
+
+        /* HERO SECTION */
+        .hero { 
+            height: 400px; 
+            display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; color: white; text-align: center;
+            padding: 20px;
+        }
+        .hero h1 { font-size: 42px; text-transform: uppercase; margin-bottom: 10px; text-shadow: 2px 4px 15px rgba(0,0,0,0.8); font-weight: 900; }
+        .hero p { font-size: 16px; background: rgba(230, 57, 70, 0.9); padding: 6px 15px; border-radius: 5px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); text-transform: uppercase; font-weight: bold; }
+
+        /* WHATSAPP BUTONU */
+        .challenge-btn {
+            display: inline-block; padding: 12px 30px; background-color: #25d366; 
+            color: white; text-decoration: none; font-weight: bold; border-radius: 50px; 
+            font-size: 16px; transition: 0.3s; border: 2px solid white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        .challenge-btn:hover { transform: translateY(-5px) scale(1.05); background-color: #128c7e; }
+
+        /* BAŞLIKLAR */
+        .section-title { 
+            border-left: 5px solid #e63946; padding-left: 15px; 
+            margin: 40px 5% 20px 5%; font-size: 24px; font-weight: 800; 
+            color: white;
+            text-transform: uppercase; 
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
         
-        .match-info { font-size: 13px; color: #ccc; display: flex; flex-direction: column; gap: 8px; }
-        footer { background: #000; text-align: center; padding: 20px; font-size: 11px; border-top: 2px solid #e63946; }
+        /* MAÇ KARTI */
+        .match-card { 
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            margin: 0 5% 15px 5%; 
+            padding: 30px 20px; 
+            border-radius: 20px; 
+            display: grid; 
+            grid-template-columns: 1fr 80px 1fr; 
+            align-items: center; 
+            gap: 15px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3); 
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .team h3 { font-size: 20px; color: #fff; font-weight: 900; text-transform: uppercase; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
+        #ev-sahibi { text-align: right; } 
+        #rakip-takim { text-align: left; } 
+
+        .vs-circle { 
+            background: #e63946; color: white; width: 50px; height: 50px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; font-weight: 900; 
+            margin: 0 auto; border: 3px solid rgba(255,255,255,0.3);
+            box-shadow: 0 0 15px rgba(230, 57, 70, 0.5);
+        }
+
+        .match-details { text-align: center; color: rgba(255,255,255,0.9); margin-bottom: 50px; font-weight: bold; }
+        .match-details p { margin: 5px 0; font-size: 14px; }
+        .match-details i { color: #e63946; margin-right: 5px; }
+
+        /* FOOTER & INSTAGRAM LOGO */
+        footer { 
+            background: rgba(0, 0, 0, 0.85); 
+            color: #ccc; text-align: center; padding: 40px 20px; 
+            margin-top: auto; border-top: 2px solid #e63946; 
+            font-size: 14px;
+        }
+
+        .footer-social {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .insta-btn {
+            color: #fff;
+            font-size: 28px;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0.8;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .insta-btn:hover {
+            opacity: 1;
+            transform: scale(1.2) rotate(5deg);
+            color: #E1306C;
+            filter: drop-shadow(0 0 8px rgba(225, 48, 108, 0.6));
+        }
+
+        /* MOBİL DÜZENLEME */
+        @media (max-width: 600px) {
+            header { flex-direction: column; padding: 12px; }
+            .logo-area { margin-bottom: 8px; }
+            nav { width: 100%; justify-content: center; margin-left: 0; }
+            .hero h1 { font-size: 28px; }
+            .match-card { grid-template-columns: 1fr 50px 1fr; padding: 20px 10px; }
+            .team h3 { font-size: 14px; }
+            .vs-circle { width: 40px; height: 40px; font-size: 12px; }
+        }
     </style>
 </head>
 <body>
+
     <header>
-        <a href="index.html" class="logo-area"><img src="images/logo.png" alt="CB"></a>
+        <div class="logo-area">
+            <img src="images/logo.png?v=3" alt="CB">
+            <h2>CHOCOLATE BOYS</h2>
+        </div>
         <nav>
-            <a href="index.html" style="border-bottom:2px solid white">ANA SAYFA</a>
+            <a href="index.html" style="border-bottom: 2px solid white; padding-bottom: 2px;">ANA SAYFA</a>
             <a href="maclar.html">MAÇLAR</a>
             <a href="oyuncular.html">OYUNCULAR</a>
-            <a href="galeri.html">GALERİ</a>
+            <a href="galeri.html">GALERİ</a> 
             <a href="store.html">STORE</a>
         </nav>
     </header>
 
-    <main class="hero">
-        <h1 id="ana-slogan">CHOCOLATE BOYS</h1>
-        <p id="alt-slogan">YÜKLELENİYOR...</p>
+    <section class="hero">
+        <h1 id="ana-slogan">YÜKLENİYOR...</h1>
+        <p id="alt-slogan"></p>
+        <a href="#" id="challenge-link" class="challenge-btn">
+            <i class="fa-brands fa-whatsapp"></i> <span id="btn-text-el">TEKLİF ET</span>
+        </a>
+    </section>
 
-        <div id="main-match-card" class="match-card">
-            <div id="match-title" class="match-title">YÜKLENİYOR...</div>
-            <div class="teams">
-                <div class="team-name" style="text-align:right;">CHOCOLATE BOYS</div>
-                <div id="vs-element" class="vs-circle">VS</div>
-                <div id="rakip-takim" class="team-name" style="text-align:left;">...</div>
-            </div>
-            <div class="match-info">
-                <div id="normal-date-row"><span><i class="fa-solid fa-calendar"></i> <span id="mac-tarih">-</span></span></div>
-                <div id="normal-place-row"><span><i class="fa-solid fa-location-dot"></i> <span id="mac-yer">-</span></span></div>
-                <div id="timer-row" style="display:none; color:#e63946; font-weight:bold;">
-                    <i class="fa-solid fa-clock"></i> <span id="match-min">0'</span>
-                </div>
-                <div id="match-status-row" style="display:none; text-transform:uppercase; font-size:11px;">
-                    <span id="match-status">CANLI</span>
-                </div>
-            </div>
+    <div id="maclar" class="section-title">SIRADAKİ MAÇ</div>
+    
+    <div class="match-card">
+        <div class="team"><h3 id="ev-sahibi">...</h3></div>
+        <div class="vs-box-area">
+            <div class="vs-circle">VS</div>
         </div>
-    </main>
+        <div class="team"><h3 id="rakip-takim">...</h3></div>
+    </div>
+    
+    <div class="match-details">
+        <p><i class="fa-regular fa-calendar-days"></i> <span id="mac-tarih">---</span></p>
+        <p><i class="fa-solid fa-location-dot"></i> <span id="mac-yer">---</span></p>
+    </div>
 
-    <footer><p id="footer-copy">© 2026 Chocolate Boys FC</p></footer>
+    <footer>
+        <p>© 2026 Chocolate Boys FC. Tüm Hakları Saklıdır.</p>
+        <div class="footer-social">
+            <a href="#" id="insta-link" class="insta-btn" target="_blank" title="Instagram'da Takip Et">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+        </div>
+    </footer>
 
     <script>
-        function updateUI() {
-            fetch('/content/ayarlar.json?t=' + Date.now())
-            .then(res => res.json())
-            .then(data => {
-                // Sloganlar ve Arka Plan
-                document.getElementById('ana-slogan').innerText = data.slogan;
-                document.getElementById('alt-slogan').innerText = data.alt_slogan;
-                document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${data.bg_image}')`;
-                
-                const isLive = data.canli_mac === true;
-                const matchCard = document.getElementById('main-match-card');
+        // PANEL VERİLERİ VE ARKA PLAN YÖNETİMİ
+        fetch('/content/ayarlar.json?t=' + Date.now()).then(res => res.json()).then(data => {
+            document.getElementById('ana-slogan').innerText = data.slogan || "KIRMIZI BEYAZ AŞK!";
+            document.getElementById('alt-slogan').innerText = data.alt_slogan || "BİR TAKIMDAN DAHA FAZLASI";
+            if(data.btn_text) document.getElementById('btn-text-el').innerText = data.btn_text;
+            if(data.whatsapp_no) document.getElementById('challenge-link').href = "https://wa.me/" + data.whatsapp_no.replace(/\D/g,'');
 
-                if(isLive) {
-                    matchCard.classList.add('live-mode');
-                    document.getElementById('match-title').innerHTML = '<span class="live-dot"></span> CANLI SKOR';
-                    document.getElementById('vs-element').innerText = data.skor;
-                    document.getElementById('rakip-takim').innerText = data.rakip;
-                    
-                    document.getElementById('timer-row').style.display = "block";
-                    document.getElementById('match-status-row').style.display = "block";
-                    document.getElementById('normal-date-row').style.display = "none";
-                    document.getElementById('normal-place-row').style.display = "none";
-                    
-                    document.getElementById('match-min').innerText = (data.dakika || "1") + "'";
-                    document.getElementById('match-status').innerText = data.durum || "MAÇ DEVAM EDİYOR";
-                } else {
-                    matchCard.classList.remove('live-mode');
-                    document.getElementById('match-title').innerText = 'SIRADAKİ RANDEVU';
-                    document.getElementById('vs-element').innerText = "VS";
+            // Instagram Linki
+            if(data.instagram_username) {
+                document.getElementById('insta-link').href = "https://www.instagram.com/" + data.instagram_username.replace('@', '');
+            }
 
-                    fetch('/content/mac.json?t=' + Date.now()).then(r => r.json()).then(m => {
-                        document.getElementById('rakip-takim').innerText = m.rakip;
-                        document.getElementById('mac-tarih').innerText = m.mac_tarih + " | " + m.saat;
-                        document.getElementById('mac-yer').innerText = m.yer;
-                        
-                        document.getElementById('timer-row').style.display = "none";
-                        document.getElementById('match-status-row').style.display = "none";
-                        document.getElementById('normal-date-row').style.display = "block";
-                        document.getElementById('normal-place-row').style.display = "block";
-                    });
-                }
-            });
-        }
-        window.onload = updateUI;
+            const bgUrl = data.bg_image || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600';
+            document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${bgUrl}')`;
+        });
+
+        // MAÇ VERİLERİ
+        fetch('/content/mac.json?t=' + Date.now()).then(res => res.json()).then(data => {
+            document.getElementById('ev-sahibi').innerText = data.ev_sahibi || "CHOCOLATE BOYS";
+            document.getElementById('rakip-takim').innerText = data.rakip || "RAKİP TAKIM";
+            document.getElementById('mac-tarih').innerText = data.mac_tarih || "Tarih Belirlenmedi";
+            document.getElementById('mac-yer').innerText = data.yer || "Saha Belirlenmedi";
+        });
     </script>
 </body>
 </html>
