@@ -23,7 +23,7 @@
             transition: background 0.5s ease-in-out;
         }
         
-        /* HEADER / NAV - MOBİL UYUMLU */
+        /* HEADER / NAV */
         header { 
             background: rgba(230, 57, 70, 0.95); 
             color: white; padding: 10px 5%; 
@@ -65,14 +65,26 @@
         .hero h1 { font-size: 42px; text-transform: uppercase; margin-bottom: 10px; text-shadow: 2px 4px 15px rgba(0,0,0,0.8); font-weight: 900; }
         .hero p { font-size: 16px; background: rgba(230, 57, 70, 0.9); padding: 6px 15px; border-radius: 5px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); text-transform: uppercase; font-weight: bold; }
 
-        /* WHATSAPP BUTONU */
-        .challenge-btn {
-            display: inline-block; padding: 12px 30px; background-color: #25d366; 
-            color: white; text-decoration: none; font-weight: bold; border-radius: 50px; 
-            font-size: 16px; transition: 0.3s; border: 2px solid white;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        /* INSTAGRAM BUTONU (ESKİ WHATSAPP) */
+        .instagram-hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px; 
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+            color: white; 
+            text-decoration: none; 
+            font-weight: bold; 
+            border-radius: 50px; 
+            font-size: 16px; 
+            transition: 0.3s; 
+            border: 2px solid white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
         }
-        .challenge-btn:hover { transform: translateY(-5px) scale(1.05); background-color: #128c7e; }
+        .instagram-hero-btn:hover { 
+            transform: translateY(-5px) scale(1.05); 
+            box-shadow: 0 8px 25px rgba(220, 39, 67, 0.5);
+        }
 
         /* BAŞLIKLAR */
         .section-title { 
@@ -113,7 +125,7 @@
         .match-details p { margin: 5px 0; font-size: 14px; }
         .match-details i { color: #e63946; margin-right: 5px; }
 
-        /* FOOTER & INSTAGRAM LOGO */
+        /* FOOTER */
         footer { 
             background: rgba(0, 0, 0, 0.85); 
             color: #ccc; text-align: center; padding: 40px 20px; 
@@ -121,30 +133,14 @@
             font-size: 14px;
         }
 
-        .footer-social {
-            margin-top: 15px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
+        .footer-social { margin-top: 15px; display: flex; justify-content: center; gap: 20px; }
 
         .insta-btn {
-            color: #fff;
-            font-size: 28px;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            opacity: 0.8;
-            text-decoration: none;
-            display: inline-block;
+            color: #fff; font-size: 28px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0.8; text-decoration: none; display: inline-block;
         }
+        .insta-btn:hover { opacity: 1; transform: scale(1.2) rotate(5deg); color: #E1306C; }
 
-        .insta-btn:hover {
-            opacity: 1;
-            transform: scale(1.2) rotate(5deg);
-            color: #E1306C;
-            filter: drop-shadow(0 0 8px rgba(225, 48, 108, 0.6));
-        }
-
-        /* MOBİL DÜZENLEME */
         @media (max-width: 600px) {
             header { flex-direction: column; padding: 12px; }
             .logo-area { margin-bottom: 8px; }
@@ -152,7 +148,6 @@
             .hero h1 { font-size: 28px; }
             .match-card { grid-template-columns: 1fr 50px 1fr; padding: 20px 10px; }
             .team h3 { font-size: 14px; }
-            .vs-circle { width: 40px; height: 40px; font-size: 12px; }
         }
     </style>
 </head>
@@ -175,8 +170,8 @@
     <section class="hero">
         <h1 id="ana-slogan">YÜKLENİYOR...</h1>
         <p id="alt-slogan"></p>
-        <a href="#" id="challenge-link" class="challenge-btn">
-            <i class="fa-brands fa-whatsapp"></i> <span id="btn-text-el">TEKLİF ET</span>
+        <a href="#" id="hero-insta-link" class="instagram-hero-btn" target="_blank">
+            <i class="fa-brands fa-instagram"></i> <span>TAKİP ET</span>
         </a>
     </section>
 
@@ -205,16 +200,17 @@
     </footer>
 
     <script>
-        // PANEL VERİLERİ VE ARKA PLAN YÖNETİMİ
+        // PANEL VERİLERİ
         fetch('/content/ayarlar.json?t=' + Date.now()).then(res => res.json()).then(data => {
             document.getElementById('ana-slogan').innerText = data.slogan || "KIRMIZI BEYAZ AŞK!";
             document.getElementById('alt-slogan').innerText = data.alt_slogan || "BİR TAKIMDAN DAHA FAZLASI";
-            if(data.btn_text) document.getElementById('btn-text-el').innerText = data.btn_text;
-            if(data.whatsapp_no) document.getElementById('challenge-link').href = "https://wa.me/" + data.whatsapp_no.replace(/\D/g,'');
 
-            // Instagram Linki
+            // Instagram Linklerini Ayarla (Hem Hero hem Footer)
             if(data.instagram_username) {
-                document.getElementById('insta-link').href = "https://www.instagram.com/chocolate_boysfc/" + data.instagram_username.replace('@', '');
+                const cleanUser = data.instagram_username.replace('@', '');
+                const url = "https://www.instagram.com/" + cleanUser;
+                document.getElementById('insta-link').href = url;
+                document.getElementById('hero-insta-link').href = url;
             }
 
             const bgUrl = data.bg_image || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600';
