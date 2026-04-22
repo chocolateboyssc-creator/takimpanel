@@ -9,7 +9,7 @@
       "image": "/images/eymen-altun.webp"
     },
     {
-      "mac": 1,
+      "mac": 2,
       "gol": 0,
       "asist": 0,
       "name": "4 | Egehan Ata Yücel",
@@ -17,17 +17,17 @@
       "position": "DEFANS"
     },
     {
-      "mac": 1,
-      "gol": 0,
-      "asist": 1,
+      "mac": 2,
+      "gol": 2,
+      "asist": 3,
       "name": "7 | Arif Berk Kalay",
       "position": "FORVET",
       "image": "/images/soruisareti1.png"
     },
     {
-      "mac": 1,
-      "gol": 1,
-      "asist": 0,
+      "mac": 2,
+      "gol": 2,
+      "asist": 1,
       "name": "8 | Doruk Efe Güner",
       "position": "ORTA SAHA",
       "image": "/images/doruk.jpeg"
@@ -41,9 +41,9 @@
       "image": "/images/soruisareti1.png"
     },
     {
-      "mac": 0,
-      "gol": 0,
-      "asist": 0,
+      "mac": 1,
+      "gol": 3,
+      "asist": 2,
       "name": "10 | Miraç Enhar Yavuz",
       "position": "ORTA SAHA",
       "image": "/images/soruisareti1.png"
@@ -65,7 +65,7 @@
       "image": "/images/ali-berkay-bacak.webp"
     },
     {
-      "mac": 1,
+      "mac": 2,
       "gol": 0,
       "asist": 0,
       "name": "23 | Ahmet Said Köktürk",
@@ -113,9 +113,9 @@
       "image": "/images/yavuz-selim-korkmaz.webp"
     },
     {
-      "mac": 1,
+      "mac": 2,
       "gol": 0,
-      "asist": 1,
+      "asist": 2,
       "name": "61 | Muhammed Ali Koç",
       "position": "ORTA SAHA",
       "image": "/images/alikoc.jpeg"
