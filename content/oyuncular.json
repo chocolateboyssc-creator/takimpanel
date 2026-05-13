@@ -1,9 +1,9 @@
 {
   "players": [
     {
-      "mac": 0,
+      "mac": 1,
       "gol": 0,
-      "asist": 0,
+      "asist": 1,
       "name": "3 | Eymen Altun",
       "position": "DEFANS",
       "image": "/images/eymen-altun.webp"
@@ -17,7 +17,7 @@
       "position": "DEFANS"
     },
     {
-      "mac": 2,
+      "mac": 4,
       "gol": 2,
       "asist": 3,
       "name": "7 | Arif Berk Kalay",
@@ -25,26 +25,26 @@
       "image": "/images/soruisareti1.png"
     },
     {
-      "mac": 2,
-      "gol": 2,
-      "asist": 1,
+      "mac": 3,
+      "gol": 3,
+      "asist": 2,
       "name": "8 | Doruk Efe Güner",
       "position": "ORTA SAHA",
       "image": "/images/doruk.jpeg"
     },
     {
-      "mac": 0,
-      "gol": 0,
-      "asist": 0,
+      "mac": 2,
+      "gol": 3,
+      "asist": 2,
       "name": "9 | Egemen",
       "position": "FORVET",
       "image": "/images/soruisareti1.png"
     },
     {
-      "mac": 1,
-      "gol": 3,
-      "asist": 2,
-      "name": "10 | Miraç Enhar Yavuz",
+      "mac": 3,
+      "gol": 13,
+      "asist": 5,
+      "name": "10 | Mey",
       "position": "ORTA SAHA",
       "image": "/images/soruisareti1.png"
     },
@@ -65,9 +65,9 @@
       "image": "/images/ali-berkay-bacak.webp"
     },
     {
-      "mac": 2,
-      "gol": 0,
-      "asist": 0,
+      "mac": 4,
+      "gol": 1,
+      "asist": 3,
       "name": "23 | Ahmet Said Köktürk",
       "position": "DEFANS",
       "image": "/images/ahmed-said-köktürk.webp"
@@ -113,9 +113,9 @@
       "image": "/images/yavuz-selim-korkmaz.webp"
     },
     {
-      "mac": 2,
+      "mac": 3,
       "gol": 0,
-      "asist": 2,
+      "asist": 5,
       "name": "61 | Muhammed Ali Koç",
       "position": "ORTA SAHA",
       "image": "/images/alikoc.jpeg"
@@ -134,6 +134,14 @@
       "asist": 0,
       "name": "Osman",
       "position": "KALECİ",
+      "image": "/images/soruisareti1.png"
+    },
+    {
+      "mac": 1,
+      "gol": 2,
+      "asist": 1,
+      "name": "Ferman Mustafa Çetin",
+      "position": "FORVET",
       "image": "/images/soruisareti1.png"
     }
   ]
