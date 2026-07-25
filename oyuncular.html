@@ -200,6 +200,7 @@
         });
 
         // OYUNCULARI PANEL VERİSİNDEN ÇEK (AKTİF/PASİF KONTROLLÜ)
+        // OYUNCULARI PANEL VERİSİNDEN ÇEK (AKTİF/PASİF KONTROLLÜ)
         async function oyuncuGetir() {
             const container = document.getElementById('oyuncu-listesi');
             try {
@@ -209,8 +210,14 @@
                 const data = await response.json();
                 const players = data.players || []; 
         
-                // Sadece active değeri false OLMAYAN (true veya tanımsız/eski olan) oyuncuları filtrele
-                const activePlayers = players.filter(p => p.active !== false);
+                // Sadece active değeri açıkça false (veya "false") OLANLARI ELE
+                const activePlayers = players.filter(p => {
+                    // Eğer active alanı hic tanımlanmamışsa (undefined) varsayılan olarak göster (true kabul et)
+                    if (p.active === undefined || p.active === null) return true;
+                    // Eğer boolean false veya "false" metni ise gizle
+                    if (p.active === false || p.active === "false") return false;
+                    return true;
+                });
 
                 if(activePlayers.length === 0) {
                     container.innerHTML = "<p style='text-align:center; width:100%; color:#aaa;'>Henüz aktif oyuncu bulunmuyor.</p>";
