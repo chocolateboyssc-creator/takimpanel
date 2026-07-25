@@ -199,7 +199,7 @@
             }
         });
 
-        // OYUNCULARI PANEL VERİSİNDEN ÇEK
+        // OYUNCULARI PANEL VERİSİNDEN ÇEK (AKTİF/PASİF KONTROLLÜ)
         async function oyuncuGetir() {
             const container = document.getElementById('oyuncu-listesi');
             try {
@@ -209,13 +209,16 @@
                 const data = await response.json();
                 const players = data.players || []; 
         
-                if(players.length === 0) {
-                    container.innerHTML = "<p style='text-align:center; width:100%; color:#aaa;'>Henüz oyuncu eklenmemiş.</p>";
+                // Sadece active değeri false OLMAYAN (true veya tanımsız/eski olan) oyuncuları filtrele
+                const activePlayers = players.filter(p => p.active !== false);
+
+                if(activePlayers.length === 0) {
+                    container.innerHTML = "<p style='text-align:center; width:100%; color:#aaa;'>Henüz aktif oyuncu bulunmuyor.</p>";
                     return;
                 }
 
                 container.innerHTML = ""; 
-                players.forEach(p => {
+                activePlayers.forEach(p => {
                     // Resim varsa göster, yoksa ikon koy
                     let imageContent = p.image 
                         ? `<img src="${p.image}" alt="${p.name}">` 
