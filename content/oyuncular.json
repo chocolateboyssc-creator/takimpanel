@@ -150,7 +150,8 @@
       "asist": 7,
       "name": "Muhammed Çetin Ali Özkan",
       "position": "KALECİ",
-      "image": "https://cdn.uwufufu.com/selection/1777934738790-SPOILER_Ekran_goruntusu_2025-05-05_014447.webp"
+      "image": "https://cdn.uwufufu.com/selection/1777934738790-SPOILER_Ekran_goruntusu_2025-05-05_014447.webp",
+      "active": true
     },
     {
       "mac": 4391,
@@ -158,7 +159,8 @@
       "asist": 47537,
       "name": "Xantares (İsmailcan Dörtkardeş)",
       "position": "ORTA SAHA",
-      "image": "https://i.pinimg.com/474x/64/cb/99/64cb99be81074eb6950356da787e21d1.jpg"
+      "image": "https://i.pinimg.com/474x/64/cb/99/64cb99be81074eb6950356da787e21d1.jpg",
+      "active": true
     },
     {
       "mac": 10904700000,
@@ -166,7 +168,8 @@
       "asist": 47,
       "name": "Çeşm-i Nigar Çorbası",
       "position": "DEFANS",
-      "image": "https://www.pelinchef.com/wp-content/uploads/2019/05/cesmi-nigar-corbasi.jpg"
+      "image": "https://www.pelinchef.com/wp-content/uploads/2019/05/cesmi-nigar-corbasi.jpg",
+      "active": true
     }
   ]
 }
